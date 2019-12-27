@@ -1,14 +1,22 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { loadBooks } from "../redux/actions/loadBooks";
 import Book from "../book/book";
 
-const Books = () => {
+const Books = props => {
+  const books = useSelector(state => state.bookReducer);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(loadBooks());
+  }, []);
+
   return (
     <div>
       <h1>Books</h1>
-      <Book />
-      {/* {book.map(({ id, ...otherProps }) => (
-        <Books key={id} {...otherProps} />
-      ))} */}
+      {books.data.map(({ _id, ...otherProps }) => (
+        <Book key={_id} {...otherProps} />
+      ))}
     </div>
   );
 };
