@@ -16,6 +16,14 @@ const bookSchema = new mongoose.Schema({
   year: {
     type: Number,
     required: true
+  },
+  price: {
+    type: Number,
+    required: true
+  },
+  quantity: {
+    type: Number,
+    required: true
   }
 });
 

@@ -19,7 +19,9 @@ exports.postBook = (req, res) => {
     title: req.body.title,
     writter: req.body.writter,
     genre: req.body.genre,
-    year: req.body.year
+    year: req.body.year,
+    price: req.body.price,
+    quantity: req.body.quantity
   });
 
   book
