@@ -3,7 +3,7 @@ import { LOAD_BOOKS, ADD_BOOK, SELECT_BOOK } from "../constants/constants";
 const initialState = {
   data: [],
   booksInCart: [],
-  boughtBooks: [{ titles: [], amount: null }]
+  boughtBooks: []
 };
 
 const bookReducer = (state = initialState, action) => {
@@ -16,12 +16,12 @@ const bookReducer = (state = initialState, action) => {
     case SELECT_BOOK:
       return {
         ...state,
-        booksInCart: action.payload
+        booksInCart: [...state.booksInCart, action.payload]
       };
     case ADD_BOOK:
       return {
         ...state,
-        boughtBooks: action.payload
+        boughtBooks: [...state.boughtBooks, action.payload]
       };
     default:
       return state;

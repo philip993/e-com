@@ -1,12 +1,12 @@
 import { ADD_BOOK, SELECT_BOOK } from "../constants/constants";
 
-export const addBook = items => {
+export const addBook = item => {
   return {
     type: ADD_BOOK,
     payload: [
-      (items = {
-        titles: items.testTitle,
-        amount: items.testPrice * items.testQuantity
+      (item = {
+        title: item.title,
+        price: item.price
       })
     ]
   };

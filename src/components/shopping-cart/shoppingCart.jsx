@@ -2,17 +2,13 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { addBook } from "../redux/actions/addBook";
 
-const ShoppingCart = items => {
+const ShoppingCart = item => {
   const selectedBooks = useSelector(state => state.bookReducer);
   const dispatch = useDispatch();
 
-  const testTitle = selectedBooks.boughtBooks.title;
-  const testPrice = selectedBooks.boughtBooks.price;
-  const testQuantity = selectedBooks.boughtBooks.quantity;
-  const testAmount = testPrice * testQuantity;
-
   const handleAddBook = () => {
-    dispatch(addBook(items));
+    dispatch(addBook(item));
+    console.log(selectedBooks.booksInCart);
   };
 
   return (
