@@ -1,7 +1,9 @@
-import { LOAD_BOOKS } from "../constants/constants";
+import { LOAD_BOOKS, ADD_BOOK, SELECT_BOOK } from "../constants/constants";
 
 const initialState = {
-  data: []
+  data: [],
+  booksInCart: [],
+  boughtBooks: [{ titles: [], amount: null }]
 };
 
 const bookReducer = (state = initialState, action) => {
@@ -10,6 +12,16 @@ const bookReducer = (state = initialState, action) => {
       return {
         ...state,
         data: action.payload
+      };
+    case SELECT_BOOK:
+      return {
+        ...state,
+        booksInCart: action.payload
+      };
+    case ADD_BOOK:
+      return {
+        ...state,
+        boughtBooks: action.payload
       };
     default:
       return state;
