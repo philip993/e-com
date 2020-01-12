@@ -19,7 +19,7 @@ const ShoppingCart = items => {
     <div>
       <h3>Shopping Cart</h3>
 
-      <button onClick={handleAddBook}>ADD to Cart</button>
+      <button onClick={handleAddBook}>BUY</button>
     </div>
   );
 };
