@@ -1,21 +1,25 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { addBook } from "../redux/actions/addBook";
+import CartOutput from "../cart-output/cartOutput";
 
-const ShoppingCart = item => {
+const ShoppingCart = () => {
   const selectedBooks = useSelector(state => state.bookReducer);
   const dispatch = useDispatch();
 
   const handleAddBook = () => {
-    dispatch(addBook(item));
-    console.log(selectedBooks.booksInCart);
+    let itemsFromCart = selectedBooks.booksInCart;
+    dispatch(addBook(itemsFromCart));
+    console.log(itemsFromCart);
   };
 
   return (
     <div>
       <h3>Shopping Cart</h3>
-
-      <button onClick={handleAddBook}>BUY</button>
+      {selectedBooks.booksInCart.map(({ _id, ...otherProps }) => (
+        <CartOutput key={_id} {...otherProps} />
+      ))}
+      <button onClick={handleAddBook}>ADD</button>
     </div>
   );
 };

@@ -9,6 +9,7 @@ import About from "../../pages/about/about";
 import Contact from "../../pages/contact/contact";
 import UserRegistration from "../../pages/userRegistration/userRegistration";
 import UserLogin from "../../pages/userLogin/userLogin";
+import ShoppingCart from "../shopping-cart/shoppingCart";
 
 const App = props => {
   return (
@@ -20,6 +21,7 @@ const App = props => {
         <Route path="/about" exact component={About} />
         <Route path="/contact" exact component={Contact} />
         <Route path="/register" exact component={UserRegistration} />
+        <Route path="/cart" exact component={ShoppingCart} />
         <Route path="/login" exact component={UserLogin} />
       </Switch>
     </div>
