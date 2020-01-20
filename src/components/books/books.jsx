@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { loadBooks } from "../redux/actions/loadBooks";
+import { loadBooks, testLoadBooks } from "../redux/actions/loadBooks";
 import Book from "../book/book";
 
 const Books = props => {
@@ -8,7 +8,7 @@ const Books = props => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(loadBooks());
+    dispatch(testLoadBooks());
   }, []);
 
   return (
