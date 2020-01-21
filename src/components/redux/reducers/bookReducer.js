@@ -21,7 +21,7 @@ const bookReducer = (state = initialState, action) => {
     case ADD_BOOK:
       return {
         ...state,
-        boughtBooks: [...state.boughtBooks, action.payload]
+        boughtBooks: action.payload
       };
     default:
       return state;
