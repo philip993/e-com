@@ -1,11 +1,4 @@
-import { ADD_BOOK, SELECT_BOOK } from "../constants/constants";
-
-export const addBook = item => {
-  return {
-    type: ADD_BOOK,
-    payload: item
-  };
-};
+import { SELECT_BOOK } from "../constants/constants";
 
 export const selectBook = item => {
   return {

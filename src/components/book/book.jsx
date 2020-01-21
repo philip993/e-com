@@ -8,6 +8,8 @@ const Book = item => {
 
   const handleSelectBook = () => {
     dispatch(selectBook(item));
+    let subTotal = item.price;
+    console.log(subTotal);
     console.log(item);
   };
 
