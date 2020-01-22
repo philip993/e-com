@@ -17,13 +17,12 @@ const bookReducer = (state = initialState, action) => {
     case SELECT_BOOK:
       return {
         ...state,
-        booksInCart: [...state.booksInCart, action.payload],
-        testArray: [...state.testArray, action.payload]
+        booksInCart: [...state.booksInCart, action.payload]
       };
     case GET_TOTAL_SUM:
       return {
         ...state,
-        totalSum: action.payload
+        testArray: [...state.testArray, action.payload.price]
       };
     default:
       return state;

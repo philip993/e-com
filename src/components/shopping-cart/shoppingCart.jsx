@@ -1,28 +1,29 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import CartOutput from "../cart-output/cartOutput";
-import { getTotalSum } from "../redux/actions/totalSum";
 
 const ShoppingCart = item => {
   const selectedBooks = useSelector(state => state.bookReducer);
   const dispatch = useDispatch();
 
+  const booksFromCart = selectedBooks.booksInCart.map(
+    ({ _id, title, price }) => (
+      <p key={_id}>
+        {title} - $ {price}
+      </p>
+    )
+  );
+
+  const test = selectedBooks.testArray.reduce((a, b) => a + b, 0);
+
   const handleAddBook = () => {
-    const xt = selectedBooks.testArray.map(a => {
-      let x = [a.price];
-      let z = x.reduce((a, b) => a + b, 0);
-      console.log(x);
-      console.log(z);
-    });
-    dispatch(getTotalSum(xt.z));
+    console.log("Add payment method!");
   };
 
   return (
     <div>
       <h3>Shopping Cart</h3>
-      {selectedBooks.booksInCart.map(({ _id, ...otherProps }) => (
-        <CartOutput key={_id} {...otherProps} />
-      ))}
+      {booksFromCart}
+      {test}
       <button onClick={handleAddBook}>BUY</button>
     </div>
   );

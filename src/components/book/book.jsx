@@ -1,26 +1,25 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { selectBook } from "../redux/actions/addBook";
+import { getTotalSum } from "../redux/actions/totalSum";
 
-const Book = item => {
+const Book = ({ title, writter, price, genre, year, quantity }) => {
   const selectedBook = useSelector(state => state.bookReducer);
   const dispatch = useDispatch();
 
   const handleSelectBook = () => {
-    dispatch(selectBook(item));
-    let subTotal = item.price;
-    console.log(subTotal);
-    console.log(item);
+    dispatch(selectBook({ title, writter, price, genre, year, quantity }));
+    dispatch(getTotalSum({ price }));
   };
 
   return (
     <div>
-      <h3>{item.title}</h3>
-      <p>Writter: {item.writter}.</p>
-      <p>This book is from {item.genre} genre.</p>
-      <span>It was published in {item.year}.</span>
-      <p>$ {item.price}</p>
-      <p>Quantity: {item.quantity}</p>
+      <h3>{title}</h3>
+      <p>Writter: {writter}.</p>
+      <p>This book is from {genre} genre.</p>
+      <span>It was published in {year}.</span>
+      <p>$ {price}</p>
+      <p>Quantity: {quantity}</p>
       <span>
         <button onClick={handleSelectBook}>ADD TO CART</button>
       </span>
