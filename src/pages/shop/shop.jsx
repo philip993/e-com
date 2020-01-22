@@ -1,10 +1,17 @@
 import React from "react";
 import Books from "../../components/books/books";
 
+import { Jumbotron, Container } from "react-bootstrap";
+
 const Shop = () => {
   return (
     <div>
-      <h1>Shop Page</h1>
+      <Jumbotron fluid>
+        <Container>
+          <h1>Shop</h1>
+          <h4>Get yourself a Book from our Collection.</h4>
+        </Container>
+      </Jumbotron>
       <Books />
     </div>
   );

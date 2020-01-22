@@ -1,9 +1,17 @@
 import React from "react";
 
+import { Jumbotron, Container } from "react-bootstrap";
+
 const Contact = () => {
   return (
     <div>
-      <h1>Contact Page</h1>
+      <Jumbotron fluid>
+        <Container>
+          <h1>Contact Us</h1>
+          <p>E-mail: info@info.com</p>
+          <p>Telephone: +123 123 123 123</p>
+        </Container>
+      </Jumbotron>
     </div>
   );
 };

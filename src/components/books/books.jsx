@@ -3,6 +3,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { loadAllBooks } from "../redux/actions/loadBooks";
 import Book from "../book/book";
 
+import { CardDeck } from "react-bootstrap";
+
 const Books = props => {
   const books = useSelector(state => state.bookReducer);
   const dispatch = useDispatch();
@@ -13,10 +15,18 @@ const Books = props => {
 
   return (
     <div>
-      <h1>Books</h1>
-      {books.data.map(({ _id, ...otherProps }) => (
-        <Book key={_id} {...otherProps} />
-      ))}
+      <CardDeck
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "center",
+          margin: "1rem"
+        }}
+      >
+        {books.data.map(({ _id, ...otherProps }) => (
+          <Book key={_id} {...otherProps} />
+        ))}
+      </CardDeck>
     </div>
   );
 };
