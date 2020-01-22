@@ -3,7 +3,7 @@ import { LOAD_BOOKS, SELECT_BOOK, GET_TOTAL_SUM } from "../constants/constants";
 const initialState = {
   data: [],
   booksInCart: [],
-  testArray: [],
+  sumsArray: [],
   totalSum: 0
 };
 
@@ -22,7 +22,7 @@ const bookReducer = (state = initialState, action) => {
     case GET_TOTAL_SUM:
       return {
         ...state,
-        testArray: [...state.testArray, action.payload.price]
+        sumsArray: [...state.sumsArray, action.payload.price]
       };
     default:
       return state;
