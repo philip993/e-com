@@ -2,15 +2,21 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { Table, Button } from "react-bootstrap";
+import { removeBook } from "../redux/actions/removeBook";
+import { clearBooksFromCart } from "../redux/actions/clearCart";
 
 const ShoppingCart = item => {
   const selectedBooks = useSelector(state => state.bookReducer);
   const dispatch = useDispatch();
 
+  const handleDeleteRedux = item => {
+    dispatch(removeBook());
+  };
+
   const booksFromCart = selectedBooks.booksInCart.map(
     ({ _id, title, price }) => (
       <p key={_id}>
-        {title} - $ {price}
+        {title} - $ {price} - <Button onClick={handleDeleteRedux}> x </Button>
       </p>
     )
   );
@@ -20,8 +26,12 @@ const ShoppingCart = item => {
     0
   );
 
-  const handleAddBook = () => {
+  const handleCheckOut = () => {
     console.log("Add payment method!");
+  };
+
+  const handleClearCart = () => {
+    dispatch(clearBooksFromCart());
   };
 
   return (
@@ -46,7 +56,8 @@ const ShoppingCart = item => {
           </tr>
           <tr>
             <th>
-              <Button onClick={handleAddBook}>Buy</Button>
+              <Button onClick={handleCheckOut}>Buy</Button>
+              <Button onClick={handleClearCart}>Delete</Button>
             </th>
           </tr>
         </tfoot>
