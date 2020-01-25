@@ -1,9 +1,16 @@
-import { LOAD_BOOKS, SELECT_BOOK, GET_TOTAL_SUM } from "../constants/constants";
+import {
+  LOAD_BOOKS,
+  SELECT_BOOK,
+  GET_TOTAL_SUM,
+  REMOVE_BOOK_FROM_CART,
+  CLEAR_ALL_BOOKS_FROM_CART
+} from "../constants/constants";
 
 const initialState = {
   data: [],
   booksInCart: [],
   sumsArray: [],
+  testArr: [],
   totalSum: 0
 };
 
@@ -23,6 +30,17 @@ const bookReducer = (state = initialState, action) => {
       return {
         ...state,
         sumsArray: [...state.sumsArray, action.payload.price]
+      };
+    case REMOVE_BOOK_FROM_CART:
+      return {
+        ...state,
+        testArr: [...state.booksInCart.slice(0, action.payload._id)]
+      };
+    case CLEAR_ALL_BOOKS_FROM_CART:
+      return {
+        ...state,
+        booksInCart: [],
+        sumsArray: []
       };
     default:
       return state;
