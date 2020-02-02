@@ -1,15 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { selectBook } from "../redux/actions/addBook";
 import { getTotalSum } from "../redux/actions/totalSum";
 
 import { Card, Button, Spinner } from "react-bootstrap";
-import { toggleLoaderToFalse } from "../redux/actions/toggleFalse";
-import { toggleLoaderToTrue } from "../redux/actions/toggleTrue";
 
 const Book = ({ title, writter, price, genre, year, quantity }) => {
   const selectedBook = useSelector(state => state.bookReducer);
   const dispatch = useDispatch();
+
+  const [isLoaded, setIsLoaded] = useState(false);
 
   const handleSelectBook = () => {
     dispatch(selectBook({ title, writter, price, genre, year, quantity }));
@@ -19,11 +19,11 @@ const Book = ({ title, writter, price, genre, year, quantity }) => {
   };
 
   const handleToggleToTrue = () => {
-    setTimeout(() => dispatch(toggleLoaderToTrue({ title })), 500);
+    setTimeout(() => setIsLoaded(true), 100);
   };
 
   const handleToggleToFalse = () => {
-    setTimeout(() => dispatch(toggleLoaderToFalse({ title })), 5000);
+    setTimeout(() => setIsLoaded(false), 5000);
   };
 
   return (
@@ -44,7 +44,7 @@ const Book = ({ title, writter, price, genre, year, quantity }) => {
           </Card.Text>
         </Card.Body>
         <Card.Footer>
-          {selectedBook.isLoading === false ? (
+          {isLoaded === false ? (
             <Button onClick={handleSelectBook}>Add to Cart</Button>
           ) : (
             <Button onClick={handleSelectBook} variant="success">
