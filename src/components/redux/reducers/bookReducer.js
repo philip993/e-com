@@ -34,7 +34,14 @@ const bookReducer = (state = initialState, action) => {
     case REMOVE_BOOK_FROM_CART:
       return {
         ...state,
-        testArr: [...state.booksInCart.slice(0, action.payload._id)]
+        booksInCart: [
+          ...state.booksInCart.slice(0, action.payload),
+          ...state.booksInCart.slice(action.payload + 1)
+        ],
+        sumsArray: [
+          ...state.sumsArray.slice(0, action.payload),
+          ...state.sumsArray.slice(action.payload + 1)
+        ]
       };
     case CLEAR_ALL_BOOKS_FROM_CART:
       return {
