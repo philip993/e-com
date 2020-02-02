@@ -9,7 +9,7 @@ const ShoppingCart = item => {
   const selectedBooks = useSelector(state => state.bookReducer);
   const dispatch = useDispatch();
 
-  const handleDeleteRedux = item => {
+  const handleDeleteRedux = () => {
     dispatch(removeBook());
   };
 
@@ -57,7 +57,9 @@ const ShoppingCart = item => {
           <tr>
             <th>
               <Button onClick={handleCheckOut}>To Checkout</Button>
-              <Button onClick={handleClearCart}>Clear Cart</Button>
+              <Button onClick={handleClearCart} variant="danger">
+                Clear Cart
+              </Button>
             </th>
           </tr>
         </tfoot>

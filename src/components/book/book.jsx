@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectBook } from "../redux/actions/addBook";
 import { getTotalSum } from "../redux/actions/totalSum";
 
-import { Card, Button, Spinner } from "react-bootstrap";
+import { Card, Button } from "react-bootstrap";
 
 const Book = ({ title, writter, price, genre, year, quantity }) => {
   const selectedBook = useSelector(state => state.bookReducer);
