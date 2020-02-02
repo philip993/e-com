@@ -52,12 +52,12 @@ const ShoppingCart = item => {
             <th>Total Amount</th>
           </tr>
           <tr>
-            <th>{totalSumOfCartItems} $$</th>
+            <th>{totalSumOfCartItems.toFixed(2)} $</th>
           </tr>
           <tr>
             <th>
-              <Button onClick={handleCheckOut}>Buy</Button>
-              <Button onClick={handleClearCart}>Delete</Button>
+              <Button onClick={handleCheckOut}>To Checkout</Button>
+              <Button onClick={handleClearCart}>Clear Cart</Button>
             </th>
           </tr>
         </tfoot>

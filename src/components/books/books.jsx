@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { loadAllBooks } from "../redux/actions/loadBooks";
 import Book from "../book/book";
 
-import { CardDeck } from "react-bootstrap";
+import { CardDeck, Spinner } from "react-bootstrap";
 
 const Books = props => {
   const books = useSelector(state => state.bookReducer);
