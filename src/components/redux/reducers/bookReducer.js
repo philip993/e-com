@@ -3,7 +3,9 @@ import {
   SELECT_BOOK,
   GET_TOTAL_SUM,
   REMOVE_BOOK_FROM_CART,
-  CLEAR_ALL_BOOKS_FROM_CART
+  CLEAR_ALL_BOOKS_FROM_CART,
+  TOGGLE_LOADER_TRUE,
+  TOGGLE_LOADER_FALSE
 } from "../constants/constants";
 
 const initialState = {
@@ -11,7 +13,9 @@ const initialState = {
   booksInCart: [],
   sumsArray: [],
   testArr: [],
-  totalSum: 0
+  totalSum: 0,
+  isLoading: false,
+  loadingItem: ""
 };
 
 const bookReducer = (state = initialState, action) => {
@@ -41,6 +45,18 @@ const bookReducer = (state = initialState, action) => {
         ...state,
         booksInCart: [],
         sumsArray: []
+      };
+    case TOGGLE_LOADER_TRUE:
+      return {
+        ...state,
+        isLoading: (state.isLoading = true),
+        loadingItem: action.payload.title
+      };
+    case TOGGLE_LOADER_FALSE:
+      return {
+        ...state,
+        isLoading: false,
+        loadingItem: ""
       };
     default:
       return state;
