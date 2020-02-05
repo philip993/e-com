@@ -1,22 +1,27 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { Table, Button } from "react-bootstrap";
 import { removeBook } from "../redux/actions/removeBook";
 import { clearBooksFromCart } from "../redux/actions/clearCart";
+import { reducePriceFromCart } from "../redux/actions/reducePrice";
 
 const ShoppingCart = item => {
   const selectedBooks = useSelector(state => state.bookReducer);
   const dispatch = useDispatch();
 
   const handleDeleteRedux = () => {
-    dispatch(removeBook());
+    dispatch(removeBook(item.index));
+    dispatch(reducePriceFromCart(item.price));
+    console.log(item.index);
+    console.log(item.price);
   };
 
   const booksFromCart = selectedBooks.booksInCart.map(
-    ({ _id, title, price }) => (
-      <p key={_id}>
-        {title} - $ {price} - <Button onClick={handleDeleteRedux}> x </Button>
+    ({ title, price, index }) => (
+      <p>
+        {index}.{title} - $ {price} -{" "}
+        <Button onClick={handleDeleteRedux}> x </Button>
       </p>
     )
   );

@@ -4,15 +4,27 @@ import { selectBook } from "../redux/actions/addBook";
 import { getTotalSum } from "../redux/actions/totalSum";
 
 import { Card, Button } from "react-bootstrap";
+import { addIndexToBook } from "../redux/actions/addIndex";
 
-const Book = ({ title, writter, price, genre, year, quantity }) => {
+const Book = ({ title, writter, price, genre, year, quantity, index }) => {
   const selectedBook = useSelector(state => state.bookReducer);
   const dispatch = useDispatch();
 
   const [isLoaded, setIsLoaded] = useState(false);
 
   const handleSelectBook = () => {
-    dispatch(selectBook({ title, writter, price, genre, year, quantity }));
+    dispatch(addIndexToBook(selectedBook.index));
+    dispatch(
+      selectBook({
+        title,
+        writter,
+        price,
+        genre,
+        year,
+        quantity,
+        index: selectedBook.index
+      })
+    );
     dispatch(getTotalSum({ price }));
     handleToggleToTrue();
     handleToggleToFalse();
@@ -41,6 +53,7 @@ const Book = ({ title, writter, price, genre, year, quantity }) => {
             <p>Published on {year}.</p>
             <p>Price of this book is {price.toFixed(2)}$.</p>
             <span>Remaining quantity: {quantity}.</span>
+            {index}
           </Card.Text>
         </Card.Body>
         <Card.Footer>
