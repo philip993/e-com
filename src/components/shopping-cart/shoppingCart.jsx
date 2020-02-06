@@ -6,15 +6,13 @@ import { removeBook } from "../redux/actions/removeBook";
 import { clearBooksFromCart } from "../redux/actions/clearCart";
 import { reducePriceFromCart } from "../redux/actions/reducePrice";
 
-const ShoppingCart = item => {
+const ShoppingCart = ({ title, price, index }) => {
   const selectedBooks = useSelector(state => state.bookReducer);
   const dispatch = useDispatch();
 
   const handleDeleteRedux = () => {
-    dispatch(removeBook(item.index));
-    dispatch(reducePriceFromCart(item.price));
-    console.log(item.index);
-    console.log(item.price);
+    dispatch(removeBook(index));
+    console.log(selectedBooks.booksInCart[0]);
   };
 
   const booksFromCart = selectedBooks.booksInCart.map(

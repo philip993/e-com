@@ -4,7 +4,7 @@ export const reducePriceFromCart = item => {
   return dispatch => {
     dispatch({
       type: REDUCE_PRICE_FROM_CART,
-      payload: item
+      payload: item.price
     });
   };
 };
