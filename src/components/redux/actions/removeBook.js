@@ -4,7 +4,7 @@ export const removeBook = book => {
   return dispatch => {
     dispatch({
       type: REMOVE_BOOK_FROM_CART,
-      book
+      payload: book
     });
   };
 };

@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { selectBook } from "../redux/actions/addBook";
-import { getTotalSum } from "../redux/actions/totalSum";
+import { selectBook } from "../redux/actions/selectBook";
 
 import { Card, Button } from "react-bootstrap";
-import { addIndexToBook } from "../redux/actions/addIndex";
+import { addIndexToBook } from "../redux/actions/addIndexToBook";
 
 const Book = ({ title, writter, price, genre, year, quantity, index }) => {
   const selectedBook = useSelector(state => state.bookReducer);
@@ -17,15 +16,11 @@ const Book = ({ title, writter, price, genre, year, quantity, index }) => {
     dispatch(
       selectBook({
         title,
-        writter,
         price,
-        genre,
-        year,
         quantity,
         index: selectedBook.index
       })
     );
-    dispatch(getTotalSum({ price }));
     handleToggleToTrue();
     handleToggleToFalse();
   };
@@ -35,7 +30,7 @@ const Book = ({ title, writter, price, genre, year, quantity, index }) => {
   };
 
   const handleToggleToFalse = () => {
-    setTimeout(() => setIsLoaded(false), 5000);
+    setTimeout(() => setIsLoaded(false), 2000);
   };
 
   return (
