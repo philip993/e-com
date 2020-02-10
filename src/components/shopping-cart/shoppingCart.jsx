@@ -1,31 +1,20 @@
-import React, { useState } from "react";
+import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { Table, Button } from "react-bootstrap";
 import { removeBook } from "../redux/actions/removeBook";
 import { clearBooksFromCart } from "../redux/actions/clearCart";
-import { reducePriceFromCart } from "../redux/actions/reducePrice";
 
-const ShoppingCart = ({ title, price, index }) => {
+const ShoppingCart = item => {
   const selectedBooks = useSelector(state => state.bookReducer);
   const dispatch = useDispatch();
 
-  const handleDeleteRedux = () => {
+  const handleRemoveOneBook = index => {
     dispatch(removeBook(index));
-    console.log(selectedBooks.booksInCart[0]);
   };
 
-  const booksFromCart = selectedBooks.booksInCart.map(
-    ({ title, price, index }) => (
-      <p>
-        {index}.{title} - $ {price} -{" "}
-        <Button onClick={handleDeleteRedux}> x </Button>
-      </p>
-    )
-  );
-
-  const totalSumOfCartItems = selectedBooks.sumsArray.reduce(
-    (a, b) => a + b,
+  const totalSumOfCartItems = selectedBooks.booksInCart.reduce(
+    (total, currentItem) => total + currentItem.price,
     0
   );
 
@@ -39,33 +28,59 @@ const ShoppingCart = ({ title, price, index }) => {
 
   return (
     <div>
-      <Table striped bordered hover size="sm">
+      <Table
+        striped
+        bordered
+        hover
+        size="sm"
+        style={{ width: "50%", margin: "auto" }}
+      >
         <thead>
           <tr>
-            <th>Selected Books</th>
+            <th>No.</th>
+            <th>Book Title</th>
+            <th>Price</th>
+            <th>Remove</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <th>{booksFromCart}</th>
-          </tr>
+          {selectedBooks.booksInCart.map(({ title, price }, index) => (
+            <tr>
+              <td>{index}.</td>
+              <td>{title}</td>
+              <td>{price.toFixed(2)}$</td>
+              <td>
+                <Button
+                  variant="danger"
+                  onClick={handleRemoveOneBook.bind(this, index)}
+                >
+                  x
+                </Button>
+              </td>
+            </tr>
+          ))}
         </tbody>
-        <tfoot>
+      </Table>
+      <Table style={{ width: "50%", margin: "auto" }}>
+        <thead>
           <tr>
-            <th>Total Amount</th>
-          </tr>
-          <tr>
+            <th>Total Sum</th>
             <th>{totalSumOfCartItems.toFixed(2)} $</th>
           </tr>
           <tr>
             <th>
-              <Button onClick={handleCheckOut}>To Checkout</Button>
+              {" "}
+              <Button onClick={handleCheckOut} variant="success">
+                To Checkout
+              </Button>
+            </th>
+            <th>
               <Button onClick={handleClearCart} variant="danger">
                 Clear Cart
               </Button>
             </th>
           </tr>
-        </tfoot>
+        </thead>
       </Table>
     </div>
   );
