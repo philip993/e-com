@@ -4,7 +4,7 @@ import {
   REMOVE_BOOK_FROM_CART,
   CLEAR_ALL_BOOKS_FROM_CART,
   ADD_INDEX_TO_BOOK
-} from "../constants/constants";
+} from "../Book-Action-Types/book-action-types";
 
 const initialState = {
   data: [],

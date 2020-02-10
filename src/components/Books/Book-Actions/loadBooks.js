@@ -1,4 +1,4 @@
-import { LOAD_BOOKS } from "../constants/constants";
+import { LOAD_BOOKS } from "../Book-Action-Types/book-action-types";
 import axios from "axios";
 
 export const loadAllBooks = () => {

@@ -2,8 +2,8 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { Table, Button } from "react-bootstrap";
-import { removeBook } from "../redux/actions/removeBook";
-import { clearBooksFromCart } from "../redux/actions/clearCart";
+import { removeBook } from "../Books/Book-Actions/removeBook";
+import { clearBooksFromCart } from "../Books/Book-Actions/clearCart";
 
 const ShoppingCart = item => {
   const selectedBooks = useSelector(state => state.bookReducer);

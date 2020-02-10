@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { selectBook } from "../redux/actions/selectBook";
+import { selectBook } from "../Book-Actions/selectBook";
 
 import { Card, Button } from "react-bootstrap";
-import { addIndexToBook } from "../redux/actions/addIndexToBook";
+import { addIndexToBook } from "../Book-Actions/addIndexToBook";
 
 const Book = ({ title, writter, price, genre, year, quantity, index }) => {
   const selectedBook = useSelector(state => state.bookReducer);

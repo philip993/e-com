@@ -2,14 +2,14 @@ import React from "react";
 import "./App.css";
 import { Switch, Route } from "react-router-dom";
 
-import Header from "../header/header";
-import Homepage from "../../pages/homepage/homepage";
-import Shop from "../../pages/shop/shop";
+import Header from "../Header/Header";
+import Homepage from "../../pages/homepage/Homepage";
+import Shop from "../../pages/Shop/Shop";
 import About from "../../pages/about/about";
 import Contact from "../../pages/contact/contact";
 import UserRegistration from "../../pages/userRegistration/userRegistration";
 import UserLogin from "../../pages/userLogin/userLogin";
-import ShoppingCart from "../shopping-cart/shoppingCart";
+import ShoppingCart from "../Shopping-Cart/ShoppingCart";
 
 const App = props => {
   return (

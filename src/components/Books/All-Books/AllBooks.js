@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { loadAllBooks } from "../redux/actions/loadBooks";
-import Book from "../book/book";
+import { loadAllBooks } from "../Book-Actions/loadBooks";
+import Book from "../Book/Book";
 
 import { CardDeck, Spinner } from "react-bootstrap";
 
