@@ -1,19 +1,28 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { Table, Button } from "react-bootstrap";
-import { removeBook } from "../Books/Book-Actions/removeBook";
-import { clearBooksFromCart } from "../Books/Book-Actions/clearCart";
+import { RemoveBook } from "../Book/BookActions";
+import {
+  RemoveBookFromCart,
+  ClearBooksFromCart,
+  LoadItemToCartCopy
+} from "./ShoppingCartActions";
 
 const ShoppingCart = item => {
-  const selectedBooks = useSelector(state => state.bookReducer);
+  const selectedBooks = useSelector(state => state.ShoppingCartReducer);
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    dispatch(LoadItemToCartCopy());
+  }, []);
+
   const handleRemoveOneBook = index => {
-    dispatch(removeBook(index));
+    dispatch(RemoveBookFromCart(index));
+    dispatch(RemoveBook(index));
   };
 
-  const totalSumOfCartItems = selectedBooks.booksInCart.reduce(
+  const totalSumOfCartItems = selectedBooks.two.reduce(
     (total, currentItem) => total + currentItem.price,
     0
   );
@@ -23,7 +32,7 @@ const ShoppingCart = item => {
   };
 
   const handleClearCart = () => {
-    dispatch(clearBooksFromCart());
+    dispatch(ClearBooksFromCart());
   };
 
   return (
@@ -44,7 +53,7 @@ const ShoppingCart = item => {
           </tr>
         </thead>
         <tbody>
-          {selectedBooks.booksInCart.map(({ title, price }, index) => (
+          {selectedBooks.two.map(({ title, price }, index) => (
             <tr>
               <td>{index}.</td>
               <td>{title}</td>

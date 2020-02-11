@@ -7,9 +7,9 @@ import Homepage from "../../pages/homepage/Homepage";
 import Shop from "../../pages/Shop/Shop";
 import About from "../../pages/about/about";
 import Contact from "../../pages/contact/contact";
-import UserRegistration from "../../pages/userRegistration/userRegistration";
+import UserRegistration from "../../userRegistration/userRegistration";
 import UserLogin from "../../pages/userLogin/userLogin";
-import ShoppingCart from "../Shopping-Cart/ShoppingCart";
+import ShoppingCart from "../ShoppingCart/ShoppingCart";
 
 const App = props => {
   return (

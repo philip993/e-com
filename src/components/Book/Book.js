@@ -1,24 +1,22 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { selectBook } from "../Book-Actions/selectBook";
+import { SelectBook, AddIndex } from "./BookActions";
 
 import { Card, Button } from "react-bootstrap";
-import { addIndexToBook } from "../Book-Actions/addIndexToBook";
 
-const Book = ({ title, writter, price, genre, year, quantity, index }) => {
-  const selectedBook = useSelector(state => state.bookReducer);
+const Book = ({ title, writter, price, genre, year, quantity }) => {
+  const book = useSelector(state => state.BookReducer);
   const dispatch = useDispatch();
 
   const [isLoaded, setIsLoaded] = useState(false);
 
   const handleSelectBook = () => {
-    dispatch(addIndexToBook(selectedBook.index));
+    dispatch(AddIndex(book.index));
     dispatch(
-      selectBook({
+      SelectBook({
         title,
         price,
-        quantity,
-        index: selectedBook.index
+        index: book.index
       })
     );
     handleToggleToTrue();
@@ -48,7 +46,6 @@ const Book = ({ title, writter, price, genre, year, quantity, index }) => {
             <p>Published on {year}.</p>
             <p>Price of this book is {price.toFixed(2)}$.</p>
             <span>Remaining quantity: {quantity}.</span>
-            {index}
           </Card.Text>
         </Card.Body>
         <Card.Footer>

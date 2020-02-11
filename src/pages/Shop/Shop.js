@@ -1,5 +1,5 @@
 import React from "react";
-import Books from "../../components/Books/All-Books/AllBooks";
+import Books from "../../components/Books/Books";
 
 import { Jumbotron, Container } from "react-bootstrap";
 

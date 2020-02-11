@@ -1,7 +1,14 @@
 import { combineReducers } from "redux";
-import bookReducer from "../components/Books/Book-Reducer/bookReducer";
-import usersReducer from "../components/users/reducer/userReducer";
+import { BookReducer } from "../components/Book/BookReducer";
+import { BooksReducer } from "../components/Books/BooksReducer";
+import { ShoppingCartReducer } from "../components/ShoppingCart/ShoppingCartReducer";
+import { usersReducer } from "../components/users/reducer/userReducer";
 
-const rootReducer = combineReducers({ bookReducer, usersReducer });
+const rootReducer = combineReducers({
+  BookReducer,
+  BooksReducer,
+  ShoppingCartReducer,
+  usersReducer
+});
 
 export default rootReducer;

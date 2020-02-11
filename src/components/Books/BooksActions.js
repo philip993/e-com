@@ -1,12 +1,13 @@
-import { LOAD_BOOKS } from "../Book-Action-Types/book-action-types";
+import { SUCCESS_LOAD_ITEMS } from "./BooksActionTypes";
+
 import axios from "axios";
 
-export const loadAllBooks = () => {
+export const LoadBooks = () => {
   const request = axios.get("http://localhost:5000/books");
   return dispatch => {
     request.then(res => {
       dispatch({
-        type: LOAD_BOOKS,
+        type: SUCCESS_LOAD_ITEMS,
         payload: res.data.books
       });
     });
