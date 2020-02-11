@@ -5,8 +5,7 @@ import {
 } from "./ShoppingCartActionTypes";
 
 const initialState = {
-  one: [],
-  two: []
+  copyOfBooksInCart: []
 };
 
 export const ShoppingCartReducer = (state = initialState, action) => {
@@ -14,20 +13,20 @@ export const ShoppingCartReducer = (state = initialState, action) => {
     case CLEAR_ALL_BOOKS_FROM_CART:
       return {
         ...state,
-        one: action.payload
+        copyOfBooksInCart: action.payload
       };
     case REMOVE_BOOK_FROM_CART:
       return {
         ...state,
-        two: [
-          ...state.two.slice(0, action.payload),
-          ...state.two.slice(action.payload + 1)
+        copyOfBooksInCart: [
+          ...state.copyOfBooksInCart.slice(0, action.payload),
+          ...state.copyOfBooksInCart.slice(action.payload + 1)
         ]
       };
     case LOAD_ITEMS_TO_CART_COPY:
       return {
         ...state,
-        two: action.payload
+        copyOfBooksInCart: action.payload
       };
     default:
       return state;

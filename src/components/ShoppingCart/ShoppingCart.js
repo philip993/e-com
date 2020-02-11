@@ -22,7 +22,7 @@ const ShoppingCart = item => {
     dispatch(RemoveBook(index));
   };
 
-  const totalSumOfCartItems = selectedBooks.two.reduce(
+  const totalSumOfCartItems = selectedBooks.copyOfBooksInCart.reduce(
     (total, currentItem) => total + currentItem.price,
     0
   );
@@ -53,7 +53,7 @@ const ShoppingCart = item => {
           </tr>
         </thead>
         <tbody>
-          {selectedBooks.two.map(({ title, price }, index) => (
+          {selectedBooks.copyOfBooksInCart.map(({ title, price }, index) => (
             <tr>
               <td>{index}.</td>
               <td>{title}</td>
