@@ -22,7 +22,7 @@ export const BookReducer = (state = initialState, action) => {
         ...state,
         booksInCart: [
           ...state.booksInCart.slice(0, action.payload),
-          ...state.booksInCart.slice(action.payload, 1)
+          ...state.booksInCart.slice(action.payload + 1)
         ]
       };
 
