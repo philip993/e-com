@@ -41,7 +41,7 @@ const ShoppingCart = item => {
         striped
         bordered
         hover
-        size="sm"
+        size='sm'
         style={{ width: "50%", margin: "auto" }}
       >
         <thead>
@@ -60,7 +60,7 @@ const ShoppingCart = item => {
               <td>{price.toFixed(2)}$</td>
               <td>
                 <Button
-                  variant="danger"
+                  variant='danger'
                   onClick={handleRemoveOneBook.bind(this, index)}
                 >
                   x
@@ -79,12 +79,12 @@ const ShoppingCart = item => {
           <tr>
             <th>
               {" "}
-              <Button onClick={handleCheckOut} variant="success">
+              <Button onClick={handleCheckOut} variant='success'>
                 To Checkout
               </Button>
             </th>
             <th>
-              <Button onClick={handleClearCart} variant="danger">
+              <Button onClick={handleClearCart} variant='danger'>
                 Clear Cart
               </Button>
             </th>

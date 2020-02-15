@@ -13,16 +13,16 @@ import ShoppingCart from "../ShoppingCart/ShoppingCart";
 
 const App = props => {
   return (
-    <div className="app">
+    <div className='app'>
       <Header />
       <Switch>
-        <Route path="/" exact component={Homepage} />
-        <Route path="/shop" exact component={Shop} />
-        <Route path="/about" exact component={About} />
-        <Route path="/contact" exact component={Contact} />
-        <Route path="/register" exact component={UserRegistration} />
-        <Route path="/cart" exact component={ShoppingCart} />
-        <Route path="/login" exact component={UserLogin} />
+        <Route path='/' exact component={Homepage} />
+        <Route path='/shop' exact component={Shop} />
+        <Route path='/about' exact component={About} />
+        <Route path='/contact' exact component={Contact} />
+        <Route path='/register' exact component={UserRegistration} />
+        <Route path='/cart' exact component={ShoppingCart} />
+        <Route path='/login' exact component={UserLogin} />
       </Switch>
     </div>
   );
