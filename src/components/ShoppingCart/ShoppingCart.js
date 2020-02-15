@@ -8,6 +8,7 @@ import {
   ClearBooksFromCart,
   LoadItemToCartCopy
 } from "./ShoppingCartActions";
+import PrivateRoute from "../PrivateRoute/PrivateRoute";
 
 const ShoppingCart = item => {
   const selectedBooks = useSelector(state => state.ShoppingCartReducer);
@@ -37,60 +38,62 @@ const ShoppingCart = item => {
 
   return (
     <div>
-      <Table
-        striped
-        bordered
-        hover
-        size='sm'
-        style={{ width: "50%", margin: "auto" }}
-      >
-        <thead>
-          <tr>
-            <th>No.</th>
-            <th>Book Title</th>
-            <th>Price</th>
-            <th>Remove</th>
-          </tr>
-        </thead>
-        <tbody>
-          {selectedBooks.copyOfBooksInCart.map(({ title, price }, index) => (
+      <PrivateRoute>
+        <Table
+          striped
+          bordered
+          hover
+          size='sm'
+          style={{ width: "50%", margin: "auto" }}
+        >
+          <thead>
             <tr>
-              <td>{index}.</td>
-              <td>{title}</td>
-              <td>{price.toFixed(2)}$</td>
-              <td>
-                <Button
-                  variant='danger'
-                  onClick={handleRemoveOneBook.bind(this, index)}
-                >
-                  x
-                </Button>
-              </td>
+              <th>No.</th>
+              <th>Book Title</th>
+              <th>Price</th>
+              <th>Remove</th>
             </tr>
-          ))}
-        </tbody>
-      </Table>
-      <Table style={{ width: "50%", margin: "auto" }}>
-        <thead>
-          <tr>
-            <th>Total Sum</th>
-            <th>{totalSumOfCartItems.toFixed(2)} $</th>
-          </tr>
-          <tr>
-            <th>
-              {" "}
-              <Button onClick={handleCheckOut} variant='success'>
-                To Checkout
-              </Button>
-            </th>
-            <th>
-              <Button onClick={handleClearCart} variant='danger'>
-                Clear Cart
-              </Button>
-            </th>
-          </tr>
-        </thead>
-      </Table>
+          </thead>
+          <tbody>
+            {selectedBooks.copyOfBooksInCart.map(({ title, price }, index) => (
+              <tr>
+                <td>{index}.</td>
+                <td>{title}</td>
+                <td>{price.toFixed(2)}$</td>
+                <td>
+                  <Button
+                    variant='danger'
+                    onClick={handleRemoveOneBook.bind(this, index)}
+                  >
+                    x
+                  </Button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
+        <Table style={{ width: "50%", margin: "auto" }}>
+          <thead>
+            <tr>
+              <th>Total Sum</th>
+              <th>{totalSumOfCartItems.toFixed(2)} $</th>
+            </tr>
+            <tr>
+              <th>
+                {" "}
+                <Button onClick={handleCheckOut} variant='success'>
+                  To Checkout
+                </Button>
+              </th>
+              <th>
+                <Button onClick={handleClearCart} variant='danger'>
+                  Clear Cart
+                </Button>
+              </th>
+            </tr>
+          </thead>
+        </Table>
+      </PrivateRoute>
     </div>
   );
 };
