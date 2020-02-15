@@ -4,6 +4,7 @@ const app = express();
 const bodyParser = require("body-parser");
 
 const books = require("./src/backend/routes/books");
+const users = require("./src/backend/User/UserRoutes.js");
 
 mongoose
   .connect("mongodb://localhost/e-commerce", { useNewUrlParser: true })
@@ -14,16 +15,17 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS"),
-    res.setHeader(
-      "Access-Control-Allow-Headers",
-      "X-Request-With, Authorization, Origin, Accept, Content-Type"
-    ),
-    res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT,OPTIONS");
+  res.setHeader(
+    "Access-Control-Allow-Headers",
+    "X-Request-With, Authorization, Origin, Accept, Content-Type"
+  );
+  res.setHeader("Access-Control-Allow-Origin", "*");
   next();
 });
 
 app.use("/books", books);
+app.use("/users", users);
 
 const port = process.env.PORT || 5000;
 
