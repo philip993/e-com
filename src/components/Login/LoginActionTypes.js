@@ -1,0 +1,3 @@
+export const EMAIL_SUBMIT = "EMAIL_SUBMIT";
+export const PASSWORD_SUBMIT = "PASSWORD_SUBMIT";
+export const LOGIN_FINISH = "LOGIN_FINISH";
