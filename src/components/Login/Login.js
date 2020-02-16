@@ -1,10 +1,12 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { EmailSubmit, PasswordSubmit, LoginFinish } from "./LoginActions";
+import { Redirect, useHistory } from "react-router-dom";
 
-const Login = () => {
+const Login = props => {
   const user = useSelector(state => state.LoginReducer);
   const dispatch = useDispatch();
+  let history = useHistory();
 
   const handleEmailSubmit = e => {
     dispatch(EmailSubmit(e.target.value));
@@ -17,6 +19,7 @@ const Login = () => {
   const handleLoginFinish = e => {
     e.preventDefault();
     dispatch(LoginFinish());
+    history.push("/");
   };
 
   return (

@@ -5,6 +5,7 @@ import { ShoppingCartReducer } from "../components/ShoppingCart/ShoppingCartRedu
 import { usersReducer } from "../components/users/reducer/userReducer";
 import { RegisterReducer } from "../components/Register/RegisterReducer";
 import { LoginReducer } from "../components/Login/LoginReducer";
+import { HeaderReducer } from "../components/Header/HeaderReducer";
 
 const rootReducer = combineReducers({
   BookReducer,
@@ -12,7 +13,8 @@ const rootReducer = combineReducers({
   ShoppingCartReducer,
   usersReducer,
   RegisterReducer,
-  LoginReducer
+  LoginReducer,
+  HeaderReducer
 });
 
 export default rootReducer;
