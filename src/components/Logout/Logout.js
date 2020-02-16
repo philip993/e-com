@@ -1,5 +1,5 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import { Button, Nav } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { ClearTokenFromLS } from "../Header/HeaderActions";
@@ -16,7 +16,9 @@ const Logout = () => {
   };
   return (
     <div>
-      <Nav.Link onClick={handleLogout}>Logout</Nav.Link>
+      <Nav.Link onClick={handleLogout}>
+        <Link>Logout</Link>
+      </Nav.Link>
     </div>
   );
 };
