@@ -7,7 +7,7 @@ import {
 import axios from "axios";
 
 export const EmailSubmit = e => {
-  return (dsipatch, getState) => {
+  return dsipatch => {
     dsipatch({
       type: EMAIL_SUBMIT,
       payload: e
@@ -28,20 +28,18 @@ export const LoginFinish = user => {
   return (dispatch, getState) => {
     let tempState = getState().LoginReducer;
     axios
-      .post(
-        `http://localhost:5000/users/login`,
-        { email: tempState.email, password: tempState.password },
-        {
-          headers: { "Content-Type": "application/json" }
-        }
-      )
+      .post(`http://localhost:5000/users/login`, {
+        email: tempState.email,
+        password: tempState.password
+      })
       .then(res => {
-        console.log(res); //show data and where token is stored
+        console.log(res);
         localStorage.setItem("token", res.data.token);
         dispatch({
           type: LOGIN_FINISH,
           payload: res.user
         });
+        localStorage.setItem("user", res.data.email);
       })
       .catch(err => {
         console.log(err);
