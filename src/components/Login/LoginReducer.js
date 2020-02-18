@@ -7,7 +7,7 @@ import {
 const initialState = {
   email: "",
   password: "",
-  user: {}
+  user: []
 };
 
 export const LoginReducer = (state = initialState, action) => {

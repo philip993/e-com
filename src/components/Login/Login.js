@@ -1,9 +1,9 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { EmailSubmit, PasswordSubmit, LoginFinish } from "./LoginActions";
-import { Redirect, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
-const Login = props => {
+const Login = () => {
   const user = useSelector(state => state.LoginReducer);
   const dispatch = useDispatch();
   let history = useHistory();
