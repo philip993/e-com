@@ -1,4 +1,4 @@
-import { GET_TOKEN, CLEAR_TOKEN } from "./HeaderActionTypes";
+import { GET_TOKEN, CLEAR_TOKEN, RETRIEVE_TOKEN } from "./HeaderActionTypes";
 
 export const GetTokenFromLS = token => {
   return dispatch => {
@@ -13,5 +13,15 @@ export const GetTokenFromLS = token => {
 export const ClearTokenFromLS = () => {
   return {
     type: CLEAR_TOKEN
+  };
+};
+
+export const RetriveToken = token => {
+  return dispatch => {
+    let tokenPersist = localStorage.getItem("token");
+    dispatch({
+      type: RETRIEVE_TOKEN,
+      payload: tokenPersist
+    });
   };
 };

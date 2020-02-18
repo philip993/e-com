@@ -15,6 +15,8 @@ const Header = () => {
   };
 
   const returnTokenFromLS = localStorage.getItem("token");
+  const returnUserEmailFromLS = localStorage.getItem("user");
+
   return (
     <div className='header'>
       <Navbar bg='light' variant='light' style={{ height: "75px" }}>
@@ -44,6 +46,12 @@ const Header = () => {
           ) : (
             <Logout />
           )}
+
+          {returnUserEmailFromLS ? (
+            <Nav.Link>
+              <Link to='/profile'>Profile</Link>
+            </Nav.Link>
+          ) : null}
         </Nav>
       </Navbar>
     </div>

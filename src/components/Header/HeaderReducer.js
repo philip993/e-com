@@ -1,4 +1,4 @@
-import { GET_TOKEN, CLEAR_TOKEN } from "./HeaderActionTypes";
+import { GET_TOKEN, CLEAR_TOKEN, RETRIEVE_TOKEN } from "./HeaderActionTypes";
 
 const initialState = {
   token: ""
@@ -15,6 +15,11 @@ export const HeaderReducer = (state = initialState, action) => {
       return {
         ...state,
         token: ""
+      };
+    case RETRIEVE_TOKEN:
+      return {
+        ...state,
+        token: action.payload
       };
     default:
       return state;
