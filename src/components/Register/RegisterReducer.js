@@ -1,28 +1,70 @@
 import {
-  TYPE_EMAIL_ADDRESS,
-  TYPE_PASSWORD,
+  SET_EMAIL_ADDRESS,
+  SET_PASSWORD,
   FORM_COMPLETE,
-  POST_REGISTRATION
+  POST_REGISTRATION,
+  SET_FIRST_NAME,
+  SET_LAST_NAME,
+  SET_USERNAME,
+  SET_AGE,
+  SET_CITY,
+  SET_COUNTRY
 } from "./RegisterActionTypes";
 
 const initialState = {
+  firstName: "",
+  lastName: "",
+  username: "",
   email: "",
   password: "",
+  age: "",
+  city: "",
+  country: "",
   info: [],
   user: {}
 };
 
 export const RegisterReducer = (state = initialState, action) => {
   switch (action.type) {
-    case TYPE_EMAIL_ADDRESS:
+    case SET_EMAIL_ADDRESS:
       return {
         ...state,
         email: action.payload
       };
-    case TYPE_PASSWORD:
+    case SET_PASSWORD:
       return {
         ...state,
         password: action.payload
+      };
+    case SET_FIRST_NAME:
+      return {
+        ...state,
+        firstName: action.payload
+      };
+    case SET_LAST_NAME:
+      return {
+        ...state,
+        lastName: action.payload
+      };
+    case SET_USERNAME:
+      return {
+        ...state,
+        username: action.payload
+      };
+    case SET_AGE:
+      return {
+        ...state,
+        age: action.payload
+      };
+    case SET_CITY:
+      return {
+        ...state,
+        city: action.payload
+      };
+    case SET_COUNTRY:
+      return {
+        ...state,
+        country: action.payload
       };
     case FORM_COMPLETE:
       return {
@@ -34,7 +76,13 @@ export const RegisterReducer = (state = initialState, action) => {
         ...state,
         user: action.payload,
         email: "",
-        password: ""
+        password: "",
+        firstName: "",
+        lastName: "",
+        age: "",
+        username: "",
+        city: "",
+        country: ""
       };
     default:
       return state;

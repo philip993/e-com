@@ -1,25 +1,31 @@
 import {
-  TYPE_EMAIL_ADDRESS,
-  TYPE_PASSWORD,
+  SET_EMAIL_ADDRESS,
+  SET_PASSWORD,
   FORM_COMPLETE,
-  POST_REGISTRATION
+  POST_REGISTRATION,
+  SET_FIRST_NAME,
+  SET_LAST_NAME,
+  SET_USERNAME,
+  SET_AGE,
+  SET_CITY,
+  SET_COUNTRY
 } from "./RegisterActionTypes";
 
 import axios from "axios";
 
-export const TypeEmailAddress = e => {
+export const SetEmailAddress = e => {
   return dispatch => {
     dispatch({
-      type: TYPE_EMAIL_ADDRESS,
+      type: SET_EMAIL_ADDRESS,
       payload: e
     });
   };
 };
 
-export const TypePassword = e => {
+export const SetPassword = e => {
   return dispatch => {
     dispatch({
-      type: TYPE_PASSWORD,
+      type: SET_PASSWORD,
       payload: e
     });
   };
@@ -34,20 +40,6 @@ export const FormComplete = t => {
   };
 };
 
-// export const PostRegistration = user => {
-//   return dispatch => {
-//     axios.post(`http://localhost:5000/users`, { user }).then(res => {
-//       console.log(user);
-//       console.log(res);
-//       dispatch({
-//         type: POST_REGISTRATION,
-//         payload: res.user.user
-//       });
-//       console.log(res.user);
-//     });
-//   };
-// };
-
 export const PostRegistration = user => {
   return (dispatch, getState) => {
     let temporaryState = getState().RegisterReducer;
@@ -55,8 +47,14 @@ export const PostRegistration = user => {
       .post(
         `http://localhost:5000/users/register`,
         {
+          firstName: temporaryState.firstName,
+          lastName: temporaryState.lastName,
+          username: temporaryState.username,
           email: temporaryState.email,
-          password: temporaryState.password
+          password: temporaryState.password,
+          age: temporaryState.age,
+          city: temporaryState.city,
+          country: temporaryState.country
         },
         {
           headers: {
@@ -70,5 +68,47 @@ export const PostRegistration = user => {
           payload: res.data
         });
       });
+  };
+};
+
+export const SetFirstName = e => {
+  return {
+    type: SET_FIRST_NAME,
+    payload: e
+  };
+};
+
+export const SetLastName = e => {
+  return {
+    type: SET_LAST_NAME,
+    payload: e
+  };
+};
+
+export const SetUsername = e => {
+  return {
+    type: SET_USERNAME,
+    payload: e
+  };
+};
+
+export const SetAge = e => {
+  return {
+    type: SET_AGE,
+    payload: e
+  };
+};
+
+export const SetCity = e => {
+  return {
+    type: SET_CITY,
+    payload: e
+  };
+};
+
+export const SetContry = e => {
+  return {
+    type: SET_COUNTRY,
+    payload: e
   };
 };

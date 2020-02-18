@@ -1,4 +1,10 @@
-export const TYPE_EMAIL_ADDRESS = "TYPE_EMAIL_ADDRESS";
-export const TYPE_PASSWORD = "TYPE_PASSWORD";
+export const SET_EMAIL_ADDRESS = "SET_EMAIL_ADDRESS";
+export const SET_PASSWORD = "SET_PASSWORD";
 export const FORM_COMPLETE = "FORM_COMPLETE";
 export const POST_REGISTRATION = "POST_REGISTRATION";
+export const SET_FIRST_NAME = "SET_FIRST_NAME";
+export const SET_LAST_NAME = "SET_LAST_NAME";
+export const SET_USERNAME = "SET_USERNAME";
+export const SET_AGE = "SET_AGE";
+export const SET_CITY = "SET_CITY";
+export const SET_COUNTRY = "SET_COUNTRY";
