@@ -8,13 +8,14 @@ exports.newUser = (req, res) => {
     .hash(req.body.password, 10)
     .then(hash => {
       const user = new User({
-        // firstName: req.body.firstName,
-        // lastName: req.body.lastName,
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        username: req.body.username,
         email: req.body.email,
-        password: hash
-        // age: req.body.age,
-        // city: req.body.city,
-        // country: req.body.country
+        password: hash,
+        age: req.body.age,
+        city: req.body.city,
+        country: req.body.country
       });
 
       user
@@ -49,7 +50,6 @@ exports.postLoging = (req, res) => {
       return bcryptjs.compare(req.body.password, user.password);
     })
     .then(result => {
-      console.log(result);
       if (!result) {
         return res.status(404).json({
           message: "AUTH FAILED"
@@ -59,10 +59,9 @@ exports.postLoging = (req, res) => {
         { email: result.email, userId: result._id },
         "testqweqweq8w3483jfjdsf32434dsfw34",
         {
-          expiresIn: "360ms"
+          expiresIn: "1h"
         }
       );
-      console.log(token);
       res.status(200).json({
         token: token
       });
@@ -84,6 +83,28 @@ exports.getUsers = (req, res) => {
     .catch(err => {
       res.status(500).json({
         message: "Syster Error. Cannot create User right now!"
+      });
+      console.log(err);
+    });
+};
+
+exports.getProfile = (req, res) => {
+  User.findOne({ email: req.params.email })
+    .then(user => {
+      res.status(200).json({
+        user: {
+          firstName: user.firstName,
+          lastName: user.lastName,
+          username: user.username,
+          age: user.age,
+          city: user.city,
+          country: user.country
+        }
+      });
+    })
+    .catch(err => {
+      res.status(500).json({
+        message: "System Error!"
       });
       console.log(err);
     });
