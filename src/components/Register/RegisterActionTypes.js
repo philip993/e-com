@@ -6,5 +6,7 @@ export const SET_FIRST_NAME = "SET_FIRST_NAME";
 export const SET_LAST_NAME = "SET_LAST_NAME";
 export const SET_USERNAME = "SET_USERNAME";
 export const SET_AGE = "SET_AGE";
+export const SET_GENDER = "SET_GENDER";
+export const SET_ADDRESS = "SET_ADDRESS";
 export const SET_CITY = "SET_CITY";
 export const SET_COUNTRY = "SET_COUNTRY";

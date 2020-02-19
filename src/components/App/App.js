@@ -7,10 +7,10 @@ import Homepage from "../../pages/homepage/Homepage";
 import Shop from "../../pages/Shop/Shop";
 import About from "../../pages/about/about";
 import Contact from "../../pages/contact/contact";
-import UserRegistration from "../../userRegistration/userRegistration";
 import ShoppingCart from "../ShoppingCart/ShoppingCart";
 import Profile from "../Profile/Profile";
 import Login from "../Login/Login";
+import Register from "../Register/Register";
 
 const App = props => {
   return (
@@ -21,7 +21,7 @@ const App = props => {
         <Route path='/shop' exact component={Shop} />
         <Route path='/about' exact component={About} />
         <Route path='/contact' exact component={Contact} />
-        <Route path='/register' exact component={UserRegistration} />
+        <Route path='/register' exact component={Register} />
         <Route path='/cart' exact component={ShoppingCart} />
         <Route path='/login' exact component={Login} />
         <Route path='/profile' exact component={Profile} />

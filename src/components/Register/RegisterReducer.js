@@ -8,7 +8,9 @@ import {
   SET_USERNAME,
   SET_AGE,
   SET_CITY,
-  SET_COUNTRY
+  SET_COUNTRY,
+  SET_GENDER,
+  SET_ADDRESS
 } from "./RegisterActionTypes";
 
 const initialState = {
@@ -18,6 +20,8 @@ const initialState = {
   email: "",
   password: "",
   age: "",
+  gender: "",
+  address: "",
   city: "",
   country: "",
   info: [],
@@ -56,6 +60,16 @@ export const RegisterReducer = (state = initialState, action) => {
         ...state,
         age: action.payload
       };
+    case SET_GENDER:
+      return {
+        ...state,
+        gender: action.payload
+      };
+    case SET_ADDRESS:
+      return {
+        ...state,
+        address: action.payload
+      };
     case SET_CITY:
       return {
         ...state,
@@ -79,8 +93,10 @@ export const RegisterReducer = (state = initialState, action) => {
         password: "",
         firstName: "",
         lastName: "",
-        age: "",
         username: "",
+        age: "",
+        gender: "",
+        address: "",
         city: "",
         country: ""
       };
