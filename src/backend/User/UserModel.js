@@ -37,11 +37,22 @@ const UserSchema = new mongoose.Schema({
     max: 100,
     min: 0
   },
+  gender: {
+    type: String,
+    required: true,
+    enum: ["Male", "Female"]
+  },
+  address: {
+    type: String,
+    required: true,
+    minlength: 2,
+    maxlength: 50
+  },
   city: {
     type: String,
     required: true,
     minlength: 2,
-    maxlength: 20
+    maxlength: 25
   },
   country: {
     type: String,

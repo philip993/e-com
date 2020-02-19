@@ -14,6 +14,8 @@ exports.newUser = (req, res) => {
         email: req.body.email,
         password: hash,
         age: req.body.age,
+        gender: req.body.gender,
+        address: req.body.address,
         city: req.body.city,
         country: req.body.country
       });
@@ -97,6 +99,8 @@ exports.getProfile = (req, res) => {
           lastName: user.lastName,
           username: user.username,
           age: user.age,
+          gender: user.gender,
+          address: user.address,
           city: user.city,
           country: user.country
         }
