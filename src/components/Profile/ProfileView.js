@@ -2,7 +2,16 @@ import React from "react";
 import { Accordion, Card, ListGroup } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 
-const ProfileView = ({ firstName, lastName, username, age, city, country }) => {
+const ProfileView = ({
+  firstName,
+  lastName,
+  username,
+  age,
+  gender,
+  address,
+  city,
+  country
+}) => {
   return (
     <div>
       <Accordion
@@ -21,8 +30,8 @@ const ProfileView = ({ firstName, lastName, username, age, city, country }) => {
                 <ListGroup.Item>{firstName}</ListGroup.Item>
                 <ListGroup.Item>{lastName}</ListGroup.Item>
                 <ListGroup.Item>{age} years old.</ListGroup.Item>
+                <ListGroup.Item>Gender: {gender}</ListGroup.Item>
                 <ListGroup.Item>Username: {username}.</ListGroup.Item>
-                <ListGroup.Item>...</ListGroup.Item>
               </ListGroup>
             </Card.Body>
           </Accordion.Collapse>
@@ -35,11 +44,9 @@ const ProfileView = ({ firstName, lastName, username, age, city, country }) => {
           </Card.Header>
           <Accordion.Collapse eventKey='1'>
             <Card.Body>
-              <ListGroup.Item>{city}</ListGroup.Item>
+              <ListGroup.Item>Address: {address}</ListGroup.Item>
+              <ListGroup.Item>City of{city}</ListGroup.Item>
               <ListGroup.Item>{country}</ListGroup.Item>
-              <ListGroup.Item>...</ListGroup.Item>
-              <ListGroup.Item>...</ListGroup.Item>
-              <ListGroup.Item>...</ListGroup.Item>
             </Card.Body>
           </Accordion.Collapse>
         </Card>
