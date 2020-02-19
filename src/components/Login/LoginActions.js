@@ -33,13 +33,12 @@ export const LoginFinish = user => {
         password: tempState.password
       })
       .then(res => {
-        console.log(res);
         localStorage.setItem("token", res.data.token);
         dispatch({
           type: LOGIN_FINISH,
           payload: res.user
         });
-        localStorage.setItem("user", res.data.email);
+        localStorage.setItem("user", tempState.email);
       })
       .catch(err => {
         console.log(err);

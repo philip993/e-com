@@ -10,6 +10,7 @@ import Contact from "../../pages/contact/contact";
 import UserRegistration from "../../userRegistration/userRegistration";
 import UserLogin from "../../pages/userLogin/userLogin";
 import ShoppingCart from "../ShoppingCart/ShoppingCart";
+import Profile from "../Profile/Profile";
 
 const App = props => {
   return (
@@ -23,6 +24,7 @@ const App = props => {
         <Route path='/register' exact component={UserRegistration} />
         <Route path='/cart' exact component={ShoppingCart} />
         <Route path='/login' exact component={UserLogin} />
+        <Route path='/profile' exact component={Profile} />
       </Switch>
     </div>
   );
