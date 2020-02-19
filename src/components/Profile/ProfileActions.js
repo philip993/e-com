@@ -3,9 +3,9 @@ import axios from "axios";
 
 export const GetUserInfo = () => {
   return dispatch => {
-    const userEmail = localStorage.getItem("user");
+    let userEmail = localStorage.getItem("user");
     return axios
-      .get(`http://localhost:5000/user/profile/${userEmail}`)
+      .get(`http://localhost:5000/users/profile/${userEmail}`)
       .then(res => {
         dispatch({
           type: GET_USER_INFO,

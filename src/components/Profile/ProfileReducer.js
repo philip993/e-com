@@ -9,7 +9,7 @@ export const ProfileReducer = (state = initialState, action) => {
     case GET_USER_INFO:
       return {
         ...state,
-        userInfo: action.payload
+        userInfo: [action.payload]
       };
     default:
       return state;
