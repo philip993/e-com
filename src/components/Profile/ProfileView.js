@@ -5,7 +5,10 @@ import { Button } from "react-bootstrap";
 const ProfileView = ({ firstName, lastName, username, age, city, country }) => {
   return (
     <div>
-      <Accordion defaultActiveKey='0'>
+      <Accordion
+        defaultActiveKey='0'
+        style={{ width: "720px", margin: "auto", padding: "auto" }}
+      >
         <Card>
           <Card.Header>
             <Accordion.Toggle as={Button} variant='link' eventKey='0'>

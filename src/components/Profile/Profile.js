@@ -13,7 +13,6 @@ const Profile = () => {
 
   return (
     <div>
-      <h2>Profile Page</h2>
       {profile.userInfo.map(({ ...rest }) => (
         <ProfileView {...rest} />
       ))}
