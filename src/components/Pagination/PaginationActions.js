@@ -22,8 +22,6 @@ export const SetMaximumPages = () => {
     let pages = getState().BooksReducer.data.length;
 
     return dispatch => {
-      console.log(pageSize);
-      console.log(pages.length);
       dispatch({
         type: SET_MAXIMUM_PAGES,
         payload: Math.floor((pages + pageSize - 1) / pageSize)

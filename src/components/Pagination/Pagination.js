@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Button } from "react-bootstrap";
 import { SetIncrementPage, SetDecrementPage } from "./PaginationActions";
@@ -9,6 +9,8 @@ const Pagination = () => {
   const books = useSelector(state => state.BooksReducer.data.length);
 
   let pageNumber = paginate.page;
+  let pageS = paginate.pageSize;
+  let checkPage = Math.floor((books + pageS - 1) / pageS);
 
   const SetIncrement = () => {
     dispatch(SetIncrementPage());
@@ -24,14 +26,21 @@ const Pagination = () => {
       </Button>
       <span>
         <span> </span>
-        <Button variant='secondary'>{pageNumber - 1}</Button>
+        {pageNumber === 1 ? null : (
+          <Button variant='secondary'>{pageNumber - 1}</Button>
+        )}
         <span> </span>
         <Button>{pageNumber}</Button>
         <span> </span>
-        <Button variant='secondary'>{pageNumber + 1}</Button>
+        {checkPage === 0 ? null : (
+          <Button variant='secondary'>{pageNumber + 1}</Button>
+        )}
+
         <span> </span>
       </span>
-      <Button onClick={SetIncrement}>Next</Button>
+      <Button onClick={SetIncrement} disabled={checkPage === 0}>
+        Next
+      </Button>
     </div>
   );
 };
