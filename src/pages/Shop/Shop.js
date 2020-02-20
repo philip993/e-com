@@ -3,6 +3,7 @@ import Books from "../../components/Books/Books";
 
 import { Jumbotron, Container } from "react-bootstrap";
 import PrivateRoute from "../../components/PrivateRoute/PrivateRoute";
+import Pagination from "../../components/Pagination/Pagination";
 
 const Shop = () => {
   return (
@@ -16,6 +17,7 @@ const Shop = () => {
       <PrivateRoute>
         <Books />
       </PrivateRoute>
+      <Pagination />
     </div>
   );
 };

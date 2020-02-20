@@ -8,18 +8,19 @@ import { CardDeck, Spinner } from "react-bootstrap";
 const Books = props => {
   const books = useSelector(state => state.BooksReducer);
   const dispatch = useDispatch();
+  const pages = useSelector(state => state.PaginationReducer);
 
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
     dispatch(LoadBooks());
     setIsLoaded(true);
-  }, []);
+  }, [pages.page]);
 
   return (
     <div>
       {!isLoaded ? (
-        <Spinner animation="border"></Spinner>
+        <Spinner animation='border'></Spinner>
       ) : (
         <CardDeck
           style={{

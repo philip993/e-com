@@ -7,6 +7,7 @@ import { RegisterReducer } from "../components/Register/RegisterReducer";
 import { LoginReducer } from "../components/Login/LoginReducer";
 import { HeaderReducer } from "../components/Header/HeaderReducer";
 import { ProfileReducer } from "../components/Profile/ProfileReducer";
+import { PaginationReducer } from "../components/Pagination/PaginationReducer";
 
 const rootReducer = combineReducers({
   BookReducer,
@@ -16,7 +17,8 @@ const rootReducer = combineReducers({
   RegisterReducer,
   LoginReducer,
   HeaderReducer,
-  ProfileReducer
+  ProfileReducer,
+  PaginationReducer
 });
 
 export default rootReducer;
