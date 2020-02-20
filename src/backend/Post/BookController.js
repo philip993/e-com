@@ -1,7 +1,16 @@
 const { Book } = require("./BookModel");
 
 exports.getBooks = (req, res) => {
-  Book.find({})
+  const currentpage = +req.query.page;
+  const pageSize = +req.query.pagesize;
+  const bookQuery = Book.find();
+
+  if (currentpage && pageSize) {
+    bookQuery.skip(pageSize * (currentpage - 1)).limit(pageSize);
+  }
+
+  bookQuery
+    .find({})
     .then(books => {
       res.status(200).json({
         books: books
