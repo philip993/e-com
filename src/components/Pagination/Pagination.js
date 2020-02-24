@@ -1,7 +1,14 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Button } from "react-bootstrap";
-import { SetIncrementPage, SetDecrementPage } from "./PaginationActions";
+import {
+  SetIncrementPage,
+  SetDecrementPage,
+  SetPageSizeToOne,
+  SetPageSizeToFour,
+  SetPageSizeToSix,
+  SetPageToDefault
+} from "./PaginationActions";
 
 const Pagination = () => {
   const paginate = useSelector(state => state.PaginationReducer);
@@ -17,6 +24,22 @@ const Pagination = () => {
   };
   const SetDecrement = () => {
     dispatch(SetDecrementPage());
+  };
+
+  const SetPageSizeOne = () => {
+    dispatch(SetPageSizeToOne());
+  };
+
+  const SetPageSizeFour = () => {
+    dispatch(SetPageSizeToFour());
+  };
+
+  const SetPageSizeSix = () => {
+    dispatch(SetPageSizeToSix());
+  };
+
+  const SetPageSizeDefault = () => {
+    dispatch(SetPageToDefault());
   };
 
   return (
@@ -41,6 +64,13 @@ const Pagination = () => {
       <Button onClick={SetIncrement} disabled={checkPage === 0}>
         Next
       </Button>
+      <div>
+        <p>Options</p>
+        <button onClick={SetPageSizeOne}>1</button>
+        <button onClick={SetPageToDefault}>2</button>
+        <button onClick={SetPageSizeFour}>4</button>
+        <button onClick={SetPageSizeSix}>6</button>
+      </div>
     </div>
   );
 };

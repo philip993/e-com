@@ -1,7 +1,11 @@
 import {
   SET_INCREMENT_PAGE,
   SET_DECREMENT_PAGE,
-  SET_MAXIMUM_PAGES
+  SET_MAXIMUM_PAGES,
+  SET_PAGE_SIZE_TO_ONE,
+  SET_PAGE_SIZE_TO_FOUR,
+  SET_PAGE_SIZE_TO_SIX,
+  SET_PAGE_SIZE_TO_DEFAULT
 } from "./PaginationActionTypes";
 
 export const SetIncrementPage = () => {
@@ -27,5 +31,29 @@ export const SetMaximumPages = () => {
         payload: Math.floor((pages + pageSize - 1) / pageSize)
       });
     };
+  };
+};
+
+export const SetPageSizeToOne = () => {
+  return {
+    type: SET_PAGE_SIZE_TO_ONE
+  };
+};
+
+export const SetPageSizeToFour = () => {
+  return {
+    type: SET_PAGE_SIZE_TO_FOUR
+  };
+};
+
+export const SetPageSizeToSix = () => {
+  return {
+    type: SET_PAGE_SIZE_TO_SIX
+  };
+};
+
+export const SetPageToDefault = () => {
+  return {
+    type: SET_PAGE_SIZE_TO_DEFAULT
   };
 };
