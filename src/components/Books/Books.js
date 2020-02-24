@@ -1,27 +1,32 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { LoadBooks } from "./BooksActions";
 import Book from "../Book/Book";
 
 import { CardDeck, Spinner } from "react-bootstrap";
+import { SetMaximumPages } from "../Pagination/PaginationActions";
+import Pagination from "../Pagination/Pagination";
+import PrivateRoute from "../PrivateRoute/PrivateRoute";
 
-const Books = props => {
+const Books = () => {
   const books = useSelector(state => state.BooksReducer);
   const dispatch = useDispatch();
   const pages = useSelector(state => state.PaginationReducer);
 
-  const [isLoaded, setIsLoaded] = useState(false);
+  useEffect(() => {
+    dispatch(SetMaximumPages());
+    console.log(books.data.length);
+  }, [books.data.length]);
 
   useEffect(() => {
     dispatch(LoadBooks());
-    setIsLoaded(true);
-  }, [pages.page]);
+  }, [pages.page, pages.pageSize]);
 
   return (
     <div>
-      {!isLoaded ? (
-        <Spinner animation='border'></Spinner>
-      ) : (
+      <PrivateRoute>
+        <Pagination />
+
         <CardDeck
           style={{
             display: "flex",
@@ -34,7 +39,7 @@ const Books = props => {
             <Book key={_id} {...otherProps} />
           ))}
         </CardDeck>
-      )}
+      </PrivateRoute>
     </div>
   );
 };
