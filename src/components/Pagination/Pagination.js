@@ -5,7 +5,11 @@ import {
   SetIncrementPage,
   SetDecrementPage,
   SetPageSizeToOne,
-  SetPageSizeToFour
+  SetPageSizeToFour,
+  SetPriceAcc,
+  SetPriceDesc,
+  SetTitleZA,
+  SetTitleAZ
 } from "./PaginationActions";
 import DropdownItem from "react-bootstrap/DropdownItem";
 
@@ -31,6 +35,21 @@ const Pagination = () => {
 
   const SetPageSizeFour = () => {
     dispatch(SetPageSizeToFour());
+  };
+
+  const SetPriceHightoLow = () => {
+    dispatch(SetPriceDesc());
+  };
+  const SetPriceLowToHigh = () => {
+    dispatch(SetPriceAcc());
+  };
+
+  const SetTitleAtoZ = () => {
+    dispatch(SetTitleAZ());
+  };
+
+  const SetTitleZtoA = () => {
+    dispatch(SetTitleZA());
   };
 
   return (
@@ -60,6 +79,14 @@ const Pagination = () => {
             <DropdownButton>
               <DropdownItem onClick={SetPageSizeFour}>Grid x 4</DropdownItem>
               <DropdownItem onClick={SetPageSizeOne}> Grid x 1</DropdownItem>
+              <DropdownItem onClick={SetPriceLowToHigh}>
+                Price Low to High
+              </DropdownItem>
+              <DropdownItem onClick={SetPriceHightoLow}>
+                Price High to Low
+              </DropdownItem>
+              <DropdownItem onClick={SetTitleAtoZ}>Title A to Z</DropdownItem>
+              <DropdownItem onClick={SetTitleZtoA}>Title Z to A</DropdownItem>
             </DropdownButton>
           </th>
         </tr>

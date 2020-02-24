@@ -4,8 +4,10 @@ import {
   SET_MAXIMUM_PAGES,
   SET_PAGE_SIZE_TO_ONE,
   SET_PAGE_SIZE_TO_FOUR,
-  SET_PAGE_SIZE_TO_SIX,
-  SET_PAGE_SIZE_TO_DEFAULT
+  SET_PRICE_ACCENDING,
+  SET_PRICE_DESCENDING,
+  SET_TITLE_A_Z,
+  SET_TITLE_Z_A
 } from "./PaginationActionTypes";
 
 export const SetIncrementPage = () => {
@@ -48,14 +50,26 @@ export const SetPageSizeToFour = () => {
   };
 };
 
-export const SetPageSizeToSix = () => {
+export const SetPriceAcc = () => {
   return {
-    type: SET_PAGE_SIZE_TO_SIX
+    type: SET_PRICE_ACCENDING
   };
 };
 
-export const SetPageToDefault = () => {
+export const SetPriceDesc = () => {
   return {
-    type: SET_PAGE_SIZE_TO_DEFAULT
+    type: SET_PRICE_DESCENDING
+  };
+};
+
+export const SetTitleAZ = () => {
+  return {
+    type: SET_TITLE_A_Z
+  };
+};
+
+export const SetTitleZA = () => {
+  return {
+    type: SET_TITLE_Z_A
   };
 };

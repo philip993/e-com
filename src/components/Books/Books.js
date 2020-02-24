@@ -20,7 +20,7 @@ const Books = () => {
 
   useEffect(() => {
     dispatch(LoadBooks());
-  }, [pages.page, pages.pageSize]);
+  }, [pages.page, pages.pageSize, pages.title, pages.price]);
 
   return (
     <div>
