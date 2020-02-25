@@ -12,7 +12,6 @@ exports.getBooks = (req, res) => {
   bookQuery
     .find({})
     .sort(req.query.param)
-    .sort(req.query.paramtwo)
     .then(books => {
       res.status(200).json({
         books: books

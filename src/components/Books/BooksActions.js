@@ -4,15 +4,14 @@ import axios from "axios";
 
 export const loadBooks = () => {
   return (dispatch, getState) => {
-    const { page, pageSize, price, title } = getState().PaginationReducer;
+    const { page, pageSize, sortBy } = getState().PaginationReducer;
 
     return axios
       .get(
-        `http://localhost:5000/books?page=${page}&pagesize=${pageSize}&param=${price}&paramtwo=${title}`,
+        `http://localhost:5000/books?page=${page}&pagesize=${pageSize}&param=${sortBy}`,
         {
           params: {
-            price,
-            title
+            sortBy
           }
         }
       )

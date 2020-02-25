@@ -9,7 +9,7 @@ import Pagination from "../Pagination/Pagination";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
 
 const Books = () => {
-  const { data, page, pageSize, title, price } = useSelector(state => ({
+  const { data, page, pageSize, sortBy } = useSelector(state => ({
     ...state.PaginationReducer,
     ...state.BooksReducer
   }));
@@ -21,7 +21,7 @@ const Books = () => {
 
   useEffect(() => {
     dispatch(loadBooks());
-  }, [page, pageSize, title, price]);
+  }, [page, pageSize, sortBy]);
 
   return (
     <div>

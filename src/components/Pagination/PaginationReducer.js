@@ -14,8 +14,7 @@ const initalState = {
   pageSize: 3,
   maxPages: 0,
   page: 1,
-  price: "",
-  title: ""
+  sortBy: ""
 };
 
 export const PaginationReducer = (state = initalState, action) => {
@@ -48,22 +47,22 @@ export const PaginationReducer = (state = initalState, action) => {
     case SET_PRICE_ACCENDING:
       return {
         ...state,
-        price: "price"
+        sortBy: "price"
       };
     case SET_PRICE_DESCENDING:
       return {
         ...state,
-        price: "-price"
+        sortBy: "-price"
       };
     case SET_TITLE_A_Z:
       return {
         ...state,
-        title: "title"
+        sortBy: "title"
       };
     case SET_TITLE_Z_A:
       return {
         ...state,
-        title: "-title"
+        sortBy: "-title"
       };
     default:
       return state;
