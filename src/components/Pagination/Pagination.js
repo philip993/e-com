@@ -17,33 +17,33 @@ const Pagination = () => {
   const paginate = useSelector(state => state.PaginationReducer);
   const dispatch = useDispatch();
 
-  const SetIncrement = () => {
+  const increment = () => {
     dispatch(setIncrementPage());
   };
-  const SetDecrement = () => {
+  const decrement = () => {
     dispatch(setDecrementPage());
   };
 
-  const SetPageSizeOne = () => {
+  const pageSizeOne = () => {
     dispatch(setPageSizeToOne());
   };
 
-  const SetPageSizeFour = () => {
+  const pageSizeFour = () => {
     dispatch(setPageSizeToFour());
   };
 
-  const SetPriceHightoLow = () => {
+  const priceHightoLow = () => {
     dispatch(setPriceDesc());
   };
-  const SetPriceLowToHigh = () => {
+  const priceLowToHigh = () => {
     dispatch(setPriceAcc());
   };
 
-  const SetTitleAtoZ = () => {
+  const titleAtoZ = () => {
     dispatch(setTitleAZ());
   };
 
-  const SetTitleZtoA = () => {
+  const titleZtoA = () => {
     dispatch(setTitleZA());
   };
 
@@ -52,7 +52,7 @@ const Pagination = () => {
       <Table>
         <tr>
           <th>
-            <Button onClick={SetDecrement} disabled={paginate.page === 1}>
+            <Button onClick={decrement} disabled={paginate.page === 1}>
               Previous
             </Button>
           </th>
@@ -63,25 +63,25 @@ const Pagination = () => {
           </th>
           <th>
             {paginate.maxPages === 0 ? (
-              <Button onClick={SetDecrement}>Back</Button>
+              <Button onClick={decrement}>Back</Button>
             ) : (
-              <Button onClick={SetIncrement} disabled={paginate.maxPages === 0}>
+              <Button onClick={increment} disabled={paginate.maxPages === 0}>
                 Next
               </Button>
             )}
           </th>
           <th>
             <DropdownButton>
-              <DropdownItem onClick={SetPageSizeFour}>Grid x 4</DropdownItem>
-              <DropdownItem onClick={SetPageSizeOne}> Grid x 1</DropdownItem>
-              <DropdownItem onClick={SetPriceLowToHigh}>
+              <DropdownItem onClick={pageSizeFour}>Grid x 4</DropdownItem>
+              <DropdownItem onClick={pageSizeOne}> Grid x 1</DropdownItem>
+              <DropdownItem onClick={priceLowToHigh}>
                 Price Low to High
               </DropdownItem>
-              <DropdownItem onClick={SetPriceHightoLow}>
+              <DropdownItem onClick={priceHightoLow}>
                 Price High to Low
               </DropdownItem>
-              <DropdownItem onClick={SetTitleAtoZ}>Title A to Z</DropdownItem>
-              <DropdownItem onClick={SetTitleZtoA}>Title Z to A</DropdownItem>
+              <DropdownItem onClick={titleAtoZ}>Title A to Z</DropdownItem>
+              <DropdownItem onClick={titleZtoA}>Title Z to A</DropdownItem>
             </DropdownButton>
           </th>
         </tr>
