@@ -2,54 +2,49 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Button, Table, DropdownButton } from "react-bootstrap";
 import {
-  SetIncrementPage,
-  SetDecrementPage,
-  SetPageSizeToOne,
-  SetPageSizeToFour,
-  SetPriceAcc,
-  SetPriceDesc,
-  SetTitleZA,
-  SetTitleAZ
+  setIncrementPage,
+  setDecrementPage,
+  setPageSizeToOne,
+  setPageSizeToFour,
+  setPriceAcc,
+  setPriceDesc,
+  setTitleZA,
+  setTitleAZ
 } from "./PaginationActions";
 import DropdownItem from "react-bootstrap/DropdownItem";
 
 const Pagination = () => {
   const paginate = useSelector(state => state.PaginationReducer);
   const dispatch = useDispatch();
-  const books = useSelector(state => state.BooksReducer.data);
-
-  let maxPage = Math.floor(
-    (books.length + paginate.pageSize - 1) / paginate.pageSize
-  );
 
   const SetIncrement = () => {
-    dispatch(SetIncrementPage());
+    dispatch(setIncrementPage());
   };
   const SetDecrement = () => {
-    dispatch(SetDecrementPage());
+    dispatch(setDecrementPage());
   };
 
   const SetPageSizeOne = () => {
-    dispatch(SetPageSizeToOne());
+    dispatch(setPageSizeToOne());
   };
 
   const SetPageSizeFour = () => {
-    dispatch(SetPageSizeToFour());
+    dispatch(setPageSizeToFour());
   };
 
   const SetPriceHightoLow = () => {
-    dispatch(SetPriceDesc());
+    dispatch(setPriceDesc());
   };
   const SetPriceLowToHigh = () => {
-    dispatch(SetPriceAcc());
+    dispatch(setPriceAcc());
   };
 
   const SetTitleAtoZ = () => {
-    dispatch(SetTitleAZ());
+    dispatch(setTitleAZ());
   };
 
   const SetTitleZtoA = () => {
-    dispatch(SetTitleZA());
+    dispatch(setTitleZA());
   };
 
   return (
@@ -67,10 +62,10 @@ const Pagination = () => {
             <Button>{paginate.page + 1}</Button>
           </th>
           <th>
-            {maxPage === 0 ? (
+            {paginate.maxPages === 0 ? (
               <Button onClick={SetDecrement}>Back</Button>
             ) : (
-              <Button onClick={SetIncrement} disabled={maxPage === 0}>
+              <Button onClick={SetIncrement} disabled={paginate.maxPages === 0}>
                 Next
               </Button>
             )}

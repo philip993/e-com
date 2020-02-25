@@ -2,21 +2,28 @@ import { SUCCESS_LOAD_ITEMS } from "./BooksActionTypes";
 
 import axios from "axios";
 
-export const LoadBooks = () => {
+export const loadBooks = () => {
   return (dispatch, getState) => {
-    let pageNumber = getState().PaginationReducer.page;
-    let pageSize = getState().PaginationReducer.pageSize;
-    let title = getState().PaginationReducer.title;
-    let price = getState().PaginationReducer.price;
+    const { page, pageSize, price, title } = getState().PaginationReducer;
+
     return axios
       .get(
-        `http://localhost:5000/books?page=${pageNumber}&pagesize=${pageSize}&price=${price}&title=${title}`
+        `http://localhost:5000/books?page=${page}&pagesize=${pageSize}&param=${price}&paramtwo=${title}`,
+        {
+          params: {
+            price,
+            title
+          }
+        }
       )
       .then(res => {
         dispatch({
           type: SUCCESS_LOAD_ITEMS,
           payload: res.data.books
         });
+      })
+      .catch(err => {
+        console.log(err);
       });
   };
 };

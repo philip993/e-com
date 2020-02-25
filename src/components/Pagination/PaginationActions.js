@@ -10,65 +10,61 @@ import {
   SET_TITLE_Z_A
 } from "./PaginationActionTypes";
 
-export const SetIncrementPage = () => {
+export const setIncrementPage = () => {
   return {
     type: SET_INCREMENT_PAGE
   };
 };
 
-export const SetDecrementPage = () => {
+export const setDecrementPage = () => {
   return {
     type: SET_DECREMENT_PAGE
   };
 };
 
-export const SetMaximumPages = () => {
+export const setMaximumPages = () => {
   return (dispatch, getState) => {
-    let pageSizeNum = getState().PaginationReducer.pageSize;
-    let pagesLength = getState().BooksReducer.data.books;
+    let pageSize = getState().PaginationReducer.pageSize;
+    let numberOfItems = getState().BooksReducer.data;
 
-    return dispatch => {
-      dispatch({
-        type: SET_MAXIMUM_PAGES,
-        payload: Math.floor(
-          (pagesLength.length + pageSizeNum - 1) / pageSizeNum
-        )
-      });
-    };
+    dispatch({
+      type: SET_MAXIMUM_PAGES,
+      payload: Math.floor((numberOfItems.length + pageSize - 1) / pageSize)
+    });
   };
 };
 
-export const SetPageSizeToOne = () => {
+export const setPageSizeToOne = () => {
   return {
     type: SET_PAGE_SIZE_TO_ONE
   };
 };
 
-export const SetPageSizeToFour = () => {
+export const setPageSizeToFour = () => {
   return {
     type: SET_PAGE_SIZE_TO_FOUR
   };
 };
 
-export const SetPriceAcc = () => {
+export const setPriceAcc = () => {
   return {
     type: SET_PRICE_ACCENDING
   };
 };
 
-export const SetPriceDesc = () => {
+export const setPriceDesc = () => {
   return {
     type: SET_PRICE_DESCENDING
   };
 };
 
-export const SetTitleAZ = () => {
+export const setTitleAZ = () => {
   return {
     type: SET_TITLE_A_Z
   };
 };
 
-export const SetTitleZA = () => {
+export const setTitleZA = () => {
   return {
     type: SET_TITLE_Z_A
   };

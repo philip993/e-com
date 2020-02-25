@@ -1,26 +1,27 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { LoadBooks } from "./BooksActions";
+import { loadBooks } from "./BooksActions";
 import Book from "../Book/Book";
 
 import { CardDeck, Spinner } from "react-bootstrap";
-import { SetMaximumPages } from "../Pagination/PaginationActions";
+import { setMaximumPages } from "../Pagination/PaginationActions";
 import Pagination from "../Pagination/Pagination";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
 
 const Books = () => {
-  const books = useSelector(state => state.BooksReducer);
+  const { data, page, pageSize, title, price } = useSelector(state => ({
+    ...state.PaginationReducer,
+    ...state.BooksReducer
+  }));
   const dispatch = useDispatch();
-  const pages = useSelector(state => state.PaginationReducer);
 
   useEffect(() => {
-    dispatch(SetMaximumPages());
-    console.log(books.data.length);
-  }, [books.data.length]);
+    dispatch(setMaximumPages());
+  }, [data]);
 
   useEffect(() => {
-    dispatch(LoadBooks());
-  }, [pages.page, pages.pageSize, pages.title, pages.price]);
+    dispatch(loadBooks());
+  }, [page, pageSize, title, price]);
 
   return (
     <div>
@@ -35,7 +36,7 @@ const Books = () => {
             margin: "1rem"
           }}
         >
-          {books.data.map(({ _id, ...otherProps }) => (
+          {data.map(({ _id, ...otherProps }) => (
             <Book key={_id} {...otherProps} />
           ))}
         </CardDeck>
