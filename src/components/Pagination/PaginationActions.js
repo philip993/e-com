@@ -24,12 +24,12 @@ export const setDecrementPage = () => {
 
 export const setMaximumPages = () => {
   return (dispatch, getState) => {
-    let pageSize = getState().PaginationReducer.pageSize;
-    let numberOfItems = getState().BooksReducer.data;
+    const { data } = getState().BooksReducer;
+    const { pageSize } = getState().PaginationReducer;
 
     dispatch({
       type: SET_MAXIMUM_PAGES,
-      payload: Math.floor((numberOfItems.length + pageSize - 1) / pageSize)
+      payload: Math.floor((data.length + pageSize - 1) / pageSize)
     });
   };
 };
