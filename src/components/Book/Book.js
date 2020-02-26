@@ -3,8 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { SelectBook, AddIndex } from "./BookActions";
 
 import { Card, Button } from "react-bootstrap";
+import { newWishlistItem } from "../Wishlist/WishlistActions";
 
-const Book = ({ title, writter, price, genre, year, quantity }) => {
+const Book = ({ _id, title, writter, price, genre, year, quantity }) => {
   const book = useSelector(state => state.BookReducer);
   const dispatch = useDispatch();
 
@@ -21,6 +22,10 @@ const Book = ({ title, writter, price, genre, year, quantity }) => {
     );
     handleToggleToTrue();
     handleToggleToFalse();
+  };
+
+  const handleWishitemSelect = () => {
+    dispatch(newWishlistItem({ _id }));
   };
 
   const handleToggleToTrue = () => {
@@ -52,10 +57,11 @@ const Book = ({ title, writter, price, genre, year, quantity }) => {
           {isLoaded === false ? (
             <Button onClick={handleSelectBook}>Add to Cart</Button>
           ) : (
-            <Button onClick={handleSelectBook} variant="success">
+            <Button onClick={handleSelectBook} variant='success'>
               Added!
             </Button>
           )}
+          <Button onClick={handleWishitemSelect}>Wish</Button>
         </Card.Footer>
       </Card>
     </div>
