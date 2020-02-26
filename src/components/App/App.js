@@ -11,6 +11,7 @@ import Profile from "../Profile/Profile";
 import Login from "../Login/Login";
 import Register from "../Register/Register";
 import Books from "../Books/Books";
+import Wishlist from "../Wishlist/Wishlist";
 
 const App = props => {
   return (
@@ -25,6 +26,7 @@ const App = props => {
         <Route path='/cart' exact component={ShoppingCart} />
         <Route path='/login' exact component={Login} />
         <Route path='/profile' exact component={Profile} />
+        <Route path='/wishlist' exact component={Wishlist} />
       </Switch>
     </div>
   );

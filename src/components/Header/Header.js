@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 
-import { Navbar, Nav } from "react-bootstrap";
+import { Navbar, Nav, NavLink } from "react-bootstrap";
 import Logout from "../Logout/Logout";
 import { GetTokenFromLS } from "./HeaderActions";
 
@@ -37,6 +37,9 @@ const Header = () => {
           </Nav.Link>
           <Nav.Link>
             <Link to='/cart'>Cart</Link>
+          </Nav.Link>
+          <Nav.Link>
+            <Link to='/wishlist'>Wishlist</Link>
           </Nav.Link>
 
           {!returnTokenFromLS ? (
