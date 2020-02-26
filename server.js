@@ -5,6 +5,7 @@ const bodyParser = require("body-parser");
 
 const books = require("./src/backend/Post/BookRoutes");
 const users = require("./src/backend/User/UserRoutes.js");
+const wishlist = require("./src/backend/Wishlist/WishlistRoutes");
 
 mongoose
   .connect("mongodb://localhost/e-commerce", { useNewUrlParser: true })
@@ -26,6 +27,7 @@ app.use((req, res, next) => {
 
 app.use("/books", books);
 app.use("/users", users);
+app.use("/wishlist", wishlist);
 
 const port = process.env.PORT || 5000;
 
