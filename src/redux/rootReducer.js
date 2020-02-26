@@ -8,6 +8,7 @@ import { LoginReducer } from "../components/Login/LoginReducer";
 import { HeaderReducer } from "../components/Header/HeaderReducer";
 import { ProfileReducer } from "../components/Profile/ProfileReducer";
 import { PaginationReducer } from "../components/Pagination/PaginationReducer";
+import { WishlistReducer } from "../components/Wishlist/WishlistReducer";
 
 const rootReducer = combineReducers({
   BookReducer,
@@ -18,7 +19,8 @@ const rootReducer = combineReducers({
   LoginReducer,
   HeaderReducer,
   ProfileReducer,
-  PaginationReducer
+  PaginationReducer,
+  WishlistReducer
 });
 
 export default rootReducer;
