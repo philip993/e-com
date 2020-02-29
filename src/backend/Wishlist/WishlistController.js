@@ -13,7 +13,6 @@ exports.getWishlistItems = (req, res) => {
       res.status(500).json({
         error: error
       });
-      console.log(error);
     });
 };
 
@@ -27,6 +26,35 @@ exports.newWishlistItem = (req, res) => {
     .then(item => {
       res.status(201).json({
         item: item
+      });
+    })
+    .catch(error => {
+      res.status(500).json({
+        error: error
+      });
+    });
+};
+
+exports.deleteOneWishlistItem = (req, res) => {
+  Wishlist.deleteOne({ _id: req.params.id })
+    .then(deletedItem => {
+      res.status(200).json({
+        deletedItem: deletedItem
+      });
+    })
+    .catch(error => {
+      res.status(500).json({
+        error: error
+      });
+      console.log(error);
+    });
+};
+
+exports.deleteAllWishlistItems = (req, res) => {
+  Wishlist.deleteMany({})
+    .then(deletedItems => {
+      res.status(200).json({
+        deletedItems: deletedItems
       });
     })
     .catch(error => {
