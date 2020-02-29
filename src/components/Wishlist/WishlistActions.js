@@ -1,6 +1,7 @@
 import {
   GET_WISHLIST_ITEMS,
-  POST_NEW_WISHLIST_ITEM
+  POST_NEW_WISHLIST_ITEM,
+  DELETE_ALL_WISHLIST_ITEMS
 } from "./WishlistActionTypes";
 import axios from "axios";
 
@@ -37,6 +38,19 @@ export const newWishlistItem = item => {
             title: item.title,
             price: item.price
           }
+        });
+      });
+  };
+};
+
+export const deleteWishlist = item => {
+  return (dispatch, getState) => {
+    let wishItemsTest = getState().WishlistReducer.wishItems;
+    return axios
+      .delete(`http://localhost:5000/wishlist`, { data: { wishItemsTest } })
+      .then(response => {
+        dispatch({
+          type: DELETE_ALL_WISHLIST_ITEMS
         });
       });
   };
