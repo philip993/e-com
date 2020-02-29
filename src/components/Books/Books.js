@@ -36,8 +36,8 @@ const Books = () => {
             margin: "1rem"
           }}
         >
-          {data.map(({ _id, ...otherProps }) => (
-            <Book key={_id} {...otherProps} />
+          {data.map(({ ...otherProps }) => (
+            <Book {...otherProps} />
           ))}
         </CardDeck>
       </PrivateRoute>

@@ -5,7 +5,7 @@ import { SelectBook, AddIndex } from "./BookActions";
 import { Card, Button } from "react-bootstrap";
 import { newWishlistItem } from "../Wishlist/WishlistActions";
 
-const Book = (item, index) => {
+const Book = item => {
   const book = useSelector(state => state.BookReducer);
   const dispatch = useDispatch();
 
@@ -24,7 +24,7 @@ const Book = (item, index) => {
     handleToggleToFalse();
   };
 
-  const handleWishitemSelect = () => {
+  const handleWishitemSelect = e => {
     dispatch(newWishlistItem(item));
   };
 
@@ -61,7 +61,9 @@ const Book = (item, index) => {
               Added!
             </Button>
           )}
-          <Button onClick={handleWishitemSelect.bind(this, index)}>Wish</Button>
+          <Button onClick={handleWishitemSelect.bind(this, item._id)}>
+            Wish
+          </Button>
         </Card.Footer>
       </Card>
     </div>

@@ -10,7 +10,6 @@ export const getAllWishlistItems = () => {
     return axios
       .get(`http://localhost:5000/wishlist`)
       .then(response => {
-        console.log(response);
         dispatch({
           type: GET_WISHLIST_ITEMS,
           payload: response.data.items
@@ -23,22 +22,19 @@ export const getAllWishlistItems = () => {
 };
 
 export const newWishlistItem = item => {
-  return (dispatch, getState) => {
-    let testItem = getState().BooksReducer.data;
+  return dispatch => {
     return axios
       .post(`http://localhost:5000/wishlist`, {
-        wishlistItemId: testItem[item.index]
+        wishlistItemId: item._id
       })
       .then(response => {
-        console.log(item);
-        console.log(response);
         dispatch({
           type: POST_NEW_WISHLIST_ITEM,
-          payload: {
-            title: item.title,
-            price: item.price
-          }
+          payload: response.data.item
         });
+      })
+      .catch(error => {
+        console.log(error);
       });
   };
 };

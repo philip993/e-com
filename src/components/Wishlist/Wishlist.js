@@ -14,7 +14,6 @@ const Wishlist = () => {
 
   const handleClearWihslist = () => {
     dispatch(deleteWishlist());
-    console.log("clicked");
   };
 
   return (
