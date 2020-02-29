@@ -5,7 +5,7 @@ import { SelectBook, AddIndex } from "./BookActions";
 import { Card, Button } from "react-bootstrap";
 import { newWishlistItem } from "../Wishlist/WishlistActions";
 
-const Book = ({ _id, title, writter, price, genre, year, quantity }) => {
+const Book = (item, index) => {
   const book = useSelector(state => state.BookReducer);
   const dispatch = useDispatch();
 
@@ -15,8 +15,8 @@ const Book = ({ _id, title, writter, price, genre, year, quantity }) => {
     dispatch(AddIndex(book.index));
     dispatch(
       SelectBook({
-        title,
-        price,
+        title: item.title,
+        price: item.price,
         index: book.index
       })
     );
@@ -25,7 +25,7 @@ const Book = ({ _id, title, writter, price, genre, year, quantity }) => {
   };
 
   const handleWishitemSelect = () => {
-    dispatch(newWishlistItem({ _id }));
+    dispatch(newWishlistItem(item));
   };
 
   const handleToggleToTrue = () => {
@@ -43,14 +43,14 @@ const Book = ({ _id, title, writter, price, genre, year, quantity }) => {
       >
         <Card.Body>
           <Card.Title>
-            <h3>{title}</h3>
+            <h3>{item.title}</h3>
           </Card.Title>
           <Card.Text>
-            <p>Writte by {writter}.</p>
-            <p>Book Genre is {genre}.</p>
-            <p>Published on {year}.</p>
-            <p>Price of this book is {price.toFixed(2)}$.</p>
-            <span>Remaining quantity: {quantity}.</span>
+            <p>Writte by {item.writter}.</p>
+            <p>Book Genre is {item.genre}.</p>
+            <p>Published on {item.year}.</p>
+            <p>Price of this book is {item.price.toFixed(2)}$.</p>
+            <span>Remaining quantity: {item.quantity}.</span>
           </Card.Text>
         </Card.Body>
         <Card.Footer>
@@ -61,7 +61,7 @@ const Book = ({ _id, title, writter, price, genre, year, quantity }) => {
               Added!
             </Button>
           )}
-          <Button onClick={handleWishitemSelect}>Wish</Button>
+          <Button onClick={handleWishitemSelect.bind(this, index)}>Wish</Button>
         </Card.Footer>
       </Card>
     </div>

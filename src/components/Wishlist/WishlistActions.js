@@ -21,14 +21,23 @@ export const getAllWishlistItems = () => {
   };
 };
 
-export const newWishlistItem = () => {
+export const newWishlistItem = item => {
   return (dispatch, getState) => {
-    return axios.post(`http://localhost:5000/wishlist`).then(response => {
-      console.log(response);
-      dispatch({
-        type: POST_NEW_WISHLIST_ITEM,
-        payload: response
+    let testItem = getState().BooksReducer.data;
+    return axios
+      .post(`http://localhost:5000/wishlist`, {
+        wishlistItemId: testItem[item.index]
+      })
+      .then(response => {
+        console.log(item);
+        console.log(response);
+        dispatch({
+          type: POST_NEW_WISHLIST_ITEM,
+          payload: {
+            title: item.title,
+            price: item.price
+          }
+        });
       });
-    });
   };
 };
