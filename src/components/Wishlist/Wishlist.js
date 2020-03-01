@@ -49,19 +49,27 @@ const Wishlist = item => {
         <tbody>
           {wish.wishItems.map(({ wishlistItemId }, index) => (
             <tr>
-              <td>{index}</td>
+              <td>{index}.</td>
               <td>{wishlistItemId.title}</td>
               <td>{wishlistItemId.price}</td>
               <td>
-                <Button onClick={handleRemoveOne.bind(this, index)}>X</Button>
+                <Button
+                  variant='outline-danger'
+                  onClick={handleRemoveOne.bind(this, index)}
+                >
+                  X
+                </Button>
               </td>
             </tr>
           ))}
         </tbody>
         <tfoot>
           <tr>
+            <td></td>
             <td>
-              <Button onClick={handleClearWihslist}>Clear Wishlist</Button>
+              <Button onClick={handleClearWihslist} variant='outline-danger'>
+                Clear Wishlist
+              </Button>
             </td>
           </tr>
         </tfoot>
