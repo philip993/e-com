@@ -1,7 +1,8 @@
 import {
   GET_WISHLIST_ITEMS,
   POST_NEW_WISHLIST_ITEM,
-  DELETE_ALL_WISHLIST_ITEMS
+  DELETE_ALL_WISHLIST_ITEMS,
+  DELETE_ONE_ITEM_FROM_WISHLIST
 } from "./WishlistActionTypes";
 
 const initialState = {
@@ -24,6 +25,14 @@ export const WishlistReducer = (state = initialState, action) => {
       return {
         ...state,
         wishItems: []
+      };
+    case DELETE_ONE_ITEM_FROM_WISHLIST:
+      return {
+        ...state,
+        wishItems: [
+          ...state.wishItems.slice(0, action.payload),
+          ...state.wishItems.slice(action.payload + 1)
+        ]
       };
     default:
       return state;
