@@ -26,7 +26,6 @@ const Wishlist = item => {
         index: e
       })
     );
-    console.log(e);
   };
 
   return (
