@@ -31,30 +31,42 @@ const Wishlist = item => {
 
   return (
     <div>
-      <Table>
-        <tr>
-          <h1>Wishlist Items</h1>
-        </tr>
+      <h1>Wishlist</h1>
+      <Table
+        striped
+        bordered
+        hover
+        size='sm'
+        style={{ width: "50%", margin: "auto" }}
+      >
         <thead>
           <tr>
+            <th>No.</th>
             <th>Book</th>
             <th>Price</th>
             <th>Remove</th>
           </tr>
-          <tbody>
-            {wish.wishItems.map(({ wishlistItemId }, index) => (
-              <tr>
-                <th>{wishlistItemId.title}</th>
-                <th>{wishlistItemId.price}</th>
-                <th>
-                  <Button onClick={handleRemoveOne.bind(this, index)}>X</Button>
-                </th>
-              </tr>
-            ))}
-          </tbody>
         </thead>
+        <tbody>
+          {wish.wishItems.map(({ wishlistItemId }, index) => (
+            <tr>
+              <td>{index}</td>
+              <td>{wishlistItemId.title}</td>
+              <td>{wishlistItemId.price}</td>
+              <td>
+                <Button onClick={handleRemoveOne.bind(this, index)}>X</Button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+        <tfoot>
+          <tr>
+            <td>
+              <Button onClick={handleClearWihslist}>Clear Wishlist</Button>
+            </td>
+          </tr>
+        </tfoot>
       </Table>
-      <Button onClick={handleClearWihslist}>Clear Wishlist</Button>
     </div>
   );
 };
