@@ -59,14 +59,14 @@ export const deleteItemFromWishlist = item => {
     console.log(item);
     return axios
       .delete(`http://localhost:5000/wishlist`, {
-        param: wishItemsTestTwo.item
+        params: item._id
       })
       .then(response => {
         console.log(response);
         console.log(wishItemsTestTwo);
         dispatch({
           type: DELETE_ONE_ITEM_FROM_WISHLIST,
-          payload: item
+          payload: item.index
         });
       });
   };

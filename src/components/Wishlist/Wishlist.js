@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import WishlistView from "./WishlistView";
+
 import {
   getAllWishlistItems,
   deleteWishlist,
@@ -20,9 +20,13 @@ const Wishlist = item => {
     dispatch(deleteWishlist());
   };
 
-  const handleRemoveOne = item => {
-    dispatch(deleteItemFromWishlist());
-    console.log(item);
+  const handleRemoveOne = e => {
+    dispatch(
+      deleteItemFromWishlist({
+        index: e
+      })
+    );
+    console.log(e);
   };
 
   return (
