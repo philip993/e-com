@@ -56,14 +56,11 @@ export const deleteWishlist = item => {
 export const deleteItemFromWishlist = item => {
   return (dispatch, getState) => {
     let wishItemsTestTwo = getState().WishlistReducer.wishItems;
-    console.log(item);
     return axios
-      .delete(`http://localhost:5000/wishlist`, {
-        params: item._id
-      })
+      .delete(
+        `http://localhost:5000/wishlist/${wishItemsTestTwo[item.index]._id}`
+      )
       .then(response => {
-        console.log(response);
-        console.log(wishItemsTestTwo);
         dispatch({
           type: DELETE_ONE_ITEM_FROM_WISHLIST,
           payload: item.index
