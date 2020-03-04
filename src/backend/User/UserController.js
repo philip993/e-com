@@ -113,3 +113,19 @@ exports.getProfile = (req, res) => {
       console.log(err);
     });
 };
+
+exports.getUserInfo = (req, res) => {
+  User.findOne({ email: req.params.email })
+    .then(oneUser => {
+      res.status(200).json({
+        _id: oneUser._id,
+        username: oneUser.username
+      });
+    })
+    .catch(err => {
+      res.status(500).json({
+        err: err
+      });
+      console.log(err);
+    });
+};
