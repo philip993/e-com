@@ -7,13 +7,16 @@ import {
 import axios from "axios";
 
 export const getAllWishlistItems = () => {
-  return dispatch => {
+  return (dispatch, getState) => {
+    let userId = localStorage.getItem("userId");
     return axios
       .get(`http://localhost:5000/wishlist`)
       .then(response => {
         dispatch({
           type: GET_WISHLIST_ITEMS,
-          payload: response.data.items
+          payload: response.data.items.filter(
+            item => item.wishlistAuthor._id === userId
+          )
         });
       })
       .catch(error => {
@@ -24,9 +27,11 @@ export const getAllWishlistItems = () => {
 
 export const newWishlistItem = item => {
   return (dispatch, getState) => {
+    let userId = localStorage.getItem("userId");
     return axios
       .post(`http://localhost:5000/wishlist`, {
-        wishlistItemId: item._id
+        wishlistItemId: item._id,
+        wishlistAuthor: userId
       })
       .then(response => {
         dispatch({
