@@ -5,13 +5,20 @@ import { Link } from "react-router-dom";
 import { Navbar, Nav, NavLink } from "react-bootstrap";
 import Logout from "../Logout/Logout";
 import { GetTokenFromLS } from "./HeaderActions";
+import { getUserInformation } from "../User/UserActions";
 
 const Header = () => {
-  const user = useSelector(state => state.HeaderReducer);
+  const header = useSelector(state => state.HeaderReducer);
   const dispatch = useDispatch();
+  const userR = useSelector(state => state.UserReducer);
+
+  // useEffect(() => {
+  //   dispatch(getUserInformation());
+  // }, [userR.info]);
 
   const getToken = () => {
     dispatch(GetTokenFromLS());
+    dispatch(getUserInformation());
   };
 
   const returnTokenFromLS = localStorage.getItem("token");
@@ -55,6 +62,10 @@ const Header = () => {
               <Link to='/profile'>Profile</Link>
             </Nav.Link>
           ) : null}
+
+          <Nav.Link>
+            <Link to='/user'>USER</Link>
+          </Nav.Link>
         </Nav>
       </Navbar>
     </div>
