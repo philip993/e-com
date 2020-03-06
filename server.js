@@ -6,6 +6,7 @@ const bodyParser = require("body-parser");
 const books = require("./src/backend/Post/BookRoutes");
 const users = require("./src/backend/User/UserRoutes.js");
 const wishlist = require("./src/backend/Wishlist/WishlistRoutes");
+const admin = require("./admin-bro/adminRoute");
 
 mongoose
   .connect("mongodb://localhost/e-commerce", { useNewUrlParser: true })
@@ -13,7 +14,7 @@ mongoose
   .catch(err => console.log("Could not connect to MongoDB"));
 
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+// app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use((req, res, next) => {
   res.setHeader(
@@ -31,6 +32,7 @@ app.use((req, res, next) => {
 app.use("/books", books);
 app.use("/users", users);
 app.use("/wishlist", wishlist);
+app.use("/admin", admin);
 
 const port = process.env.PORT || 5000;
 
