@@ -31,6 +31,11 @@ const UserSchema = new mongoose.Schema({
     required: true,
     minlength: 4
   },
+  role: {
+    type: String,
+    enum: ["super-admin", "admin", "restrictred"],
+    default: "restrictred"
+  },
   age: {
     type: Number,
     required: true,
