@@ -9,10 +9,13 @@ import {
   LoadItemToCartCopy
 } from "./ShoppingCartActions";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
+import { useHistory } from "react-router-dom";
 
 const ShoppingCart = item => {
   const selectedBooks = useSelector(state => state.ShoppingCartReducer);
   const dispatch = useDispatch();
+
+  const history = useHistory();
 
   useEffect(() => {
     dispatch(LoadItemToCartCopy());
@@ -29,7 +32,7 @@ const ShoppingCart = item => {
   );
 
   const handleCheckOut = () => {
-    console.log("Add payment method!");
+    history.push("/checkout");
   };
 
   const handleClearCart = () => {
