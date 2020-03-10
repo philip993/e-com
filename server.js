@@ -1,12 +1,18 @@
+const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
+
 const express = require("express");
 const mongoose = require("mongoose");
 const app = express();
 const bodyParser = require("body-parser");
+const stripe = require("stripe")(stripeSecretKey);
+
+require("dotenv").config();
 
 const books = require("./src/backend/Post/BookRoutes");
 const users = require("./src/backend/User/UserRoutes.js");
 const wishlist = require("./src/backend/Wishlist/WishlistRoutes");
 const admin = require("./admin-bro/adminRoute");
+const checkout = require("./src/backend/Checkout/CheckoutRoutes");
 
 mongoose
   .connect("mongodb://localhost/e-commerce", { useNewUrlParser: true })
@@ -33,6 +39,7 @@ app.use("/books", books);
 app.use("/users", users);
 app.use("/wishlist", wishlist);
 app.use("/admin", admin);
+app.use("/checkout", checkout);
 
 const port = process.env.PORT || 5000;
 
