@@ -10,6 +10,7 @@ import { ProfileReducer } from "../components/Profile/ProfileReducer";
 import { PaginationReducer } from "../components/Pagination/PaginationReducer";
 import { WishlistReducer } from "../components/Wishlist/WishlistReducer";
 import { UserReducer } from "../components/User/UserReducer";
+import { CheckoutReducer } from "../components/Checkout/CheckoutReducer";
 
 const rootReducer = combineReducers({
   BookReducer,
@@ -22,7 +23,8 @@ const rootReducer = combineReducers({
   ProfileReducer,
   PaginationReducer,
   WishlistReducer,
-  UserReducer
+  UserReducer,
+  CheckoutReducer
 });
 
 export default rootReducer;
