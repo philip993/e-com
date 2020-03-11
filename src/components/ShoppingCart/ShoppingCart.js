@@ -10,6 +10,7 @@ import {
 } from "./ShoppingCartActions";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
 import { useHistory } from "react-router-dom";
+import { createOrder } from "../Order/OrderActions";
 
 const ShoppingCart = item => {
   const selectedBooks = useSelector(state => state.ShoppingCartReducer);
@@ -31,7 +32,8 @@ const ShoppingCart = item => {
     0
   );
 
-  const handleCheckOut = () => {
+  const handleCheckOut = item => {
+    dispatch(createOrder());
     history.push("/checkout");
   };
 
