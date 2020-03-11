@@ -17,15 +17,7 @@ const Checkout = () => {
     dispatch(getItemsToCheckout());
   }, []);
 
-  const itemsFromCart = check.cartItems.map(
-    book =>
-      (book = {
-        title: book.title,
-        price: book.price
-      })
-  );
-
-  const [book] = itemsFromCart;
+  const [itemsFromCart] = check.cartItems;
 
   const totalSumFromCart = check.cartItems.reduce(
     (current, total) => current + total.price,
@@ -35,7 +27,7 @@ const Checkout = () => {
   const handleToken = async token => {
     const response = await axios.post("http://localhost:5000/checkout", {
       token,
-      book
+      totalSumFromCart
     });
     const { status } = response.data;
 
@@ -50,7 +42,7 @@ const Checkout = () => {
       <h1>Confirm Your Payment</h1>
 
       <StripeCheckout
-        stripeKey={process.env.STRIPE_PUBLIC_KEY}
+        stripeKey={stripePublishableKey}
         token={handleToken}
         billingAddress
         shippingAddress

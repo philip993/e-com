@@ -5,22 +5,23 @@ exports.makePayment = async (req, res) => {
   let error;
   let status;
   try {
-    const { book, token } = req.body;
+    const { itemsFromCart, totalSumFromCart, token } = req.body;
 
     const customer = await stripe.customers.create({
       email: token.email,
       source: token.id
     });
-    console.log(token);
-    console.log(book);
     //const idempotency_key = uuid();
     const charge = await stripe.charges.create(
       {
-        amount: book.price * 100,
+        amount: totalSumFromCart * 100,
         currency: "usd",
         customer: customer.id,
         receipt_email: token.email,
-        description: `Purchased the ${book.title}`,
+        description: `Purchased items`,
+        metadata: {
+          data: itemsFromCart
+        },
         shipping: {
           name: token.card.name,
           address: {
