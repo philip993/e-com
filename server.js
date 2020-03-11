@@ -13,6 +13,7 @@ const users = require("./src/backend/User/UserRoutes.js");
 const wishlist = require("./src/backend/Wishlist/WishlistRoutes");
 const admin = require("./admin-bro/adminRoute");
 const checkout = require("./src/backend/Checkout/CheckoutRoutes");
+const order = require("./src/backend/Order/OrderRoutes");
 
 mongoose
   .connect("mongodb://localhost/e-commerce", { useNewUrlParser: true })
@@ -40,6 +41,7 @@ app.use("/users", users);
 app.use("/wishlist", wishlist);
 app.use("/admin", admin);
 app.use("/checkout", checkout);
+app.use("/orders", order);
 
 const port = process.env.PORT || 5000;
 
