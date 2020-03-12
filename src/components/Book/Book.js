@@ -15,6 +15,7 @@ const Book = item => {
     dispatch(AddIndex(book.index));
     dispatch(
       SelectBook({
+        _id: item._id,
         title: item.title,
         price: item.price,
         index: book.index

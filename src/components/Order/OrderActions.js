@@ -1,7 +1,7 @@
 import { CREATE_ORDER, GET_ORDERS } from "./OrderActionTypes";
 import axios from "axios";
 
-export const createOrder = item => {
+export const createOrder = (book, index) => {
   return (dispatch, getState) => {
     let cartItems = getState().ShoppingCartReducer.copyOfBooksInCart;
     const loggedUserId = localStorage.getItem("userId");
