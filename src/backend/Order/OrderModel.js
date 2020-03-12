@@ -6,10 +6,20 @@ const orderSchema = new mongoose.Schema({
     ref: "User",
     required: true
   },
-  cart: {
-    type: Object,
-    required: true
-  }
+  cart: [
+    {
+      _id: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Book"
+      },
+      title: {
+        type: String
+      },
+      price: {
+        type: Number
+      }
+    }
+  ]
 });
 
 const Order = mongoose.model("Order", orderSchema);

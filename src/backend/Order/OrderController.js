@@ -23,8 +23,8 @@ exports.newOrder = (req, res) => {
 
 exports.getOrders = (req, res) => {
   Order.find({})
-    .populate("userId")
-    .populate("cart")
+    .populate("userIds", "username")
+    .populate("cartItems")
     .then(orders => {
       res.status(200).json({
         orders
@@ -35,5 +35,19 @@ exports.getOrders = (req, res) => {
         err
       });
       console.log(err);
+    });
+};
+
+exports.deleteAllOrders = (req, res) => {
+  Order.deleteMany()
+    .then(deletedOrders => {
+      res.status(200).json({
+        deletedOrders
+      });
+    })
+    .catch(err => {
+      res.status(500).json({
+        err
+      });
     });
 };

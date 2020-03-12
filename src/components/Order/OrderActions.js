@@ -32,7 +32,7 @@ export const getOrders = () => {
         console.log(response);
         dispatch({
           type: GET_ORDERS,
-          payload: response.data.order
+          payload: response.data.orders
         });
       })
       .catch(error => {
