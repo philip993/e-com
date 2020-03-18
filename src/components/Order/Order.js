@@ -54,16 +54,25 @@ const Order = props => {
           <Modal.Title>Order details</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <div>
-            {!orderArr.cart
-              ? "Order not selected!"
-              : orderArr.cart.map(({ title, price }) => (
-                  <div>
-                    <h1>{title}</h1>
-                    <h1>{price}</h1>
-                  </div>
-                ))}
-          </div>
+          <Table>
+            <thead>
+              <tr>
+                <th>Item</th>
+                <th>Price</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              {!orderArr.cart
+                ? "Order not selected!"
+                : orderArr.cart.map(({ title, price }) => (
+                    <tr>
+                      <td>{title}</td>
+                      <td>{price.toFixed(2)}</td>
+                    </tr>
+                  ))}
+            </tbody>
+          </Table>
         </Modal.Body>
         <Modal.Footer>
           <Button
