@@ -1,7 +1,13 @@
-import { CREATE_ORDER, GET_ORDERS } from "./OrderActionTypes";
+import {
+  CREATE_ORDER,
+  GET_ORDERS,
+  SHOW_DETAILS,
+  HIDE_DETAILS
+} from "./OrderActionTypes";
 
 const initialState = {
-  order: []
+  order: [],
+  visibility: false
 };
 
 export const OrderReducer = (state = initialState, action) => {
@@ -15,6 +21,16 @@ export const OrderReducer = (state = initialState, action) => {
       return {
         ...state,
         order: action.payload
+      };
+    case SHOW_DETAILS:
+      return {
+        ...state,
+        visibility: true
+      };
+    case HIDE_DETAILS:
+      return {
+        ...state,
+        visibility: false
       };
     default:
       return state;

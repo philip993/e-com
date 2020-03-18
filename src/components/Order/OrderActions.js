@@ -1,4 +1,9 @@
-import { CREATE_ORDER, GET_ORDERS } from "./OrderActionTypes";
+import {
+  CREATE_ORDER,
+  GET_ORDERS,
+  SHOW_DETAILS,
+  HIDE_DETAILS
+} from "./OrderActionTypes";
 import axios from "axios";
 
 export const createOrder = (book, index) => {
@@ -38,5 +43,17 @@ export const getOrders = () => {
       .catch(error => {
         console.log(error);
       });
+  };
+};
+
+export const toggleShowTrue = () => {
+  return {
+    type: SHOW_DETAILS
+  };
+};
+
+export const toggleShowFalse = () => {
+  return {
+    type: HIDE_DETAILS
   };
 };

@@ -1,59 +1,79 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Table } from "react-bootstrap";
-import { getOrders } from "./OrderActions";
-import { ToastContainer, toast } from "react-toastify";
-
-toast.configure();
+import { Table, Modal, Button } from "react-bootstrap";
+import { getOrders, toggleShowFalse, toggleShowTrue } from "./OrderActions";
 
 const Order = props => {
   const orders = useSelector(state => state.OrderReducer);
   const dispatch = useDispatch();
 
+  const [orderArr, setOrderArr] = useState([]);
+
   useEffect(() => {
     dispatch(getOrders());
   }, []);
 
-  const notify = () => toast("NOTIFICATION");
-
   const getOrderDetail = e => {
-    // let temp = orders.order;
-
-    let tempCart = orders.order.map((itm, index) => itm.cart[e]);
-
-    notify();
-    console.log(tempCart);
-
-    console.log(e);
+    let orderDetails = orders.order.find(
+      (cart, index) => cart.cart[e] === cart.cart[index]
+    );
+    setOrderArr(orderDetails);
+    dispatch(toggleShowTrue());
   };
 
   return (
     <div>
-      <h1>Orders</h1>
-
-      <Table>
+      <Table style={{ width: "1440px", margin: "auto" }}>
         <thead>
+          <tr>
+            <h1>Orders</h1>
+          </tr>
           <th>No</th>
           <th>Order</th>
           <th>User</th>
         </thead>
         <tbody>
-          {orders.order.map((itms, index) => (
+          {orders.order.map(({ userIds }, index) => (
             <tr>
               <td>{index}</td>
-
-              <td>{[itms.cart._id]}</td>
-
               <td>
-                <button onClick={getOrderDetail.bind(this, index)}>
+                <Button
+                  variant='secondary'
+                  onClick={getOrderDetail.bind(this, index)}
+                >
                   Get details
-                </button>
+                </Button>
               </td>
-              <td>{itms.userIds.username}</td>
+              <td>{userIds.username}</td>
             </tr>
           ))}
         </tbody>
       </Table>
+      <Modal show={orders.visibility}>
+        <Modal.Header>
+          <Modal.Title>Order details</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <div>
+            {!orderArr.cart
+              ? "Order not selected!"
+              : orderArr.cart.map(({ title, price }) => (
+                  <div>
+                    <h1>{title}</h1>
+                    <h1>{price}</h1>
+                  </div>
+                ))}
+          </div>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button
+            onClick={() => dispatch(toggleShowFalse())}
+            variant='secondary'
+          >
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 };
