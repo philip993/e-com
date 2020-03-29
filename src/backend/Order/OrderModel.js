@@ -25,6 +25,18 @@ const orderSchema = new mongoose.Schema({
   ],
   stripeOrderId: {
     type: String
+  },
+  name: {
+    type: String
+  },
+  address: {
+    type: String
+  },
+  city: {
+    type: String
+  },
+  country: {
+    type: String
   }
 });
 
