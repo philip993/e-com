@@ -17,9 +17,15 @@ const orderSchema = new mongoose.Schema({
       },
       price: {
         type: Number
+      },
+      skuId: {
+        type: String
       }
     }
-  ]
+  ],
+  stripeOrderId: {
+    type: String
+  }
 });
 
 const Order = mongoose.model("Order", orderSchema);
