@@ -72,6 +72,7 @@ const Order = props => {
                     </tr>
                   ))}
             </tbody>
+            <tfoot>Status</tfoot>
           </Table>
         </Modal.Body>
         <Modal.Footer>

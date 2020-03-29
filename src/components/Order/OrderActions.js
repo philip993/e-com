@@ -11,6 +11,7 @@ export const createOrder = (book, index) => {
     let cartItems = getState().ShoppingCartReducer.copyOfBooksInCart;
     const loggedUserId = localStorage.getItem("userId");
     console.log(loggedUserId);
+    console.log(cartItems);
     return axios
       .post(`http://localhost:5000/orders`, {
         userIds: loggedUserId,
@@ -22,6 +23,10 @@ export const createOrder = (book, index) => {
           type: CREATE_ORDER,
           payload: response.data
         });
+        localStorage.setItem(
+          "stripeOrderId",
+          response.data.orders.stripeOrderId
+        );
       })
       .catch(error => {
         console.log(error);
