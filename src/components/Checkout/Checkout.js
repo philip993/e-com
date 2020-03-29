@@ -25,10 +25,13 @@ const Checkout = () => {
   );
 
   const handleToken = async token => {
+    const stripeOrderId = localStorage.getItem("stripeOrderId");
     const response = await axios.post("http://localhost:5000/checkout", {
       token,
+      stripeOrderId,
       totalSumFromCart
     });
+    console.log(stripeOrderId);
     const { status } = response.data;
 
     if (status === "success") {
