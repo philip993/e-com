@@ -12,11 +12,11 @@ exports.newOrder = async (req, res) => {
       parent: item.skuId
     })),
     shipping: {
-      name: "TESTER",
+      name: cartBody.name,
       address: {
-        line1: "STREET TEST",
-        city: "",
-        country: "",
+        line1: cartBody.address,
+        city: cartBody.city,
+        country: cartBody.country,
         postal_code: ""
       }
     }
