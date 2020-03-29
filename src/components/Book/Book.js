@@ -18,7 +18,8 @@ const Book = item => {
         _id: item._id,
         title: item.title,
         price: item.price,
-        index: book.index
+        index: book.index,
+        skuId: item.skuId
       })
     );
     handleToggleToTrue();
