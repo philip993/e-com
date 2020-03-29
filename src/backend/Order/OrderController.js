@@ -1,16 +1,38 @@
+const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
 const { Order } = require("./OrderModel");
+const stripe = require("stripe")(stripeSecretKey);
 
-exports.newOrder = (req, res) => {
-  const order = new Order({
-    userIds: req.body.userIds,
-    cart: req.body.cart
+exports.newOrder = async (req, res) => {
+  const cartBody = req.body;
+
+  const order = await stripe.orders.create({
+    currency: "usd",
+    email: "TEST@TEST.COM",
+    items: cartBody.cart.map((item, index) => ({
+      parent: item.skuId
+    })),
+    shipping: {
+      name: "TESTER",
+      address: {
+        line1: "STREET TEST",
+        city: "",
+        country: "",
+        postal_code: ""
+      }
+    }
   });
 
-  order
+  const orders = await new Order({
+    userIds: req.body.userIds,
+    cart: req.body.cart,
+    stripeOrderId: order.id
+  });
+
+  orders
     .save()
-    .then(order => {
+    .then(orders => {
       res.status(200).json({
-        order
+        orders
       });
     })
     .catch(err => {
