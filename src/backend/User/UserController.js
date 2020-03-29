@@ -116,10 +116,15 @@ exports.getProfile = (req, res) => {
 
 exports.getUserInfo = (req, res) => {
   User.findOne({ email: req.params.email })
-    .then(oneUser => {
+    .then(selectedUser => {
       res.status(200).json({
-        _id: oneUser._id,
-        username: oneUser.username
+        selectedUser: {
+          _id: selectedUser._id,
+          firstName: selectedUser.firstName,
+          address: selectedUser.address,
+          city: selectedUser.city,
+          country: selectedUser.country
+        }
       });
     })
     .catch(err => {

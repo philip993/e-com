@@ -9,9 +9,9 @@ export const getUserInformation = () => {
       .then(response => {
         dispatch({
           type: GET_USER_INFORMATION,
-          payload: response.data._id
+          payload: response.data.selectedUser
         });
-        localStorage.setItem("userId", response.data._id);
+        localStorage.setItem("userId", response.data.selectedUser._id);
       })
       .catch(err => {
         console.log(err);

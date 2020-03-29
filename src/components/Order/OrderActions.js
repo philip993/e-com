@@ -9,13 +9,18 @@ import axios from "axios";
 export const createOrder = (book, index) => {
   return (dispatch, getState) => {
     let cartItems = getState().ShoppingCartReducer.copyOfBooksInCart;
+    let selUser = getState().UserReducer.info;
     const loggedUserId = localStorage.getItem("userId");
     console.log(loggedUserId);
     console.log(cartItems);
     return axios
       .post(`http://localhost:5000/orders`, {
         userIds: loggedUserId,
-        cart: cartItems
+        cart: cartItems,
+        name: selUser.firstName,
+        address: selUser.address,
+        city: selUser.city,
+        country: selUser.country
       })
       .then(response => {
         console.log(response);
