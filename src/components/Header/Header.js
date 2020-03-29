@@ -66,10 +66,6 @@ const Header = () => {
           <Nav.Link>
             <Link to='/orders'>Orders</Link>
           </Nav.Link>
-
-          <Nav.Link>
-            <Link to='/user'>USER</Link>
-          </Nav.Link>
         </Nav>
       </Navbar>
     </div>

@@ -4,6 +4,7 @@ import { EmailSubmit, PasswordSubmit, LoginFinish } from "./LoginActions";
 import { useHistory } from "react-router-dom";
 import { Form } from "react-bootstrap";
 import { Button } from "react-bootstrap";
+import { getUserInformation } from "../User/UserActions";
 
 const Login = () => {
   const user = useSelector(state => state.LoginReducer);
@@ -21,6 +22,7 @@ const Login = () => {
   const handleLoginFinish = e => {
     e.preventDefault();
     dispatch(LoginFinish());
+    dispatch(getUserInformation());
     history.push("/");
   };
 
