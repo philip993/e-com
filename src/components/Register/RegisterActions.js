@@ -9,98 +9,116 @@ import {
   SET_CITY,
   SET_COUNTRY,
   SET_GENDER,
-  SET_ADDRESS
+  SET_ADDRESS,
+  SET_POSTAL_CODE,
+  SET_PHONE
 } from "./RegisterActionTypes";
 
 import axios from "axios";
 
-export const SetEmailAddress = e => {
+export const setEmailAddress = e => {
   return {
     type: SET_EMAIL_ADDRESS,
     payload: e
   };
 };
 
-export const SetPassword = e => {
+export const setPassword = e => {
   return {
     type: SET_PASSWORD,
     payload: e
   };
 };
 
-export const SetFirstName = e => {
+export const setFirstName = e => {
   return {
     type: SET_FIRST_NAME,
     payload: e
   };
 };
 
-export const SetLastName = e => {
+export const setLastName = e => {
   return {
     type: SET_LAST_NAME,
     payload: e
   };
 };
 
-export const SetUsername = e => {
+export const setUsername = e => {
   return {
     type: SET_USERNAME,
     payload: e
   };
 };
 
-export const SetAge = e => {
+export const setAge = e => {
   return {
     type: SET_AGE,
     payload: e
   };
 };
 
-export const SetGender = e => {
+export const setGender = e => {
   return {
     type: SET_GENDER,
     payload: e
   };
 };
 
-export const SetAddress = e => {
+export const setAddress = e => {
   return {
     type: SET_ADDRESS,
     payload: e
   };
 };
 
-export const SetCity = e => {
+export const setCity = e => {
   return {
     type: SET_CITY,
     payload: e
   };
 };
 
-export const SetContry = e => {
+export const setContry = e => {
   return {
     type: SET_COUNTRY,
     payload: e
   };
 };
 
-export const PostRegistration = user => {
+export const setPostalCode = e => {
+  return {
+    type: SET_POSTAL_CODE,
+    payload: e
+  };
+};
+
+export const setPhone = e => {
+  return {
+    type: SET_PHONE,
+    payload: e
+  };
+};
+
+export const postRegistration = user => {
   return (dispatch, getState) => {
-    let temporaryState = getState().RegisterReducer;
+    let registerUser = getState().RegisterReducer;
     axios
       .post(
         `http://localhost:5000/users/register`,
         {
-          firstName: temporaryState.firstName,
-          lastName: temporaryState.lastName,
-          username: temporaryState.username,
-          email: temporaryState.email,
-          password: temporaryState.password,
-          age: temporaryState.age,
-          gender: temporaryState.gender,
-          address: temporaryState.address,
-          city: temporaryState.city,
-          country: temporaryState.country
+          firstName: registerUser.firstName,
+          lastName: registerUser.lastName,
+          username: registerUser.username,
+          email: registerUser.email,
+          password: registerUser.password,
+          age: registerUser.age,
+          gender: registerUser.gender,
+          phone: registerUser.phone,
+          address: registerUser.address,
+          city: registerUser.city,
+          country: registerUser.country,
+          postalCode: registerUser.postalCode
         },
         {
           headers: {
