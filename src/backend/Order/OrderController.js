@@ -7,7 +7,7 @@ exports.newOrder = async (req, res) => {
 
   const order = await stripe.orders.create({
     currency: "usd",
-    email: "TEST@TEST.COM",
+    email: cartBody.email,
     items: cartBody.cart.map((item, index) => ({
       parent: item.skuId
     })),
@@ -17,8 +17,9 @@ exports.newOrder = async (req, res) => {
         line1: cartBody.address,
         city: cartBody.city,
         country: cartBody.country,
-        postal_code: ""
-      }
+        postal_code: cartBody.postalCode
+      },
+      phone: cartBody.phone
     }
   });
 

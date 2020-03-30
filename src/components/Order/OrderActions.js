@@ -17,10 +17,13 @@ export const createOrder = (book, index) => {
       .post(`http://localhost:5000/orders`, {
         userIds: loggedUserId,
         cart: cartItems,
-        name: selUser.firstName,
+        name: selUser.firstName + " " + selUser.lastName,
+        email: selUser.email,
+        phone: selUser.phone,
         address: selUser.address,
         city: selUser.city,
-        country: selUser.country
+        country: selUser.country,
+        postalCode: selUser.postalCode
       })
       .then(response => {
         console.log(response);

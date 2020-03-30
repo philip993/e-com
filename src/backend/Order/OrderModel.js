@@ -29,6 +29,9 @@ const orderSchema = new mongoose.Schema({
   name: {
     type: String
   },
+  phone: {
+    type: String
+  },
   address: {
     type: String
   },
@@ -36,6 +39,9 @@ const orderSchema = new mongoose.Schema({
     type: String
   },
   country: {
+    type: String
+  },
+  postalCode: {
     type: String
   }
 });
