@@ -53,6 +53,10 @@ const UserSchema = new mongoose.Schema({
     minlength: 2,
     maxlength: 50
   },
+  phone: {
+    type: String,
+    required: true
+  },
   city: {
     type: String,
     required: true,
@@ -64,6 +68,10 @@ const UserSchema = new mongoose.Schema({
     required: true,
     minlength: 2,
     maxlength: 25
+  },
+  postalCode: {
+    type: String,
+    required: true
   }
 });
 

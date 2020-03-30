@@ -15,9 +15,11 @@ exports.newUser = (req, res) => {
         password: hash,
         age: req.body.age,
         gender: req.body.gender,
+        phone: req.body.phone,
         address: req.body.address,
         city: req.body.city,
-        country: req.body.country
+        country: req.body.country,
+        postalCode: req.body.postalCode
       });
 
       user
@@ -100,9 +102,11 @@ exports.getProfile = (req, res) => {
           username: user.username,
           age: user.age,
           gender: user.gender,
+          phone: user.phone,
           address: user.address,
           city: user.city,
-          country: user.country
+          country: user.country,
+          postalCode: user.postalCode
         }
       });
     })
@@ -121,9 +125,13 @@ exports.getUserInfo = (req, res) => {
         selectedUser: {
           _id: selectedUser._id,
           firstName: selectedUser.firstName,
+          lastName: selectedUser.lastName,
+          email: selectedUser.email,
+          phone: selectedUser.phone,
           address: selectedUser.address,
           city: selectedUser.city,
-          country: selectedUser.country
+          country: selectedUser.country,
+          postalCode: selectedUser.postalCode
         }
       });
     })
