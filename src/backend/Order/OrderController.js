@@ -74,3 +74,18 @@ exports.deleteAllOrders = (req, res) => {
       });
     });
 };
+
+exports.getOneOrder = (req, res) => {
+  Order.findOne({ _id: req.params.id })
+    .then(oneOrder => {
+      res.status(200).json({
+        oneOrder
+      });
+    })
+    .catch(err => {
+      res.status(500).json({
+        err
+      });
+      console.log(err);
+    });
+};
