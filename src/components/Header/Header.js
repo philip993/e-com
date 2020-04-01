@@ -64,7 +64,9 @@ const Header = () => {
           ) : null}
 
           <Nav.Link>
-            <Link to='/orders'>Orders</Link>
+            <Link to='/orders' onClick={getToken}>
+              Orders
+            </Link>
           </Nav.Link>
         </Nav>
       </Navbar>
