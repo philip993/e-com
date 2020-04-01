@@ -2,7 +2,8 @@ import {
   CREATE_ORDER,
   GET_ORDERS,
   SHOW_DETAILS,
-  HIDE_DETAILS
+  HIDE_DETAILS,
+  GET_ONE_ORDER
 } from "./OrderActionTypes";
 import axios from "axios";
 
@@ -44,13 +45,16 @@ export const createOrder = (book, index) => {
 
 export const getOrders = () => {
   return (dispatch, getState) => {
+    let currentUser = localStorage.getItem("userId");
     return axios
       .get(`http://localhost:5000/orders`)
       .then(response => {
         console.log(response);
         dispatch({
           type: GET_ORDERS,
-          payload: response.data.orders
+          payload: response.data.orders.filter(
+            ({ userIds }) => userIds._id === currentUser
+          )
         });
       })
       .catch(error => {
@@ -68,5 +72,20 @@ export const toggleShowTrue = () => {
 export const toggleShowFalse = () => {
   return {
     type: HIDE_DETAILS
+  };
+};
+
+export const getOneOrder = () => {
+  return (dispatch, getState) => {
+    let selectedOrder = localStorage.getItem("selectedOrder");
+    return axios
+      .get(`http://localhost:5000/orders/${selectedOrder}`)
+      .then(response => {
+        console.log(response);
+        dispatch({
+          type: GET_ONE_ORDER,
+          payload: response.data.oneOrder
+        });
+      });
   };
 };
