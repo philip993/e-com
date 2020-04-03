@@ -72,6 +72,9 @@ const UserSchema = new mongoose.Schema({
   postalCode: {
     type: String,
     required: true
+  },
+  customerId: {
+    type: String
   }
 });
 
