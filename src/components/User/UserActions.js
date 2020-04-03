@@ -12,6 +12,10 @@ export const getUserInformation = () => {
           payload: response.data.selectedUser
         });
         localStorage.setItem("userId", response.data.selectedUser._id);
+        localStorage.setItem(
+          "customerId",
+          response.data.selectedUser.customerId
+        );
       })
       .catch(err => {
         console.log(err);
