@@ -5,13 +5,10 @@ exports.makePayment = async (req, res) => {
   let error;
   let status;
   try {
-    const { itemsFromCart, totalSumFromCart, token, stripeOrderId } = req.body;
+    const { token, stripeOrderId, customerId } = req.body;
     console.log(req.body);
 
-    const customer = await stripe.customers.create({
-      email: token.email,
-      source: token.id
-    });
+    const customer = await stripe.customers.retrieve(customerId);
     // const idempotency_key = uuid();
     // const charge = await stripe.charges.create(
     //   {
@@ -38,7 +35,7 @@ exports.makePayment = async (req, res) => {
     // );
 
     const payOrder = await stripe.orders.pay(stripeOrderId, {
-      customer: customer.id
+      source: token.id
     });
 
     console.log("Charge:", { payOrder });

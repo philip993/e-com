@@ -26,10 +26,12 @@ const Checkout = () => {
 
   const handleToken = async token => {
     const stripeOrderId = localStorage.getItem("stripeOrderId");
+    const customerId = localStorage.getItem("customerId");
     const response = await axios.post("http://localhost:5000/checkout", {
       token,
       stripeOrderId,
-      totalSumFromCart
+      totalSumFromCart,
+      customerId
     });
     console.log(stripeOrderId);
     const { status } = response.data;
