@@ -18,9 +18,10 @@ const Order = props => {
 
   const getOrderDetail = e => {
     let orderDetails = orders.order.find(
-      (cart, index) => cart.cart[e] === cart.cart[index]
+      (cart, index) => cart._id[e] === cart._id[index]
     );
     localStorage.setItem("selectedOrder", orderDetails._id);
+    localStorage.setItem("stripeOrderId", orderDetails.stripeOrderId);
     dispatch(getOneOrder(orderDetails));
     dispatch(toggleShowTrue());
   };
@@ -66,7 +67,7 @@ const Order = props => {
             <tbody>
               <tr>
                 <td>{orders.singleOrder.stripeOrderId}</td>
-                <td>..</td>
+                <td>{orders.singleOrder.status}</td>
               </tr>
             </tbody>
           </Table>
