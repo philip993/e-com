@@ -1,10 +1,34 @@
+const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
 const bcryptjs = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const stripe = require("stripe")(stripeSecretKey);
 
 const { User } = require("./UserModel");
 
-exports.newUser = (req, res) => {
-  bcryptjs
+exports.newUser = async (req, res) => {
+  const customer = await stripe.customers.create({
+    address: {
+      line1: req.body.address,
+      city: req.body.city,
+      country: req.body.country,
+      postal_code: req.body.postalCode
+    },
+    email: req.body.email,
+    name: req.body.firstName + " " + req.body.lastName,
+    phone: req.body.phone,
+    shipping: {
+      address: {
+        line1: req.body.address,
+        city: req.body.city,
+        country: req.body.country,
+        postal_code: req.body.postalCode
+      },
+      name: req.body.firstName + " " + req.body.lastName,
+      phone: req.body.phone
+    }
+  });
+
+  await bcryptjs
     .hash(req.body.password, 10)
     .then(hash => {
       const user = new User({
@@ -19,14 +43,16 @@ exports.newUser = (req, res) => {
         address: req.body.address,
         city: req.body.city,
         country: req.body.country,
-        postalCode: req.body.postalCode
+        postalCode: req.body.postalCode,
+        customerId: customer.id
       });
 
       user
         .save()
         .then(user => {
           res.status(201).json({
-            user: user
+            user,
+            customer
           });
         })
         .catch(err => {
@@ -131,7 +157,8 @@ exports.getUserInfo = (req, res) => {
           address: selectedUser.address,
           city: selectedUser.city,
           country: selectedUser.country,
-          postalCode: selectedUser.postalCode
+          postalCode: selectedUser.postalCode,
+          customerId: selectedUser.customerId
         }
       });
     })

@@ -118,7 +118,8 @@ export const postRegistration = user => {
           address: registerUser.address,
           city: registerUser.city,
           country: registerUser.country,
-          postalCode: registerUser.postalCode
+          postalCode: registerUser.postalCode,
+          customerId: registerUser.customerId
         },
         {
           headers: {
