@@ -7,6 +7,7 @@ exports.newOrder = async (req, res) => {
 
   const order = await stripe.orders.create({
     currency: "usd",
+    customer: cartBody.customerId,
     email: cartBody.email,
     items: cartBody.cart.map((item, index) => ({
       parent: item.skuId
@@ -26,7 +27,8 @@ exports.newOrder = async (req, res) => {
   const orders = await new Order({
     userIds: req.body.userIds,
     cart: req.body.cart,
-    stripeOrderId: order.id
+    stripeOrderId: order.id,
+    status: order.status
   });
 
   orders

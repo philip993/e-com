@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Table, Modal, Button } from "react-bootstrap";
 import {
@@ -7,10 +7,12 @@ import {
   toggleShowTrue,
   getOneOrder
 } from "./OrderActions";
+import { useHistory } from "react-router-dom";
 
 const Order = props => {
   const orders = useSelector(state => state.OrderReducer);
   const dispatch = useDispatch();
+  const history = useHistory();
 
   useEffect(() => {
     dispatch(getOrders());
@@ -24,6 +26,10 @@ const Order = props => {
     localStorage.setItem("stripeOrderId", orderDetails.stripeOrderId);
     dispatch(getOneOrder(orderDetails));
     dispatch(toggleShowTrue());
+  };
+
+  const handlePayOrder = () => {
+    history.push("/checkout");
   };
 
   return (
@@ -95,6 +101,9 @@ const Order = props => {
           </Table>
         </Modal.Body>
         <Modal.Footer>
+          <Button onClick={handlePayOrder} variant='success'>
+            Pay Order
+          </Button>
           <Button
             onClick={() => dispatch(toggleShowFalse())}
             variant='secondary'

@@ -24,7 +24,8 @@ export const createOrder = (book, index) => {
         address: selUser.address,
         city: selUser.city,
         country: selUser.country,
-        postalCode: selUser.postalCode
+        postalCode: selUser.postalCode,
+        customerId: selUser.customerId
       })
       .then(response => {
         console.log(response);

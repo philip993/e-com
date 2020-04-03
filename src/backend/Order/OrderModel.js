@@ -43,6 +43,12 @@ const orderSchema = new mongoose.Schema({
   },
   postalCode: {
     type: String
+  },
+  status: {
+    type: String
+  },
+  customerId: {
+    type: String
   }
 });
 
