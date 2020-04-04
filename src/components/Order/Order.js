@@ -5,12 +5,12 @@ import {
   getOrders,
   toggleShowFalse,
   toggleShowTrue,
-  getOneOrder
+  getOneOrder,
 } from "./OrderActions";
 import { useHistory } from "react-router-dom";
 
-const Order = props => {
-  const orders = useSelector(state => state.OrderReducer);
+const Order = (props) => {
+  const orders = useSelector((state) => state.OrderReducer);
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -18,7 +18,7 @@ const Order = props => {
     dispatch(getOrders());
   }, []);
 
-  const getOrderDetail = e => {
+  const getOrderDetail = (e) => {
     let orderDetails = orders.order.find(
       (cart, index) => cart._id[e] === cart._id[index]
     );
@@ -62,7 +62,6 @@ const Order = props => {
       </Table>
       <Modal show={orders.visibility}>
         <Modal.Header>
-          <Modal.Title>Order details</Modal.Title>
           <Table>
             <thead>
               <tr>
@@ -89,15 +88,27 @@ const Order = props => {
 
             <tbody>
               {!orders.singleOrder.cart
-                ? "Order not selected!"
+                ? "Order is loading..."
                 : orders.singleOrder.cart.map(({ title, price }) => (
                     <tr>
                       <td>{title}</td>
-                      <td>{price.toFixed(2)}</td>
+                      <td>{price.toFixed(2)}$</td>
                     </tr>
                   ))}
             </tbody>
-            <tfoot>Status</tfoot>
+            <tfoot>
+              <tr>
+                <td>Total:</td>
+                <td>
+                  {!orders.singleOrder.cart
+                    ? "Calculating sum..."
+                    : orders.singleOrder.cart
+                        .reduce((total, current) => total + current.price, 0)
+                        .toFixed(2)}
+                  $
+                </td>
+              </tr>
+            </tfoot>
           </Table>
         </Modal.Body>
         <Modal.Footer>
