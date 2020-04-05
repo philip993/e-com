@@ -1,32 +1,32 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { SelectBook, AddIndex } from "./BookActions";
+import { selectBook, addIndex } from "./BookActions";
 
 import { Card, Button } from "react-bootstrap";
 import { newWishlistItem } from "../Wishlist/WishlistActions";
 
-const Book = item => {
-  const book = useSelector(state => state.BookReducer);
+const Book = (item) => {
+  const book = useSelector((state) => state.BookReducer);
   const dispatch = useDispatch();
 
   const [isLoaded, setIsLoaded] = useState(false);
 
   const handleSelectBook = () => {
-    dispatch(AddIndex(book.index));
+    dispatch(addIndex(book.index));
     dispatch(
-      SelectBook({
+      selectBook({
         _id: item._id,
         title: item.title,
         price: item.price,
         index: book.index,
-        skuId: item.skuId
+        skuId: item.skuId,
       })
     );
     handleToggleToTrue();
     handleToggleToFalse();
   };
 
-  const handleWishitemSelect = e => {
+  const handleWishitemSelect = (e) => {
     dispatch(newWishlistItem(item));
   };
 

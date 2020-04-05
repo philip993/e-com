@@ -1,27 +1,27 @@
 import { GET_TOKEN, CLEAR_TOKEN, RETRIEVE_TOKEN } from "./HeaderActionTypes";
 
-export const GetTokenFromLS = token => {
-  return dispatch => {
+export const getTokenFromLS = (token) => {
+  return (dispatch) => {
     let tokenLS = localStorage.getItem("token");
     dispatch({
       type: GET_TOKEN,
-      payload: tokenLS
+      payload: tokenLS,
     });
   };
 };
 
-export const ClearTokenFromLS = () => {
+export const clearTokenFromLS = () => {
   return {
-    type: CLEAR_TOKEN
+    type: CLEAR_TOKEN,
   };
 };
 
-export const RetriveToken = token => {
-  return dispatch => {
+export const retriveToken = (token) => {
+  return (dispatch) => {
     let tokenPersist = localStorage.getItem("token");
     dispatch({
       type: RETRIEVE_TOKEN,
-      payload: tokenPersist
+      payload: tokenPersist,
     });
   };
 };

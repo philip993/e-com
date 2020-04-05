@@ -4,34 +4,36 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { useSelector, useDispatch } from "react-redux";
 import { getItemsToCheckout } from "./CheckoutActions";
+import { clearCartAfterPayment } from "../ShoppingCart/ShoppingCartActions";
+import { clearBooks } from "../Book/BookActions";
 
 toast.configure();
 
 const stripePublishableKey = process.env.STRIPE_PUBLIC_KEY;
 
 const Checkout = () => {
-  const check = useSelector(state => state.CheckoutReducer);
+  const check = useSelector((state) => state.CheckoutReducer);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getItemsToCheckout());
   }, []);
 
-  const [itemsFromCart] = check.cartItems;
-
   const totalSumFromCart = check.cartItems.reduce(
     (current, total) => current + total.price,
     0
   );
 
-  const handleToken = async token => {
+  const handleToken = async (token) => {
+    dispatch(clearBooks());
+    dispatch(clearCartAfterPayment());
     const stripeOrderId = localStorage.getItem("stripeOrderId");
     const customerId = localStorage.getItem("customerId");
     const response = await axios.post("http://localhost:5000/checkout", {
       token,
       stripeOrderId,
       totalSumFromCart,
-      customerId
+      customerId,
     });
     console.log(stripeOrderId);
     const { status } = response.data;

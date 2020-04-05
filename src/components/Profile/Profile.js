@@ -1,14 +1,14 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import ProfileView from "./ProfileView";
-import { GetUserInfo } from "./ProfileActions";
+import { getUserInfo } from "./ProfileActions";
 
 const Profile = () => {
-  const profile = useSelector(state => state.ProfileReducer);
+  const profile = useSelector((state) => state.ProfileReducer);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(GetUserInfo());
+    dispatch(getUserInfo());
   }, []);
 
   return (

@@ -4,20 +4,15 @@ import { Link } from "react-router-dom";
 
 import { Navbar, Nav, NavLink } from "react-bootstrap";
 import Logout from "../Logout/Logout";
-import { GetTokenFromLS } from "./HeaderActions";
+import { getTokenFromLS } from "./HeaderActions";
 import { getUserInformation } from "../User/UserActions";
 
 const Header = () => {
-  const header = useSelector(state => state.HeaderReducer);
+  const header = useSelector((state) => state.HeaderReducer);
   const dispatch = useDispatch();
-  const userR = useSelector(state => state.UserReducer);
-
-  // useEffect(() => {
-  //   dispatch(getUserInformation());
-  // }, [userR.info]);
 
   const getToken = () => {
-    dispatch(GetTokenFromLS());
+    dispatch(getTokenFromLS());
     dispatch(getUserInformation());
   };
 
@@ -48,6 +43,17 @@ const Header = () => {
           <Nav.Link>
             <Link to='/wishlist'>Wishlist</Link>
           </Nav.Link>
+          <Nav.Link>
+            <Link to='/orders' onClick={getToken}>
+              Orders
+            </Link>
+          </Nav.Link>
+
+          {returnUserEmailFromLS ? (
+            <Nav.Link>
+              <Link to='/profile'>Profile</Link>
+            </Nav.Link>
+          ) : null}
 
           {!returnTokenFromLS ? (
             <Nav.Link>
@@ -56,18 +62,6 @@ const Header = () => {
           ) : (
             <Logout />
           )}
-
-          {returnUserEmailFromLS ? (
-            <Nav.Link>
-              <Link to='/profile'>Profile</Link>
-            </Nav.Link>
-          ) : null}
-
-          <Nav.Link>
-            <Link to='/orders' onClick={getToken}>
-              Orders
-            </Link>
-          </Nav.Link>
         </Nav>
       </Navbar>
     </div>

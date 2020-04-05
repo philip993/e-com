@@ -2,29 +2,29 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { Table, Button } from "react-bootstrap";
-import { RemoveBook } from "../Book/BookActions";
+import { removeBook } from "../Book/BookActions";
 import {
-  RemoveBookFromCart,
-  ClearBooksFromCart,
-  LoadItemToCartCopy
+  removeBookFromCart,
+  clearBooksFromCart,
+  loadItemToCartCopy,
 } from "./ShoppingCartActions";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
 import { useHistory } from "react-router-dom";
 import { createOrder } from "../Order/OrderActions";
 
-const ShoppingCart = item => {
-  const selectedBooks = useSelector(state => state.ShoppingCartReducer);
+const ShoppingCart = (item) => {
+  const selectedBooks = useSelector((state) => state.ShoppingCartReducer);
   const dispatch = useDispatch();
 
   const history = useHistory();
 
   useEffect(() => {
-    dispatch(LoadItemToCartCopy());
+    dispatch(loadItemToCartCopy());
   }, []);
 
-  const handleRemoveOneBook = index => {
-    dispatch(RemoveBookFromCart(index));
-    dispatch(RemoveBook(index));
+  const handleRemoveOneBook = (index) => {
+    dispatch(removeBookFromCart(index));
+    dispatch(removeBook(index));
   };
 
   const totalSumOfCartItems = selectedBooks.copyOfBooksInCart.reduce(
@@ -32,13 +32,13 @@ const ShoppingCart = item => {
     0
   );
 
-  const handleCheckOut = item => {
+  const handleCheckOut = (item) => {
     dispatch(createOrder());
     history.push("/checkout");
   };
 
   const handleClearCart = () => {
-    dispatch(ClearBooksFromCart());
+    dispatch(clearBooksFromCart());
   };
 
   return (

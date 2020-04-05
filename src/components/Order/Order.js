@@ -8,6 +8,7 @@ import {
   getOneOrder,
 } from "./OrderActions";
 import { useHistory } from "react-router-dom";
+import PrivateRoute from "../PrivateRoute/PrivateRoute";
 
 const Order = (props) => {
   const orders = useSelector((state) => state.OrderReducer);
@@ -34,95 +35,97 @@ const Order = (props) => {
 
   return (
     <div>
-      <Table style={{ width: "1440px", margin: "auto" }}>
-        <thead>
-          <tr>
-            <h1>Orders</h1>
-          </tr>
-          <th>No</th>
-          <th>Order</th>
-          <th>User</th>
-        </thead>
-        <tbody>
-          {orders.order.map(({ userIds }, index) => (
+      <PrivateRoute>
+        <Table style={{ width: "1440px", margin: "auto" }}>
+          <thead>
             <tr>
-              <td>{index}</td>
-              <td>
-                <Button
-                  variant='secondary'
-                  onClick={getOrderDetail.bind(this, index)}
-                >
-                  Get details
-                </Button>
-              </td>
-              <td>{userIds.username}</td>
+              <h1>Orders</h1>
             </tr>
-          ))}
-        </tbody>
-      </Table>
-      <Modal show={orders.visibility}>
-        <Modal.Header>
-          <Table>
-            <thead>
+            <th>No</th>
+            <th>Order</th>
+            <th>User</th>
+          </thead>
+          <tbody>
+            {orders.order.map(({ userIds }, index) => (
               <tr>
-                <th>Order No.</th>
-                <th>Status</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>{orders.singleOrder.stripeOrderId}</td>
-                <td>{orders.singleOrder.status}</td>
-              </tr>
-            </tbody>
-          </Table>
-        </Modal.Header>
-        <Modal.Body>
-          <Table>
-            <thead>
-              <tr>
-                <th>Item</th>
-                <th>Price</th>
-              </tr>
-            </thead>
-
-            <tbody>
-              {!orders.singleOrder.cart
-                ? "Order is loading..."
-                : orders.singleOrder.cart.map(({ title, price }) => (
-                    <tr>
-                      <td>{title}</td>
-                      <td>{price.toFixed(2)}$</td>
-                    </tr>
-                  ))}
-            </tbody>
-            <tfoot>
-              <tr>
-                <td>Total:</td>
+                <td>{index}</td>
                 <td>
-                  {!orders.singleOrder.cart
-                    ? "Calculating sum..."
-                    : orders.singleOrder.cart
-                        .reduce((total, current) => total + current.price, 0)
-                        .toFixed(2)}
-                  $
+                  <Button
+                    variant='secondary'
+                    onClick={getOrderDetail.bind(this, index)}
+                  >
+                    Get details
+                  </Button>
                 </td>
+                <td>{userIds.username}</td>
               </tr>
-            </tfoot>
-          </Table>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button onClick={handlePayOrder} variant='success'>
-            Pay Order
-          </Button>
-          <Button
-            onClick={() => dispatch(toggleShowFalse())}
-            variant='secondary'
-          >
-            Close
-          </Button>
-        </Modal.Footer>
-      </Modal>
+            ))}
+          </tbody>
+        </Table>
+        <Modal show={orders.visibility}>
+          <Modal.Header>
+            <Table>
+              <thead>
+                <tr>
+                  <th>Order No.</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>{orders.singleOrder.stripeOrderId}</td>
+                  <td>{orders.singleOrder.status}</td>
+                </tr>
+              </tbody>
+            </Table>
+          </Modal.Header>
+          <Modal.Body>
+            <Table>
+              <thead>
+                <tr>
+                  <th>Item</th>
+                  <th>Price</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                {!orders.singleOrder.cart
+                  ? "Order is loading..."
+                  : orders.singleOrder.cart.map(({ title, price }) => (
+                      <tr>
+                        <td>{title}</td>
+                        <td>{price.toFixed(2)}$</td>
+                      </tr>
+                    ))}
+              </tbody>
+              <tfoot>
+                <tr>
+                  <td>Total:</td>
+                  <td>
+                    {!orders.singleOrder.cart
+                      ? "Calculating sum..."
+                      : orders.singleOrder.cart
+                          .reduce((total, current) => total + current.price, 0)
+                          .toFixed(2)}
+                    $
+                  </td>
+                </tr>
+              </tfoot>
+            </Table>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button onClick={handlePayOrder} variant='success'>
+              Pay Order
+            </Button>
+            <Button
+              onClick={() => dispatch(toggleShowFalse())}
+              variant='secondary'
+            >
+              Close
+            </Button>
+          </Modal.Footer>
+        </Modal>
+      </PrivateRoute>
     </div>
   );
 };
