@@ -1,6 +1,14 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { selectBook, addIndex } from "./BookActions";
+import {
+  selectBook,
+  addIndex,
+  increaseQuantity,
+  removeBook,
+  removeDuplicate,
+  addBookToCart,
+  updateQuantity,
+} from "./BookActions";
 
 import { Card, Button } from "react-bootstrap";
 import { newWishlistItem } from "../Wishlist/WishlistActions";
@@ -10,20 +18,50 @@ const Book = (item) => {
   const dispatch = useDispatch();
 
   const [isLoaded, setIsLoaded] = useState(false);
+  const [piece, setPieces] = useState(1);
 
   const handleSelectBook = () => {
     dispatch(addIndex(book.index));
+    setPieces(piece + 1);
+    // dispatch(
+    //   selectBook({
+    //     _id: item._id,
+    //     title: item.title,
+    //     price: item.price,
+    //     index: book.index,
+    //     skuId: item.skuId,
+    //     quantity: piece,
+    //   })
+    // );
+
     dispatch(
-      selectBook({
+      addBookToCart({
         _id: item._id,
         title: item.title,
         price: item.price,
-        index: book.index,
-        skuId: item.skuId,
+        // index: book.index,
+        // skuId: item.skuId,
+        quantity: piece,
       })
     );
+    // dispatch(removeDuplicate(item));
     handleToggleToTrue();
     handleToggleToFalse();
+  };
+
+  const handleUpdateQuantity = (item) => {
+    setPieces(piece + 1);
+    console.log(item);
+    dispatch(
+      updateQuantity({
+        _id: item._id,
+        title: item.title,
+        price: item.price,
+        // index: book.index,
+        // skuId: item.skuId,
+        quantity: piece,
+      })
+    );
   };
 
   const handleWishitemSelect = (e) => {
@@ -63,6 +101,9 @@ const Book = (item) => {
               Added!
             </Button>
           )}
+          <Button onClick={handleUpdateQuantity.bind(this, item)}>
+            Update Quantity
+          </Button>
           <Button onClick={handleWishitemSelect.bind(this, item._id)}>
             Wish
           </Button>
