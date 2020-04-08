@@ -44,6 +44,11 @@ const Header = () => {
             <Link to='/wishlist'>Wishlist</Link>
           </Nav.Link>
           <Nav.Link>
+            <Link to='/cartitems' onClick={getToken}>
+              CART
+            </Link>
+          </Nav.Link>
+          <Nav.Link>
             <Link to='/orders' onClick={getToken}>
               Orders
             </Link>
