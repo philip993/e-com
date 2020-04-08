@@ -14,11 +14,12 @@ const wishlist = require("./src/backend/Wishlist/WishlistRoutes");
 const admin = require("./admin-bro/adminRoute");
 const checkout = require("./src/backend/Checkout/CheckoutRoutes");
 const order = require("./src/backend/Order/OrderRoutes");
+const cart = require("./src/backend/Cart/CartRoutes");
 
 mongoose
   .connect("mongodb://localhost/e-commerce", { useNewUrlParser: true })
   .then(() => console.log("Connected to MongoDB"))
-  .catch(err => console.log("Could not connect to MongoDB"));
+  .catch((err) => console.log("Could not connect to MongoDB"));
 
 app.use(bodyParser.json());
 // app.use(bodyParser.urlencoded({ extended: false }));
@@ -42,6 +43,7 @@ app.use("/wishlist", wishlist);
 app.use("/admin", admin);
 app.use("/checkout", checkout);
 app.use("/orders", order);
+app.use("/cartitems", cart);
 
 const port = process.env.PORT || 5000;
 
