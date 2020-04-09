@@ -6,10 +6,13 @@ import {
   INCREASE_QUANTITY,
   REMOVE_DUPLICATE,
   UPDATE_QUANTITY,
+  DELETE_PREVIOUS_BOOK,
+  ADD_BOOK_TO_CART,
 } from "./BookActionTypes";
 
 const initialState = {
   booksInCart: [],
+  currentItem: [],
   index: 0,
   qty: 0,
 };
@@ -26,10 +29,23 @@ export const BookReducer = (state = initialState, action) => {
         ...state,
         booksInCart: [...state.booksInCart, action.payload],
       };
+    case ADD_BOOK_TO_CART:
+      return {
+        ...state,
+        currentItem: action.payload,
+      };
+    case DELETE_PREVIOUS_BOOK:
+      return {
+        ...state,
+        currentItem: [
+          ...state.currentItem.slice(0, action.payload),
+          ...state.currentItem.slice(action.payload + 1),
+        ],
+      };
     case UPDATE_QUANTITY:
       return {
         ...state,
-        booksInCart: action.payload,
+        currentItem: action.payload,
       };
     case REMOVE_BOOK:
       return {

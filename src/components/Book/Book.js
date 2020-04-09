@@ -8,6 +8,7 @@ import {
   removeDuplicate,
   addBookToCart,
   updateQuantity,
+  deletePreviousBook,
 } from "./BookActions";
 
 import { Card, Button } from "react-bootstrap";
@@ -39,8 +40,8 @@ const Book = (item) => {
         _id: item._id,
         title: item.title,
         price: item.price,
-        // index: book.index,
-        // skuId: item.skuId,
+        index: book.index,
+        skuId: item.skuId,
         quantity: piece,
       })
     );
@@ -51,6 +52,7 @@ const Book = (item) => {
 
   const handleUpdateQuantity = (item) => {
     setPieces(piece + 1);
+    // dispatch(deletePreviousBook({ title: item.title }));
     console.log(item);
     dispatch(
       updateQuantity({
@@ -58,7 +60,7 @@ const Book = (item) => {
         title: item.title,
         price: item.price,
         // index: book.index,
-        // skuId: item.skuId,
+        skuId: item.skuId,
         quantity: piece,
       })
     );

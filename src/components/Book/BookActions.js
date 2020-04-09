@@ -7,6 +7,7 @@ import {
   REMOVE_DUPLICATE,
   UPDATE_QUANTITY,
   ADD_BOOK_TO_CART,
+  DELETE_PREVIOUS_BOOK,
 } from "./BookActionTypes";
 
 import axios from "axios";
@@ -39,6 +40,7 @@ export const addBookToCart = (book) => {
         bookPrice: book.price,
         bookQuantity: book.quantity,
         total: book.price * book.quantity,
+        bookSKUid: book.skuId,
       })
       .then((response) => {
         console.log(response);
@@ -53,21 +55,45 @@ export const addBookToCart = (book) => {
 export const updateQuantity = (item) => {
   return (dispatch, getState) => {
     let title = item.title;
-    let cartItems = getState().CartReducer.items; // need index of each item in cartItems
+    let cartItems = getState().CartReducer.items;
+    let index = cartItems.findIndex(
+      (itm, index) => itm.bookTitle === item.title
+    );
     console.log(title);
+    console.log(index);
     return axios
       .put(`http://localhost:5000/cartitems/${title}`, {
-        _id: cartItems[item.index]._id,
+        _id: cartItems[index]._id,
         bookTitle: item.title,
         bookPrice: item.price,
         bookQuantity: item.quantity,
         total: item.price * item.quantity,
+        bookSKUid: item.skuId,
       })
       .then((response) => {
         console.log(response);
         dispatch({
           type: UPDATE_QUANTITY,
           payload: item,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+};
+
+export const deletePreviousBook = (item) => {
+  return (dispatch, getState) => {
+    let title = item.title;
+    console.log(title);
+    return axios
+      .delete(`http://localhost:5000/cartitems/${title}`)
+      .then((response) => {
+        console.log(response);
+        dispatch({
+          type: DELETE_PREVIOUS_BOOK,
+          payload: response.data.deletedItem,
         });
       })
       .catch((err) => {
