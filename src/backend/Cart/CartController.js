@@ -6,6 +6,7 @@ exports.postNewCartItem = (req, res) => {
     bookPrice: req.body.bookPrice,
     bookQuantity: req.body.bookQuantity,
     total: req.body.total,
+    bookSKUid: req.body.bookSKUid,
   });
 
   cartItem
@@ -71,6 +72,21 @@ exports.deleteAllCartItems = (req, res) => {
         deletedItems,
       });
       console.log(deletedItems);
+    })
+    .catch((err) => {
+      res.status(500).json({
+        err,
+      });
+      console.log(err);
+    });
+};
+
+exports.deleteOneCartItem = (req, res) => {
+  Cart.findOneAndDelete({ bookTitle: req.params.title })
+    .then((deletedItem) => {
+      res.status(200).json({
+        deletedItem,
+      });
     })
     .catch((err) => {
       res.status(500).json({

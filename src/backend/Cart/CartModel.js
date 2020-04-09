@@ -13,6 +13,12 @@ const cartSchema = new mongoose.Schema({
   total: {
     type: Number,
   },
+  index: {
+    type: String,
+  },
+  bookSKUid: {
+    type: String,
+  },
 });
 
 const Cart = mongoose.model("Cart", cartSchema);
