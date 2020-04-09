@@ -4,52 +4,55 @@ const orderSchema = new mongoose.Schema({
   userIds: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
-    required: true
+    required: true,
   },
   cart: [
     {
       _id: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Book"
+        ref: "Book",
       },
-      title: {
-        type: String
+      bookTitle: {
+        type: String,
       },
-      price: {
-        type: Number
+      bookPrice: {
+        type: Number,
       },
-      skuId: {
-        type: String
-      }
-    }
+      bookSKUid: {
+        type: String,
+      },
+      bookQuantity: {
+        type: Number,
+      },
+    },
   ],
   stripeOrderId: {
-    type: String
+    type: String,
   },
   name: {
-    type: String
+    type: String,
   },
   phone: {
-    type: String
+    type: String,
   },
   address: {
-    type: String
+    type: String,
   },
   city: {
-    type: String
+    type: String,
   },
   country: {
-    type: String
+    type: String,
   },
   postalCode: {
-    type: String
+    type: String,
   },
   status: {
-    type: String
+    type: String,
   },
   customerId: {
-    type: String
-  }
+    type: String,
+  },
 });
 
 const Order = mongoose.model("Order", orderSchema);
