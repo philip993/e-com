@@ -7,7 +7,6 @@ import { CardDeck, Spinner } from "react-bootstrap";
 import { setMaximumPages } from "../Pagination/PaginationActions";
 import Pagination from "../Pagination/Pagination";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
-import { getItemsFromCart } from "../Cart/CartActions";
 
 const Books = () => {
   const { data, page, pageSize, sortBy } = useSelector((state) => ({
@@ -15,16 +14,10 @@ const Books = () => {
     ...state.BooksReducer,
   }));
   const dispatch = useDispatch();
-  const cart = useSelector((state) => state.CartReducer);
 
   useEffect(() => {
     dispatch(setMaximumPages());
   }, [data]);
-
-  useEffect(() => {
-    dispatch(getItemsFromCart());
-    console.log(cart);
-  }, []);
 
   useEffect(() => {
     dispatch(loadBooks());
@@ -47,16 +40,6 @@ const Books = () => {
             <Book {...otherProps} />
           ))}
         </CardDeck>
-
-        {cart.items.map((cartItems) => (
-          <div>
-            <p>{cartItems.bookTitle}</p>
-            <p>
-              {cartItems.bookQuantity} - {cartItems.bookPrice}
-            </p>
-            <p>{cartItems.total} $</p>
-          </div>
-        ))}
       </PrivateRoute>
     </div>
   );

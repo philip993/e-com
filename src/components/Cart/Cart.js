@@ -1,23 +1,25 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getItemsFromCart } from "./CartActions";
+import { createOrder } from "../Order/OrderActions";
+import { useHistory } from "react-router-dom";
 
 const Cart = () => {
   const cart = useSelector((state) => state.CartReducer);
   const dispatch = useDispatch();
+  const history = useHistory();
 
   useEffect(() => {
     dispatch(getItemsFromCart());
   }, []);
 
-  const getCart = () => {
-    dispatch(getItemsFromCart());
-    console.log(cart);
+  const handleCreateOrder = () => {
+    dispatch(createOrder());
+    history.push("/checkout");
   };
   return (
     <div>
       <h1>CART</h1>
-      <button onClick={getCart}>GET ITEMS</button>
 
       {cart.items.map((cartItems) => (
         <div>
@@ -28,6 +30,7 @@ const Cart = () => {
           <p>{cartItems.total} $</p>
         </div>
       ))}
+      <button onClick={handleCreateOrder}>To Checkout</button>
     </div>
   );
 };

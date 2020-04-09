@@ -27,7 +27,7 @@ app.use(bodyParser.json());
 app.use((req, res, next) => {
   res.setHeader(
     "Access-Control-Allow-Methods",
-    "GET, DELETE, POST, PUT,OPTIONS"
+    "GET, DELETE, POST, PATCH, PUT,OPTIONS"
   );
   res.setHeader(
     "Access-Control-Allow-Headers",

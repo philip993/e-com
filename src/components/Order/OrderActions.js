@@ -3,13 +3,14 @@ import {
   GET_ORDERS,
   SHOW_DETAILS,
   HIDE_DETAILS,
-  GET_ONE_ORDER
+  GET_ONE_ORDER,
 } from "./OrderActionTypes";
 import axios from "axios";
 
 export const createOrder = (book, index) => {
   return (dispatch, getState) => {
-    let cartItems = getState().ShoppingCartReducer.copyOfBooksInCart;
+    // let cartItems = getState().ShoppingCartReducer.copyOfBooksInCart;
+    let cartItems = getState().CartReducer.items;
     let selUser = getState().UserReducer.info;
     const loggedUserId = localStorage.getItem("userId");
     console.log(loggedUserId);
@@ -25,20 +26,20 @@ export const createOrder = (book, index) => {
         city: selUser.city,
         country: selUser.country,
         postalCode: selUser.postalCode,
-        customerId: selUser.customerId
+        customerId: selUser.customerId,
       })
-      .then(response => {
+      .then((response) => {
         console.log(response);
         dispatch({
           type: CREATE_ORDER,
-          payload: response.data
+          payload: response.data,
         });
         localStorage.setItem(
           "stripeOrderId",
           response.data.orders.stripeOrderId
         );
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
   };
@@ -49,16 +50,16 @@ export const getOrders = () => {
     let currentUser = localStorage.getItem("userId");
     return axios
       .get(`http://localhost:5000/orders`)
-      .then(response => {
+      .then((response) => {
         console.log(response);
         dispatch({
           type: GET_ORDERS,
           payload: response.data.orders.filter(
             ({ userIds }) => userIds._id === currentUser
-          )
+          ),
         });
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
   };
@@ -66,13 +67,13 @@ export const getOrders = () => {
 
 export const toggleShowTrue = () => {
   return {
-    type: SHOW_DETAILS
+    type: SHOW_DETAILS,
   };
 };
 
 export const toggleShowFalse = () => {
   return {
-    type: HIDE_DETAILS
+    type: HIDE_DETAILS,
   };
 };
 
@@ -81,11 +82,11 @@ export const getOneOrder = () => {
     let selectedOrder = localStorage.getItem("selectedOrder");
     return axios
       .get(`http://localhost:5000/orders/${selectedOrder}`)
-      .then(response => {
+      .then((response) => {
         console.log(response);
         dispatch({
           type: GET_ONE_ORDER,
-          payload: response.data.oneOrder
+          payload: response.data.oneOrder,
         });
       });
   };
