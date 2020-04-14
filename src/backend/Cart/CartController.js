@@ -7,6 +7,7 @@ exports.postNewCartItem = (req, res) => {
     bookQuantity: req.body.bookQuantity,
     total: req.body.total,
     bookSKUid: req.body.bookSKUid,
+    currentUser: req.body.currentUser,
   });
 
   cartItem
@@ -26,7 +27,7 @@ exports.postNewCartItem = (req, res) => {
 };
 
 exports.getCartItem = (req, res) => {
-  Cart.find({})
+  Cart.find({ currentUser: req.params.email })
     .then((cartItems) => {
       res.status(200).json({
         cartItems,
@@ -48,6 +49,8 @@ exports.updateCartItem = (req, res) => {
     bookPrice: req.body.bookPrice,
     bookQuantity: req.body.bookQuantity,
     total: req.body.total,
+    bookSKUid: req.body.bookSKUid,
+    currentUser: req.body.currentUser,
   });
 
   Cart.findOneAndUpdate({ bookTitle: req.params.title }, cartItem)
@@ -66,7 +69,7 @@ exports.updateCartItem = (req, res) => {
 };
 
 exports.deleteAllCartItems = (req, res) => {
-  Cart.deleteMany({})
+  Cart.deleteMany({ currentUser: req.params.email })
     .then((deletedItems) => {
       res.status(200).json({
         deletedItems,

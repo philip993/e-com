@@ -19,6 +19,9 @@ const cartSchema = new mongoose.Schema({
   bookSKUid: {
     type: String,
   },
+  currentUser: {
+    type: String,
+  },
 });
 
 const Cart = mongoose.model("Cart", cartSchema);
