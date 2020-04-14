@@ -32,20 +32,20 @@ export const BookReducer = (state = initialState, action) => {
     case ADD_BOOK_TO_CART:
       return {
         ...state,
-        currentItem: action.payload,
+        booksInCart: [...state.booksInCart, action.payload],
       };
     case DELETE_PREVIOUS_BOOK:
       return {
         ...state,
-        currentItem: [
-          ...state.currentItem.slice(0, action.payload),
-          ...state.currentItem.slice(action.payload + 1),
+        booksInCart: [
+          ...state.booksInCart.slice(0, action.payload),
+          ...state.booksInCart.slice(action.payload + 1),
         ],
       };
     case UPDATE_QUANTITY:
       return {
         ...state,
-        currentItem: action.payload,
+        booksInCart: [...state.booksInCart, action.payload],
       };
     case REMOVE_BOOK:
       return {

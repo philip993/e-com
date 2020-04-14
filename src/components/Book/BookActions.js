@@ -32,21 +32,22 @@ export const selectBook = (book) => {
 
 export const addBookToCart = (book) => {
   return (dispatch, getState) => {
-    console.log(book);
-    let id = book._id;
+    let currentUser = localStorage.getItem("user");
+
     return axios
-      .post(`http://localhost:5000/cartitems`, {
+      .post(`http://localhost:5000/cartitems/${currentUser}`, {
         bookTitle: book.title,
         bookPrice: book.price,
         bookQuantity: book.quantity,
         total: book.price * book.quantity,
         bookSKUid: book.skuId,
+        currentUser: currentUser,
       })
       .then((response) => {
         console.log(response);
         dispatch({
           type: ADD_BOOK_TO_CART,
-          payload: response.data.cartItem,
+          payload: book,
         });
       });
   };
@@ -55,10 +56,14 @@ export const addBookToCart = (book) => {
 export const updateQuantity = (item) => {
   return (dispatch, getState) => {
     let title = item.title;
+    console.log(title);
+    let currentUser = localStorage.getItem("user");
+    console.log(currentUser);
     let cartItems = getState().CartReducer.items;
     let index = cartItems.findIndex(
       (itm, index) => itm.bookTitle === item.title
     );
+    console.log(cartItems[index]._id);
     console.log(title);
     console.log(index);
     return axios
@@ -69,6 +74,7 @@ export const updateQuantity = (item) => {
         bookQuantity: item.quantity,
         total: item.price * item.quantity,
         bookSKUid: item.skuId,
+        currentUser: currentUser,
       })
       .then((response) => {
         console.log(response);
