@@ -1,4 +1,8 @@
-import { GET_CART_ITEMS, COUNT_CART_ITEMS } from "./CartActionTypes";
+import {
+  GET_CART_ITEMS,
+  COUNT_CART_ITEMS,
+  CLEAR_CART_ITEMS_AFTER_ORDER,
+} from "./CartActionTypes";
 
 const initalState = {
   items: [],
@@ -16,6 +20,11 @@ export const CartReducer = (state = initalState, action) => {
       return {
         ...state,
         itemNumber: action.payload,
+      };
+    case CLEAR_CART_ITEMS_AFTER_ORDER:
+      return {
+        ...state,
+        items: [],
       };
     default:
       return state;

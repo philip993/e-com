@@ -1,4 +1,8 @@
-import { GET_CART_ITEMS, COUNT_CART_ITEMS } from "./CartActionTypes";
+import {
+  GET_CART_ITEMS,
+  COUNT_CART_ITEMS,
+  CLEAR_CART_ITEMS_AFTER_ORDER,
+} from "./CartActionTypes";
 import axios from "axios";
 
 export const getItemsFromCart = () => {
@@ -31,5 +35,21 @@ export const countItemsInCart = () => {
       type: COUNT_CART_ITEMS,
       payload: numberOfItems,
     });
+  };
+};
+
+export const clearCartAfterOrder = () => {
+  return (dispatch, getState) => {
+    let currentUser = localStorage.getItem("user");
+    return axios
+      .delete(`http://localhost:5000/cartitems/${currentUser}`)
+      .then((response) => {
+        dispatch({
+          type: CLEAR_CART_ITEMS_AFTER_ORDER,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 };

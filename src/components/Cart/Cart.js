@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getItemsFromCart } from "./CartActions";
+import { getItemsFromCart, clearCartAfterOrder } from "./CartActions";
 import { createOrder } from "../Order/OrderActions";
 import { useHistory } from "react-router-dom";
 
@@ -16,6 +16,7 @@ const Cart = () => {
   const handleCreateOrder = () => {
     dispatch(createOrder());
     history.push("/checkout");
+    dispatch(clearCartAfterOrder());
   };
   return (
     <div>
