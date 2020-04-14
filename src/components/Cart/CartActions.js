@@ -3,8 +3,9 @@ import axios from "axios";
 
 export const getItemsFromCart = () => {
   return (dispatch, getState) => {
+    let currentUser = localStorage.getItem("user");
     return axios
-      .get(`http://localhost:5000/cartitems`)
+      .get(`http://localhost:5000/cartitems/${currentUser}`)
       .then((response) => {
         console.log(response);
         dispatch({
