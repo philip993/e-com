@@ -2,6 +2,7 @@ import {
   GET_CART_ITEMS,
   COUNT_CART_ITEMS,
   CLEAR_CART_ITEMS_AFTER_ORDER,
+  REMOVE_ONE_CART_ITEM,
 } from "./CartActionTypes";
 
 const initalState = {
@@ -25,6 +26,14 @@ export const CartReducer = (state = initalState, action) => {
       return {
         ...state,
         items: [],
+      };
+    case REMOVE_ONE_CART_ITEM:
+      return {
+        ...state,
+        items: [
+          ...state.items.slice(0, action.payload),
+          ...state.items.slice(action.payload + 1),
+        ],
       };
     default:
       return state;

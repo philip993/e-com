@@ -2,6 +2,7 @@ import {
   GET_CART_ITEMS,
   COUNT_CART_ITEMS,
   CLEAR_CART_ITEMS_AFTER_ORDER,
+  REMOVE_ONE_CART_ITEM,
 } from "./CartActionTypes";
 import axios from "axios";
 
@@ -50,6 +51,24 @@ export const clearCartAfterOrder = () => {
       })
       .catch((err) => {
         console.log(err);
+      });
+  };
+};
+
+export const removeOneCartItem = (index) => {
+  return (dispatch, getState) => {
+    let cartItems = getState().CartReducer.items;
+    let currentBook = cartItems[index].bookTitle;
+    console.log(currentBook);
+    let currentUser = localStorage.getItem("user");
+    return axios
+      .delete(`http://localhost:5000/cartitems/${currentUser}/${currentBook}`)
+      .then((response) => {
+        console.log(response);
+        dispatch({
+          type: REMOVE_ONE_CART_ITEM,
+          payload: response.data.deletedItem,
+        });
       });
   };
 };
