@@ -1,4 +1,4 @@
-import { GET_CART_ITEMS } from "./CartActionTypes";
+import { GET_CART_ITEMS, COUNT_CART_ITEMS } from "./CartActionTypes";
 import axios from "axios";
 
 export const getItemsFromCart = () => {
@@ -16,5 +16,20 @@ export const getItemsFromCart = () => {
       .catch((err) => {
         console.log(err);
       });
+  };
+};
+
+export const countItemsInCart = () => {
+  return (dispatch, getState) => {
+    let itemsInCart = getState().CartReducer.items;
+    let numberOfItems = itemsInCart.reduce(
+      (total, current) => total + current.bookQuantity,
+      0
+    );
+    console.log(numberOfItems);
+    dispatch({
+      type: COUNT_CART_ITEMS,
+      payload: numberOfItems,
+    });
   };
 };

@@ -1,1 +1,2 @@
 export const GET_CART_ITEMS = "GET_CART_ITEMS";
+export const COUNT_CART_ITEMS = "COUNT_CART_ITEMS";
