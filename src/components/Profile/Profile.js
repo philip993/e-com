@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import ProfileView from "./ProfileView";
 import { getUserInfo } from "./ProfileActions";
+import PrivateRoute from "../PrivateRoute/PrivateRoute";
 
 const Profile = () => {
   const profile = useSelector((state) => state.ProfileReducer);
@@ -13,9 +14,11 @@ const Profile = () => {
 
   return (
     <div>
-      {profile.userInfo.map(({ ...rest }) => (
-        <ProfileView {...rest} />
-      ))}
+      <PrivateRoute>
+        {profile.userInfo.map(({ ...rest }) => (
+          <ProfileView {...rest} />
+        ))}
+      </PrivateRoute>
     </div>
   );
 };
