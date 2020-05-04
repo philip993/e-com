@@ -1,12 +1,17 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { loadBooks } from "./BooksActions";
-import Book from "../Book/Book";
 
-import { CardDeck, Spinner } from "react-bootstrap";
-import { setMaximumPages } from "../Pagination/PaginationActions";
+// Styles
+import Styles from "../Styles/Styles";
+// React Components
+import Book from "../Book/Book";
 import Pagination from "../Pagination/Pagination";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
+// Redux Actions
+import { setPageSize } from "../Pagination/PaginationActions";
+import { loadBooks } from "./BooksActions";
+// Material Ui Components
+import { Grid } from "@material-ui/core";
 
 const Books = () => {
   const { data, page, pageSize, sortBy } = useSelector((state) => ({
@@ -16,30 +21,18 @@ const Books = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(setMaximumPages());
-  }, [data]);
-
-  useEffect(() => {
     dispatch(loadBooks());
-  }, [page, pageSize, sortBy]);
+  }, [page, sortBy]);
 
   return (
     <div>
       <PrivateRoute>
         <Pagination />
-
-        <CardDeck
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "center",
-            margin: "1rem",
-          }}
-        >
+        <Grid>
           {data.map(({ ...otherProps }) => (
             <Book {...otherProps} />
           ))}
-        </CardDeck>
+        </Grid>
       </PrivateRoute>
     </div>
   );

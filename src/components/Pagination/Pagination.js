@@ -1,6 +1,9 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Button, Table, DropdownButton } from "react-bootstrap";
+
+// Styles
+import Styles from "../Styles/Styles";
+// Redux Actions
 import {
   setIncrementPage,
   setDecrementPage,
@@ -9,13 +12,22 @@ import {
   setPriceAcc,
   setPriceDesc,
   setTitleZA,
-  setTitleAZ
+  setTitleAZ,
 } from "./PaginationActions";
-import DropdownItem from "react-bootstrap/DropdownItem";
+// Material Ui Components
+import { Typography, Grid } from "@material-ui/core";
+import PaginationUi from "@material-ui/lab/Pagination";
+import PaginationItem from "@material-ui/lab/PaginationItem";
 
 const Pagination = () => {
-  const paginate = useSelector(state => state.PaginationReducer);
+  const { page, maximumPages } = useSelector((state) => ({
+    ...state.PaginationReducer,
+    ...state.BooksReducer,
+  }));
   const dispatch = useDispatch();
+
+  const classes = Styles();
+  console.log(maximumPages);
 
   const increment = () => {
     dispatch(setIncrementPage());
@@ -49,43 +61,26 @@ const Pagination = () => {
 
   return (
     <div>
-      <Table>
-        <tr>
-          <th>
-            <Button onClick={decrement} disabled={paginate.page === 1}>
-              Previous
-            </Button>
-          </th>
-          <th>
-            <Button>{paginate.page - 1}</Button>
-            <Button>{paginate.page}</Button>
-            <Button>{paginate.page + 1}</Button>
-          </th>
-          <th>
-            {paginate.maxPages === 0 ? (
-              <Button onClick={decrement}>Back</Button>
-            ) : (
-              <Button onClick={increment} disabled={paginate.maxPages === 0}>
-                Next
-              </Button>
-            )}
-          </th>
-          <th>
-            <DropdownButton>
-              <DropdownItem onClick={pageSizeFour}>Grid x 4</DropdownItem>
-              <DropdownItem onClick={pageSizeOne}> Grid x 1</DropdownItem>
-              <DropdownItem onClick={priceLowToHigh}>
-                Price Low to High
-              </DropdownItem>
-              <DropdownItem onClick={priceHightoLow}>
-                Price High to Low
-              </DropdownItem>
-              <DropdownItem onClick={titleAtoZ}>Title A to Z</DropdownItem>
-              <DropdownItem onClick={titleZtoA}>Title Z to A</DropdownItem>
-            </DropdownButton>
-          </th>
-        </tr>
-      </Table>
+      <Grid className={classes.paginationContainer}>
+        <PaginationItem
+          type='previous'
+          onClick={decrement}
+          disabled={page === 1}
+        />
+        <PaginationUi
+          count={maximumPages}
+          page={page}
+          variant='outlined'
+          shape='rounded'
+          hidePrevButton
+          hideNextButton
+        />
+        <PaginationItem
+          type='next'
+          onClick={increment}
+          disabled={page === maximumPages}
+        />
+      </Grid>
     </div>
   );
 };
