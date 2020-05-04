@@ -1,0 +1,30 @@
+.header {
+  .headerLink {
+    text-decoration: none;
+    color: white;
+    margin: 0px 10px;
+    font-size: 1.2rem;
+    font-weight: bold;
+
+    &:hover {
+      color: orange;
+      text-decoration: none;
+    }
+  }
+
+  // .headerIcon {
+  //   .headerAccount {
+  //     text-decoration: none;
+  //     color: white;
+  //   }
+
+  //   .headerMenu {
+  //     .headerMenuItem {
+  //       .headerLink {
+  //         text-decoration: none;
+  //         color: white;
+  //       }
+  //     }
+  //   }
+  // }
+}
