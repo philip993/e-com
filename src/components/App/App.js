@@ -1,7 +1,10 @@
 import React from "react";
-import "./App.css";
+// React Router Dom
 import { Switch, Route } from "react-router-dom";
-
+// Styles
+import Styles from "../Styles/Styles";
+import "./App.css";
+// React components
 import Header from "../Header/Header";
 import Homepage from "../../pages/homepage/Homepage";
 import About from "../../pages/about/about";
@@ -17,8 +20,10 @@ import Order from "../Order/Order";
 import Cart from "../Cart/Cart";
 
 const App = (props) => {
+  const classes = Styles();
+
   return (
-    <div className='app'>
+    <div className={classes.root}>
       <Header />
       <Switch>
         <Route path='/' exact component={Homepage} />
