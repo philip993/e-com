@@ -1,8 +1,12 @@
 import React from "react";
-import { useHistory, Link } from "react-router-dom";
-import { Button, Nav } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
+
+// React Router Dom
+import { useHistory, Link } from "react-router-dom";
+// Redux Actions
 import { clearTokenFromLS } from "../Header/HeaderActions";
+// Material Ui Components
+import MenuItem from "@material-ui/core/MenuItem";
 
 const Logout = () => {
   const user = useSelector((state) => state.HeaderReducer);
@@ -16,9 +20,7 @@ const Logout = () => {
   };
   return (
     <div>
-      <Nav.Link onClick={handleLogout}>
-        <Link>Logout</Link>
-      </Nav.Link>
+      <MenuItem onClick={handleLogout}>Logout</MenuItem>
     </div>
   );
 };
