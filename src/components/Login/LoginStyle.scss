@@ -1,0 +1,52 @@
+.login {
+  text-align: center;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  h3 {
+    text-align: left;
+    margin-left: 20px;
+    padding: 10px;
+  }
+
+  .loginForm {
+    border: solid 0.2px lightgray;
+    width: 40%;
+    margin: auto;
+    padding: 20px;
+
+    .loginFormGroup {
+      width: 80%;
+      margin: auto;
+
+      h6 {
+        color: black;
+        text-align: left;
+      }
+
+      .loginFormInput {
+        height: 50px;
+        &:hover {
+          border: solid 0.1px blue;
+        }
+      }
+
+      .loginFormButton {
+        padding-top: 10px;
+        margin-top: 20px;
+        margin-left: auto;
+        margin-right: auto;
+        width: 50%;
+      }
+    }
+  }
+
+  .loginExtention {
+    display: inline-block;
+    padding: 55px 30px;
+    width: 35%;
+    margin: auto;
+    align-content: center;
+
+    .loginExtentionButton {
+    }
+  }
+}
