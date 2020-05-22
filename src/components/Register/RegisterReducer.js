@@ -12,7 +12,12 @@ import {
   SET_GENDER,
   SET_ADDRESS,
   SET_POSTAL_CODE,
-  SET_PHONE
+  SET_PHONE,
+  STEP_INCREMENT,
+  STEP_DECREMENT,
+  REGISTER_SUCCESS,
+  VALIDATE_TRUE,
+  VALIDATE_FALSE,
 } from "./RegisterActionTypes";
 
 const initialState = {
@@ -29,7 +34,11 @@ const initialState = {
   country: "",
   postalCode: "",
   info: [],
-  user: {}
+  user: {},
+  step: 1,
+  activeStepper: 0,
+  errorMsg: null,
+  isValidate: null,
 };
 
 export const RegisterReducer = (state = initialState, action) => {
@@ -37,69 +46,69 @@ export const RegisterReducer = (state = initialState, action) => {
     case SET_EMAIL_ADDRESS:
       return {
         ...state,
-        email: action.payload
+        email: action.payload,
       };
     case SET_PASSWORD:
       return {
         ...state,
-        password: action.payload
+        password: action.payload,
       };
     case SET_FIRST_NAME:
       return {
         ...state,
-        firstName: action.payload
+        firstName: action.payload,
       };
     case SET_LAST_NAME:
       return {
         ...state,
-        lastName: action.payload
+        lastName: action.payload,
       };
     case SET_USERNAME:
       return {
         ...state,
-        username: action.payload
+        username: action.payload,
       };
     case SET_AGE:
       return {
         ...state,
-        age: action.payload
+        age: action.payload,
       };
     case SET_GENDER:
       return {
         ...state,
-        gender: action.payload
+        gender: action.payload,
       };
     case SET_PHONE:
       return {
         ...state,
-        phone: action.payload
+        phone: action.payload,
       };
     case SET_ADDRESS:
       return {
         ...state,
-        address: action.payload
+        address: action.payload,
       };
     case SET_CITY:
       return {
         ...state,
-        city: action.payload
+        city: action.payload,
       };
     case SET_COUNTRY:
       return {
         ...state,
-        country: action.payload
+        country: action.payload,
       };
     case SET_POSTAL_CODE:
       return {
         ...state,
-        postalCode: action.payload
+        postalCode: action.payload,
       };
     case FORM_COMPLETE:
       return {
         ...state,
-        info: [state.email, state.password]
+        info: [state.email, state.password],
       };
-    case POST_REGISTRATION:
+    case REGISTER_SUCCESS:
       return {
         ...state,
         user: action.payload,
@@ -112,7 +121,29 @@ export const RegisterReducer = (state = initialState, action) => {
         gender: "",
         address: "",
         city: "",
-        country: ""
+        country: "",
+      };
+    case STEP_INCREMENT:
+      return {
+        ...state,
+        step: state.step + 1,
+        activeStepper: state.activeStepper + 1,
+      };
+    case STEP_DECREMENT:
+      return {
+        ...state,
+        step: state.step - 1,
+        activeStepper: state.activeStepper - 1,
+      };
+    case VALIDATE_TRUE:
+      return {
+        ...state,
+        isValidate: true,
+      };
+    case VALIDATE_FALSE:
+      return {
+        ...state,
+        isValidate: false,
       };
     default:
       return state;

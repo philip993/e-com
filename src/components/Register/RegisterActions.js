@@ -11,96 +11,103 @@ import {
   SET_GENDER,
   SET_ADDRESS,
   SET_POSTAL_CODE,
-  SET_PHONE
+  SET_PHONE,
+  STEP_INCREMENT,
+  STEP_DECREMENT,
+  REGISTER_SUCCESS,
+  REGISTER_FAILURE,
+  VALIDATE_TRUE,
+  VALIDATE_FALSE,
 } from "./RegisterActionTypes";
 
 import axios from "axios";
 
-export const setEmailAddress = e => {
+export const setEmailAddress = (e) => {
   return {
     type: SET_EMAIL_ADDRESS,
-    payload: e
+    payload: e,
   };
 };
 
-export const setPassword = e => {
+export const setPassword = (e) => {
   return {
     type: SET_PASSWORD,
-    payload: e
+    payload: e,
   };
 };
 
-export const setFirstName = e => {
+export const setFirstName = (e) => {
   return {
     type: SET_FIRST_NAME,
-    payload: e
+    payload: e,
   };
 };
 
-export const setLastName = e => {
+export const setLastName = (e) => {
   return {
     type: SET_LAST_NAME,
-    payload: e
+    payload: e,
   };
 };
 
-export const setUsername = e => {
+export const setUsername = (e) => {
   return {
     type: SET_USERNAME,
-    payload: e
+    payload: e,
   };
 };
 
-export const setAge = e => {
+export const setAge = (e) => {
   return {
     type: SET_AGE,
-    payload: e
+    payload: e,
   };
 };
 
-export const setGender = e => {
+export const setGender = (e) => {
   return {
     type: SET_GENDER,
-    payload: e
+    payload: e,
   };
 };
 
-export const setAddress = e => {
+export const setAddress = (e) => {
   return {
     type: SET_ADDRESS,
-    payload: e
+    payload: e,
   };
 };
 
-export const setCity = e => {
+export const setCity = (e) => {
   return {
     type: SET_CITY,
-    payload: e
+    payload: e,
   };
 };
 
-export const setContry = e => {
+export const setContry = (e) => {
   return {
     type: SET_COUNTRY,
-    payload: e
+    payload: e,
   };
 };
 
-export const setPostalCode = e => {
+export const setPostalCode = (e) => {
   return {
     type: SET_POSTAL_CODE,
-    payload: e
+    payload: e,
   };
 };
 
-export const setPhone = e => {
+export const setPhone = (e) => {
   return {
     type: SET_PHONE,
-    payload: e
+    payload: e,
   };
 };
 
-export const postRegistration = user => {
+// Register Request
+export const registerRequest = (user) => {
   return (dispatch, getState) => {
     let registerUser = getState().RegisterReducer;
     axios
@@ -119,22 +126,49 @@ export const postRegistration = user => {
           city: registerUser.city,
           country: registerUser.country,
           postalCode: registerUser.postalCode,
-          customerId: registerUser.customerId
+          customerId: registerUser.customerId,
         },
         {
           headers: {
-            "Content-Type": "application/json"
-          }
+            "Content-Type": "application/json",
+          },
         }
       )
-      .then(res => {
+      .then((res) => {
         dispatch({
-          type: POST_REGISTRATION,
-          payload: res.data
+          type: REGISTER_SUCCESS,
+          payload: res.data,
         });
       })
-      .catch(err => {
-        console.log(err);
+      .catch((err) => {
+        dispatch({
+          type: REGISTER_FAILURE,
+        });
       });
+  };
+};
+
+// Step
+export const stepIncrement = () => {
+  return {
+    type: STEP_INCREMENT,
+  };
+};
+
+export const stepDecrement = () => {
+  return {
+    type: STEP_DECREMENT,
+  };
+};
+// Validate
+export const validateTrue = () => {
+  return {
+    type: VALIDATE_TRUE,
+  };
+};
+
+export const validateFalse = () => {
+  return {
+    type: VALIDATE_FALSE,
   };
 };
