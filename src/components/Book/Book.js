@@ -4,7 +4,10 @@ import { useDispatch, useSelector } from "react-redux";
 // Styles
 import Styles from "../Styles/Styles";
 // Redux Actions
-import { newWishlistItem } from "../Wishlist/WishlistActions";
+import {
+  newWishlistItem,
+  getAllWishlistItems,
+} from "../Wishlist/WishlistActions";
 import { getItemsFromCart } from "../Cart/CartActions";
 import { addIndex, addBookToCart, updateQuantity } from "./BookActions";
 // Material Ui Components
@@ -70,7 +73,8 @@ const Book = ({ _id, title, price, skuId, writter, genre, year, quantity }) => {
 
   const handleWishitemSelect = (e) => {
     dispatch(newWishlistItem({ _id }));
-    setClicked(true);
+    setWished(true);
+    dispatch(getAllWishlistItems());
   };
 
   const handleToggleToTrue = () => {
@@ -84,7 +88,7 @@ const Book = ({ _id, title, price, skuId, writter, genre, year, quantity }) => {
   return (
     <div>
       <Grid item>
-        <Card>
+        <Card className={classes.bookCard}>
           <CardMedia image='#' title='book cover' />
           <CardContent>
             <Typography variant='h5'>{title}</Typography>
@@ -116,11 +120,11 @@ const Book = ({ _id, title, price, skuId, writter, genre, year, quantity }) => {
             )}
             {!wished ? (
               <IconButton onClick={handleWishitemSelect.bind(this, _id)}>
-                <FavoriteBorderOutlinedIcon />
+                <FavoriteBorderOutlinedIcon className={classes.wishButton} />
               </IconButton>
             ) : (
-              <IconButton onClick={handleWishitemSelect.bind(this, _id)}>
-                <FavoriteIcon />
+              <IconButton>
+                <FavoriteIcon className={classes.wishSelectedButton} />
               </IconButton>
             )}
           </CardActions>

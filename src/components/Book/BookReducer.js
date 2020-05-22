@@ -8,13 +8,18 @@ import {
   UPDATE_QUANTITY,
   DELETE_PREVIOUS_BOOK,
   ADD_BOOK_TO_CART,
+  IS_ADDED_FALSE,
+  ITEM_DUPLICATE_TRUE,
+  ITEM_DUPLICATE_FALSE,
 } from "./BookActionTypes";
 
 const initialState = {
   booksInCart: [],
   currentItem: [],
   index: 0,
+  isAdded: null,
   qty: 0,
+  itemStatus: null,
 };
 
 export const BookReducer = (state = initialState, action) => {
@@ -33,6 +38,7 @@ export const BookReducer = (state = initialState, action) => {
       return {
         ...state,
         booksInCart: [...state.booksInCart, action.payload],
+        isAdded: true,
       };
     case DELETE_PREVIOUS_BOOK:
       return {
@@ -71,6 +77,21 @@ export const BookReducer = (state = initialState, action) => {
         booksInCart: state.booksInCart.filter(
           (item, index) => state.booksInCart.indexOf(item) === index
         ),
+      };
+    case IS_ADDED_FALSE:
+      return {
+        ...state,
+        isAdded: false,
+      };
+    case ITEM_DUPLICATE_TRUE:
+      return {
+        ...state,
+        itemStatus: true,
+      };
+    case ITEM_DUPLICATE_FALSE:
+      return {
+        ...state,
+        itemStatus: false,
       };
     default:
       return state;
