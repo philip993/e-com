@@ -10,6 +10,8 @@ import "./HeaderStyle.scss";
 import { getTokenFromLS, clearTokenFromLS } from "./HeaderActions";
 import { getUserInformation } from "../User/UserActions";
 import { countItemsInCart } from "../Cart/CartActions";
+import { logoutUser } from "../Login/LoginActions";
+import { countItemsInWishlist } from "../Wishlist/WishlistActions";
 // React Components
 import Logout from "../Logout/Logout";
 import SideMenu from "../SideMenu/SideMenu";
@@ -27,24 +29,34 @@ import {
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
+import FavoriteIcon from "@material-ui/icons/Favorite";
 
 const Header = () => {
-  const { items, itemNumber } = useSelector((state) => ({
-    ...state.HeaderReducer,
-    ...state.CartReducer,
-  }));
+  const { items, itemNumber, wishItems, wishNumber, info } = useSelector(
+    (state) => ({
+      ...state.HeaderReducer,
+      ...state.CartReducer,
+      ...state.WishlistReducer,
+      ...state.UserReducer,
+    })
+  );
   const dispatch = useDispatch();
 
   const history = useHistory();
 
   const handleLogout = () => {
     dispatch(clearTokenFromLS());
+    dispatch(logoutUser());
     history.push("/");
   };
 
   useEffect(() => {
     dispatch(countItemsInCart());
   }, [items]);
+
+  useEffect(() => {
+    dispatch(countItemsInWishlist());
+  }, [wishItems]);
 
   const getToken = () => {
     dispatch(getTokenFromLS());
@@ -68,6 +80,8 @@ const Header = () => {
               <Typography variant='h5'>WISDOM</Typography>
             </Grid>
             <Grid item className={classes.rightGrid}>
+              {info.role === "admin" ? <Link to='/addbook'>ADD BOOK</Link> : ""}
+
               {returnUserEmailFromLS ? (
                 <IconButton
                   color='inherit'
@@ -97,10 +111,19 @@ const Header = () => {
 
               <IconButton
                 color='inherit'
+                onClick={() => history.push("/wishlist")}
+              >
+                <Badge badgeContent={wishNumber} color='error'>
+                  <FavoriteIcon />
+                </Badge>
+              </IconButton>
+
+              <IconButton
+                color='inherit'
                 className='headerIcon'
                 onClick={() => history.push("/cartitems")}
               >
-                <Badge badgeContent={itemNumber}>
+                <Badge badgeContent={itemNumber} color='error'>
                   <ShoppingCartIcon />
                 </Badge>
               </IconButton>

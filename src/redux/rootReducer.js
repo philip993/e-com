@@ -14,6 +14,7 @@ import { CheckoutReducer } from "../components/Checkout/CheckoutReducer";
 import { OrderReducer } from "../components/Order/OrderReducer";
 import { CartReducer } from "../components/Cart/CartReducer";
 import { SideMenuReducer } from "../components/SideMenu/SideMenuReducer";
+import { AddBookReducer } from "../components/AddBook/AddBookReducer";
 
 const rootReducer = combineReducers({
   BookReducer,
@@ -31,6 +32,7 @@ const rootReducer = combineReducers({
   OrderReducer,
   CartReducer,
   SideMenuReducer,
+  AddBookReducer,
 });
 
 export default rootReducer;
