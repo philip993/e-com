@@ -54,7 +54,7 @@ const Order = (props) => {
   };
 
   return (
-    <div>
+    <div className={classes.contentContainer}>
       <PrivateRoute>
         <Typography variant='h4'>Orders</Typography>
         <TableContainer className={classes.tableContainer}>

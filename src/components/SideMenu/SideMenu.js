@@ -48,6 +48,7 @@ const SideMenu = () => {
 
       <Drawer
         open={sideMenu.isOpen === true}
+        onClose={handleCloseDrawer}
         anchor='left'
         className={classes.drawer}
         classes={{
