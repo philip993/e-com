@@ -3,6 +3,7 @@ import {
   COUNT_CART_ITEMS,
   CLEAR_CART_ITEMS_AFTER_ORDER,
   REMOVE_ONE_CART_ITEM,
+  CLEAR_CART,
 } from "./CartActionTypes";
 
 const initalState = {
@@ -26,6 +27,11 @@ export const CartReducer = (state = initalState, action) => {
       return {
         ...state,
         items: [],
+      };
+    case CLEAR_CART:
+      return {
+        ...state,
+        items: action.payload,
       };
     case REMOVE_ONE_CART_ITEM:
       return {

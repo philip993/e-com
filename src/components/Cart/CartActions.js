@@ -3,6 +3,7 @@ import {
   COUNT_CART_ITEMS,
   CLEAR_CART_ITEMS_AFTER_ORDER,
   REMOVE_ONE_CART_ITEM,
+  CLEAR_CART,
 } from "./CartActionTypes";
 import axios from "axios";
 
@@ -51,6 +52,20 @@ export const clearCartAfterOrder = () => {
       })
       .catch((err) => {
         console.log(err);
+      });
+  };
+};
+
+export const clearCart = () => {
+  return (dispatch, getState) => {
+    let currentUser = localStorage.getItem("user");
+    return axios
+      .delete(`http://localhost:5000/cartitems/${currentUser}`)
+      .then((response) => {
+        dispatch({
+          type: CLEAR_CART,
+          payload: [],
+        });
       });
   };
 };
