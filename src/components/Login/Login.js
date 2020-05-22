@@ -2,21 +2,33 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 // Import scss
-import Style from "../Styles/Styles";
+import Styles from "../Styles/Styles";
 import "./LoginStyle.scss";
 // Redux Actions
-import { emailSubmit, passwordSubmit, loginFinish } from "./LoginActions";
+import { emailSubmit, passwordSubmit, loginRequest } from "./LoginActions";
 import { getUserInformation } from "../User/UserActions";
 // Import React-router-dom
 import { Link, useHistory } from "react-router-dom";
 
 // Material ui Components
-import { Button, FormGroup, Input, Container } from "@material-ui/core";
+import {
+  Button,
+  FormGroup,
+  Input,
+  Container,
+  InputBase,
+  InputLabel,
+  Typography,
+} from "@material-ui/core";
+import LoginError from "./LoginError";
 
 const Login = () => {
-  const user = useSelector((state) => state.LoginReducer);
+  const { email, password, errorMsg } = useSelector(
+    (state) => state.LoginReducer
+  );
   const dispatch = useDispatch();
-  let history = useHistory();
+  const history = useHistory();
+  const classes = Styles();
 
   const handleEmailSubmit = (e) => {
     dispatch(emailSubmit(e.target.value));
@@ -26,55 +38,69 @@ const Login = () => {
     dispatch(passwordSubmit(e.target.value));
   };
 
-  const handleLoginFinish = (e) => {
+  const handleLoginRequest = (e) => {
     e.preventDefault();
-    dispatch(loginFinish());
-    history.push("/");
-    dispatch(getUserInformation());
+    dispatch(loginRequest());
+    setTimeout(() => {
+      dispatch(getUserInformation());
+    }, 500);
   };
 
   return (
-    <div className='login'>
-      <Container>
-        <form onSubmit={handleLoginFinish} className='loginForm'>
-          <h3>Login</h3>
-          <FormGroup className='loginFormGroup'>
-            <h6>Email</h6>
-            <Input
+    <div className={classes.contentContainer}>
+      {errorMsg === null ? (
+        ""
+      ) : errorMsg === false ? (
+        history.push("/")
+      ) : (
+        <LoginError />
+      )}
+      <Container className={classes.loginContainer}>
+        <form onSubmit={handleLoginRequest} className={classes.loginForm}>
+          <Typography variant='h4'>Login</Typography>
+          <FormGroup>
+            <InputLabel className={classes.loginInputLabel}>Email</InputLabel>
+            <InputBase
               type='email'
-              className='loginFormInput'
+              id='inputBaseEmail'
+              className={classes.loginFormGroup}
               onChange={handleEmailSubmit}
               placeholder='Enter your e-mail adress'
-              value={user.email}
+              value={email}
             />
           </FormGroup>
-          <FormGroup className='loginFormGroup'>
-            <h6>Password</h6>
-            <Input
+          <FormGroup>
+            <InputLabel className={classes.loginInputLabel}>
+              Password
+            </InputLabel>
+            <InputBase
               type='password'
-              className='loginFormInput'
+              id='inputBasePassword'
+              className={classes.loginFormGroup}
               onChange={handlePasswordSubmit}
               placeholder='Enter your password'
-              value={user.password}
+              value={password}
             />
           </FormGroup>
-          <FormGroup className='loginFormGroup'>
+          <FormGroup>
             <Button
               type={"submit"}
               variant='outlined'
-              color='secondary'
-              className='loginFormButton'
+              className={classes.loginButton}
             >
               Log-In
             </Button>
           </FormGroup>
         </form>
-        <div className='loginExtention'>
-          <h6>New to WISDOM bookstore?</h6>
-          <Button variant='outlined' className='loginExtentionButton'>
-            <Link to='/register'>Create your WISDOM account</Link>
-          </Button>
-        </div>
+
+        <Typography variant='h6' id='registerSubtitle'>
+          <span id='regSubtitleSpan'> New to WISDOM bookstore?</span>
+        </Typography>
+        <Button variant='outlined' className={classes.newUserButton}>
+          <Link to='/register' id='registerLink'>
+            Create your WISDOM account
+          </Link>
+        </Button>
       </Container>
     </div>
   );

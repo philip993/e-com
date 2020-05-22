@@ -1,13 +1,17 @@
 import {
   EMAIL_SUBMIT,
   PASSWORD_SUBMIT,
-  LOGIN_FINISH
+  LOGIN_FINISH,
+  LOGIN_SUCCESS,
+  LOGIN_FAILURE,
+  LOGOUT,
 } from "./LoginActionTypes";
 
 const initialState = {
   email: "",
   password: "",
-  user: []
+  user: null,
+  errorMsg: null,
 };
 
 export const LoginReducer = (state = initialState, action) => {
@@ -15,19 +19,41 @@ export const LoginReducer = (state = initialState, action) => {
     case EMAIL_SUBMIT:
       return {
         ...state,
-        email: action.payload
+        email: action.payload,
       };
     case PASSWORD_SUBMIT:
       return {
         ...state,
-        password: action.payload
+        password: action.payload,
+      };
+    case LOGIN_SUCCESS:
+      return {
+        ...state,
+        user: action.payload,
+        email: "",
+        password: "",
+        errorMsg: false,
+      };
+    case LOGIN_FAILURE:
+      return {
+        ...state,
+        user: null,
+        email: "",
+        password: "",
+        errorMsg: true,
+      };
+    case LOGOUT:
+      return {
+        ...state,
+        user: null,
+        errorMsg: null,
       };
     case LOGIN_FINISH:
       return {
         ...state,
         user: action.payload,
         email: "",
-        password: ""
+        password: "",
       };
     default:
       return state;

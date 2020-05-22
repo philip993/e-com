@@ -1,52 +1,42 @@
-.login {
-  text-align: center;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
-  h3 {
-    text-align: left;
-    margin-left: 20px;
-    padding: 10px;
+#inputBaseEmail,
+#inputBasePassword {
+  color: #363636;
+  padding-left: 10px;
+
+  &:focus {
+    color: #363636;
+    box-shadow: 0 0 5px #007fff;
+    border-radius: 5px;
+  }
+}
+
+#registerLink {
+  text-decoration: none;
+  color: #e33371;
+}
+
+#registerSubtitle {
+  position: relative;
+  z-index: 1;
+  margin-top: 20px;
+
+  &:before {
+    margin-top: 20px;
+    border-top: 2px solid #dfdfdf;
+    content: "";
+    margin: 0 auto;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    width: 95%;
+    z-index: -1;
   }
 
-  .loginForm {
-    border: solid 0.2px lightgray;
-    width: 40%;
-    margin: auto;
-    padding: 20px;
-
-    .loginFormGroup {
-      width: 80%;
-      margin: auto;
-
-      h6 {
-        color: black;
-        text-align: left;
-      }
-
-      .loginFormInput {
-        height: 50px;
-        &:hover {
-          border: solid 0.1px blue;
-        }
-      }
-
-      .loginFormButton {
-        padding-top: 10px;
-        margin-top: 20px;
-        margin-left: auto;
-        margin-right: auto;
-        width: 50%;
-      }
-    }
-  }
-
-  .loginExtention {
-    display: inline-block;
-    padding: 55px 30px;
-    width: 35%;
-    margin: auto;
-    align-content: center;
-
-    .loginExtentionButton {
-    }
+  #regSubtitleSpan {
+    background: #fff;
+    padding: 0 15px;
   }
 }
