@@ -23,6 +23,7 @@ import {
   Typography,
   Button,
   IconButton,
+  Container,
 } from "@material-ui/core";
 // Material Ui Icons
 import HighlightOffIcon from "@material-ui/icons/HighlightOff";
@@ -49,11 +50,11 @@ const Wishlist = (item) => {
   };
 
   return (
-    <div>
+    <div className={classes.contentContainer}>
       <PrivateRoute>
         <Typography variant='h4'>Wishlist</Typography>
-        {wish.wishItems === null ? (
-          "Wishlist is empty.."
+        {wish.wishNumber === 0 ? (
+          <Typography variant='h6'>Wishlist is empty.</Typography>
         ) : (
           <TableContainer className={classes.tableContainer}>
             <Table>
@@ -76,7 +77,7 @@ const Wishlist = (item) => {
                         variant='outline-danger'
                         onClick={handleRemoveOne.bind(this, index)}
                       >
-                        <HighlightOffIcon />
+                        <HighlightOffIcon fontSize='medium' />
                       </IconButton>
                     </TableCell>
                   </TableRow>
@@ -84,10 +85,10 @@ const Wishlist = (item) => {
               </TableBody>
               <TableFooter>
                 <TableRow>
-                  <TableCell>
+                  <TableCell colSpan={4}>
                     <Button
                       onClick={handleClearWihslist}
-                      className={classes.clearCartButton}
+                      className={classes.clearWishlistButton}
                     >
                       Clear Wishlist
                     </Button>
