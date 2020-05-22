@@ -3,11 +3,27 @@ import { makeStyles } from "@material-ui/core";
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
+  // APP
   root: {
-    width: "100%",
+    // width: "100%",
     height: "100%",
     textAlign: "center",
+    margin: "0",
   },
+  content: {
+    minHeight: "100%",
+    margin: "0 auto -200px",
+  },
+  contentSecond: {
+    height: "200px",
+  },
+  contentPush: {
+    height: "200px",
+  },
+  // contentOutline: {
+  //   minHeight: "100%",
+  // },
+  // HEADER
   appBar: {
     // zIndex: theme.zIndex.drawerPaper + 1,
     position: "relative",
@@ -44,6 +60,7 @@ const useStyles = makeStyles((theme) => ({
       border: "1px solid white",
     },
   },
+  // SIDE MENU
   drawer: {
     width: drawerWidth,
   },
@@ -53,43 +70,78 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "1.2rem",
     // height: `calc(100% - 75px)`,
   },
+  // PAGINATION
   paginationContainer: {
     display: "inline-flex",
   },
+  // CHECKOUT
   checkoutButton: {
-    border: "solid 1px #66bb6a",
-    background: "#fff",
+    color: "#fff",
+    border: "solid 1px #fff",
+    background: "#66bb6a",
     "&:hover": {
       border: "solid 1px #fff",
       background: "#66bb6a",
+      boxShadow: "0 0 10px #66bb6a",
     },
   },
+  // CART
   clearCartButton: {
-    border: "solid 1px #f44336",
-    background: "#fff",
+    color: "#fff",
+    border: "solid 1px #fff",
+    background: "#f44336",
+
     "&:hover": {
       border: "solid 1px #fff",
       background: "#f44336",
+      boxShadow: "0 0 10px #f44336",
     },
   },
   addToCartButton: {
-    border: "solid 1px #66bb6a",
-    background: "#fff",
+    border: "solid 1px #fff",
+    background: "#66bb6a",
+    color: "#fff",
+
     "&:hover": {
       border: "solid 1px #fff",
       background: "#66bb6a",
+      boxShadow: "0 0 10px #66bb6a",
     },
   },
+  // CARD
+  bookCard: {
+    height: "360px",
+    margin: "20px 0px",
+  },
+  // WISH
+  wishContainer: {
+    minHeight: "100%",
+  },
   wishButton: {
-    border: "solid 1px #d50000",
-    background: "#fff",
     "&:hover": {
-      border: "solid 1px #fff",
-      background: "#d50000",
+      color: "#d50000",
+      border: "none",
+      background: "none",
     },
     "&:focus": {
+      border: "none",
+      color: "#d50000",
+    },
+  },
+  wishSelectedButton: {
+    color: "#d50000",
+  },
+  clearWishlistButton: {
+    border: "solid 1px #fff",
+    background: "#f44336",
+    color: "#fff",
+    marginLeft: "43%",
+
+    "&:hover": {
       border: "solid 1px #fff",
-      background: "#d50000",
+      background: "#f44336",
+      boxShadow: "0 0 5px #f44336",
+      marginLeft: "43%",
     },
   },
   // ORDER MODAL
@@ -132,17 +184,168 @@ const useStyles = makeStyles((theme) => ({
   profileAvatar: {
     margin: "auto",
   },
+  // LOGIN
+  loginContainer: {
+    width: "620px",
+    height: "500px",
+  },
+  loginForm: {
+    width: "480px",
+    background: "#FAFAFA",
+    margin: "auto",
+    marginTop: "5%",
+    border: "solid 1px #D3D3D3",
+    paddingLeft: "25px",
+    paddingRight: "25p",
+    paddingBottom: "40px",
+    paddingTop: "10px",
+  },
+  loginFormGroup: {
+    width: "360px",
+    backgroundColor: "#fff",
+    color: "#363636",
+    border: "solid 1px #777B7E",
+    borderRadius: "5px",
+    margin: "auto",
+    marginTop: "5px",
+    marginBottom: "5px",
+
+    "&:hover": {
+      outline: "none",
+      border: "solid 1px #007fff",
+    },
+  },
+  loginButton: {
+    border: "solid 1px #007fff",
+    background: "#fff",
+    color: "#007fff",
+    fontWeight: "bold",
+    width: "50%",
+    margin: "auto",
+    marginTop: "25px",
+
+    "&:hover": {
+      border: "solid 1px #fff",
+      background: "#007fff",
+      color: "#fff",
+      width: "50%",
+      margin: "auto",
+      marginTop: "25px",
+    },
+
+    "&:active": {
+      boxShadow: "0 0 5px #007fff",
+    },
+  },
+  loginInputLabel: {
+    fontSize: "1.1rem",
+    textAlign: "left",
+    marginLeft: "40px",
+    color: "#363636",
+    padding: "5px",
+  },
+  newUserButton: {
+    border: "solid 1px #e33371",
+    background: "#fff",
+    color: "#e33371",
+
+    "&:hover": {
+      boxShadow: "0 0 5px #e33371",
+    },
+  },
+  // REGISTER
+  registerContainer: {
+    width: "720px",
+    height: "600px",
+    marginTop: "25px",
+    background: "#FAFAFA",
+  },
+  registerStepperContainer: {
+    margin: "auto",
+    marginTop: "30px",
+    width: "60%",
+  },
+  registerFormGroup: {
+    width: "360px",
+    backgroundColor: "#fff",
+    color: "#363636",
+    border: "solid 1px #777B7E",
+    borderRadius: "5px",
+    margin: "auto",
+    marginTop: "5px",
+    marginBottom: "5px",
+
+    "&:hover": {
+      outline: "none",
+      border: "solid 1px #ec9706",
+    },
+  },
+  registerFormLabel: {
+    margin: "auto",
+    fontSize: "1.1rem",
+    padding: "5px",
+  },
+  nextStepButton: {
+    border: "solid 1px #6cbb3c",
+    background: "#fff",
+    color: "#6cbb3c",
+    fontWeight: "bold",
+    width: "25%",
+    margin: "auto",
+    marginTop: "25px",
+
+    "&:hover": {
+      border: "solid 1px #fff",
+      background: "#6cbb3c",
+      color: "#fff",
+      width: "25%",
+      margin: "auto",
+      marginTop: "25px",
+    },
+
+    "&:active": {
+      boxShadow: "0 0 5px #007fff",
+    },
+  },
+  registerHelperText: {
+    textAlign: "center",
+    marginTop: "10px",
+    color: "#ff2800",
+  },
+  // FOOTER
+  footerContainer: {
+    width: "100%",
+    height: "50px",
+    border: "1px solid #000",
+  },
+
   // Multi use elements
   tableHeader: {
     width: "100%",
     height: "120px",
     backgroundColor: "#D3D3D3",
   },
+  contentContainer: {
+    minHeight: `calc(100vh - 70px)`,
+  },
   tableContainer: {
+    width: "60%",
+    // height: "100%",
+    margin: "auto",
+    marginBottom: "20px",
+    border: "solid 2px #D3D3D3",
+  },
+  alertLogin: {
+    width: "70%",
+    textAlign: "center",
+    justifyContent: "center",
+    margin: "auto",
+  },
+  pageContainer: {
     width: "60%",
     height: "100%",
     margin: "auto",
-    border: "solid 2px #D3D3D3",
+    padding: "10px",
   },
 }));
 
