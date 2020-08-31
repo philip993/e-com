@@ -1,17 +1,19 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
-  SetEmailAddress,
-  SetPassword,
-  PostRegistration,
-  SetFirstName,
-  SetLastName,
-  SetUsername,
-  SetCity,
-  SetContry,
-  SetAge,
-  SetGender,
-  SetAddress
+  setEmailAddress,
+  setPassword,
+  postRegistration,
+  setFirstName,
+  setLastName,
+  setUsername,
+  setCity,
+  setContry,
+  setAge,
+  setGender,
+  setAddress,
+  setPostalCode,
+  setPhone
 } from "./RegisterActions";
 import { Form, Col } from "react-bootstrap";
 import { Button } from "react-bootstrap";
@@ -23,48 +25,56 @@ const Register = () => {
   let history = useHistory();
 
   const handleUserEmail = e => {
-    dispatch(SetEmailAddress(e.target.value));
+    dispatch(setEmailAddress(e.target.value));
   };
 
   const handleUserPassword = e => {
-    dispatch(SetPassword(e.target.value));
+    dispatch(setPassword(e.target.value));
   };
 
   const handleFirstNameInput = e => {
-    dispatch(SetFirstName(e.target.value));
+    dispatch(setFirstName(e.target.value));
   };
 
   const handleLastNameInput = e => {
-    dispatch(SetLastName(e.target.value));
+    dispatch(setLastName(e.target.value));
   };
 
   const handleUsernameInput = e => {
-    dispatch(SetUsername(e.target.value));
+    dispatch(setUsername(e.target.value));
   };
 
   const handleAgeInput = e => {
-    dispatch(SetAge(e.target.value));
+    dispatch(setAge(e.target.value));
   };
 
   const handleGenderSelection = e => {
-    dispatch(SetGender(e.target.value));
+    dispatch(setGender(e.target.value));
+  };
+
+  const handlePhone = e => {
+    dispatch(setPhone(e.target.value));
   };
 
   const handleAddressInput = e => {
-    dispatch(SetAddress(e.target.value));
+    dispatch(setAddress(e.target.value));
   };
 
   const handleCityInput = e => {
-    dispatch(SetCity(e.target.value));
+    dispatch(setCity(e.target.value));
   };
 
   const handleCountryInput = e => {
-    dispatch(SetContry(e.target.value));
+    dispatch(setContry(e.target.value));
+  };
+
+  const handlePostalCode = e => {
+    dispatch(setPostalCode(e.target.value));
   };
 
   const handleRegister = e => {
     e.preventDefault();
-    dispatch(PostRegistration());
+    dispatch(postRegistration());
     history.push("/");
   };
 
@@ -138,7 +148,7 @@ const Register = () => {
             />
           </Form.Group>
           <Form.Group as={Col} controlId='formGridGender'>
-            <Form.Label>Address</Form.Label>
+            <Form.Label>Gender</Form.Label>
             <Form.Control
               as='select'
               onChange={handleGenderSelection}
@@ -152,6 +162,15 @@ const Register = () => {
         </Form.Row>
 
         <Form.Row>
+          <Form.Group as={Col} controlId='formGridPhone'>
+            <Form.Label>Phone</Form.Label>
+            <Form.Control
+              placeholder='ex. 00 232 978 5555'
+              onChange={handlePhone}
+              value={user.phone}
+            />
+          </Form.Group>
+
           <Form.Group as={Col} controlId='formGridAddress'>
             <Form.Label>Address</Form.Label>
             <Form.Control
@@ -160,6 +179,9 @@ const Register = () => {
               value={user.address}
             />
           </Form.Group>
+        </Form.Row>
+
+        <Form.Row>
           <Form.Group as={Col} controlId='formGridCity'>
             <Form.Label>City</Form.Label>
             <Form.Control
@@ -176,6 +198,15 @@ const Register = () => {
               placeholder='ex. US'
               onChange={handleCountryInput}
               value={user.country}
+            ></Form.Control>
+          </Form.Group>
+
+          <Form.Group as={Col} controlId='formGridPostalCode'>
+            <Form.Label>Postal Code</Form.Label>
+            <Form.Control
+              placeholder='ex. 90020'
+              onChange={handlePostalCode}
+              value={user.postalCode}
             ></Form.Control>
           </Form.Group>
         </Form.Row>

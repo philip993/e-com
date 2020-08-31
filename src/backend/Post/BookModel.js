@@ -28,6 +28,9 @@ const bookSchema = new mongoose.Schema({
   itemIds: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Wishlist"
+  },
+  skuId: {
+    type: String
   }
 });
 

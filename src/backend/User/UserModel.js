@@ -31,6 +31,11 @@ const UserSchema = new mongoose.Schema({
     required: true,
     minlength: 4
   },
+  role: {
+    type: String,
+    enum: ["super-admin", "admin", "restrictred"],
+    default: "restrictred"
+  },
   age: {
     type: Number,
     required: true,
@@ -48,6 +53,10 @@ const UserSchema = new mongoose.Schema({
     minlength: 2,
     maxlength: 50
   },
+  phone: {
+    type: String,
+    required: true
+  },
   city: {
     type: String,
     required: true,
@@ -59,8 +68,15 @@ const UserSchema = new mongoose.Schema({
     required: true,
     minlength: 2,
     maxlength: 25
+  },
+  postalCode: {
+    type: String,
+    required: true
+  },
+  customerId: {
+    type: String
   }
 });
 
-const User = mongoose.model("UserModel", UserSchema);
+const User = mongoose.model("User", UserSchema);
 exports.User = User;

@@ -1,35 +1,42 @@
 import {
   CLEAR_ALL_BOOKS_FROM_CART,
   REMOVE_BOOK_FROM_CART,
-  LOAD_ITEMS_TO_CART_COPY
+  LOAD_ITEMS_TO_CART_COPY,
+  CLEAR_CART_AFTER_PAYMENT,
 } from "./ShoppingCartActionTypes";
 
-export const ClearBooksFromCart = item => {
+export const clearBooksFromCart = (item) => {
   return (dispatch, getState) => {
-    let testOne = getState().BookReducer.booksInCart;
-    testOne.splice(0);
+    let cartItems = getState().BookReducer.booksInCart;
+    cartItems.splice(0);
     dispatch({
       type: CLEAR_ALL_BOOKS_FROM_CART,
-      payload: testOne
+      payload: cartItems,
     });
   };
 };
 
-export const RemoveBookFromCart = book => {
-  return dispatch => {
+export const removeBookFromCart = (book) => {
+  return (dispatch) => {
     dispatch({
       type: REMOVE_BOOK_FROM_CART,
-      payload: book
+      payload: book,
     });
   };
 };
 
-export const LoadItemToCartCopy = item => {
+export const loadItemToCartCopy = (item) => {
   return (dispatch, getState) => {
-    let testTwo = getState().BookReducer.booksInCart;
+    let cartItems = getState().BookReducer.booksInCart;
     dispatch({
       type: LOAD_ITEMS_TO_CART_COPY,
-      payload: testTwo
+      payload: cartItems,
     });
+  };
+};
+
+export const clearCartAfterPayment = () => {
+  return {
+    type: CLEAR_CART_AFTER_PAYMENT,
   };
 };

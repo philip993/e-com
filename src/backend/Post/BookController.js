@@ -1,3 +1,5 @@
+const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
+const stripe = require("stripe")(stripeSecretKey);
 const { Book } = require("./BookModel");
 
 exports.getBooks = (req, res) => {
@@ -24,21 +26,46 @@ exports.getBooks = (req, res) => {
     });
 };
 
-exports.postBook = (req, res) => {
+exports.postBook = async (req, res) => {
+  const product = await stripe.products.create({
+    name: req.body.title,
+    type: "good",
+    description: "Details from book",
+    attributes: ["genre", "year", "writter"]
+  });
+
+  const sku = await stripe.skus.create({
+    attributes: {
+      writter: req.body.writter,
+      genre: req.body.genre,
+      year: req.body.year
+    },
+    price: req.body.price * 100,
+    currency: "usd",
+    inventory: {
+      type: "infinite"
+      // quantity: req.body.quantity
+    },
+    product: product.id
+  });
+
   const book = new Book({
     title: req.body.title,
     writter: req.body.writter,
     genre: req.body.genre,
     year: req.body.year,
     price: req.body.price,
-    quantity: req.body.quantity
+    quantity: req.body.quantity,
+    skuId: sku.id
   });
 
   book
     .save()
     .then(book => {
       res.status(200).json({
-        book: book
+        book,
+        product,
+        sku
       });
     })
     .catch(err => {

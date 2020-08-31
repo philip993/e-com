@@ -8,9 +8,11 @@ const ProfileView = ({
   username,
   age,
   gender,
+  phone,
   address,
   city,
-  country
+  country,
+  postalCode
 }) => {
   return (
     <div>
@@ -44,9 +46,11 @@ const ProfileView = ({
           </Card.Header>
           <Accordion.Collapse eventKey='1'>
             <Card.Body>
+              <ListGroup.Item>Phone: {phone}</ListGroup.Item>
               <ListGroup.Item>Address: {address}</ListGroup.Item>
               <ListGroup.Item>City of{city}</ListGroup.Item>
               <ListGroup.Item>{country}</ListGroup.Item>
+              <ListGroup.Item>Post Code is {postalCode}</ListGroup.Item>
             </Card.Body>
           </Accordion.Collapse>
         </Card>

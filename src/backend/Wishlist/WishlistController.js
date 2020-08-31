@@ -3,6 +3,7 @@ const { Wishlist } = require("./WishlistModel");
 exports.getWishlistItems = (req, res) => {
   Wishlist.find({})
     .populate("wishlistItemId")
+    .populate("wishlistAuthor", "_id, username")
     .exec()
     .then(items => {
       res.status(200).json({
@@ -18,7 +19,8 @@ exports.getWishlistItems = (req, res) => {
 
 exports.newWishlistItem = (req, res) => {
   const wishlistItem = new Wishlist({
-    wishlistItemId: req.body.wishlistItemId
+    wishlistItemId: req.body.wishlistItemId,
+    wishlistAuthor: req.body.wishlistAuthor
   });
 
   wishlistItem

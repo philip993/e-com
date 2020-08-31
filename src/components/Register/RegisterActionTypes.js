@@ -10,3 +10,5 @@ export const SET_GENDER = "SET_GENDER";
 export const SET_ADDRESS = "SET_ADDRESS";
 export const SET_CITY = "SET_CITY";
 export const SET_COUNTRY = "SET_COUNTRY";
+export const SET_POSTAL_CODE = "SET_POSTAL_CODE";
+export const SET_PHONE = "SET_PHONE";

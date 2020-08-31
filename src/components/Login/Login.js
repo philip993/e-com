@@ -1,27 +1,29 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { EmailSubmit, PasswordSubmit, LoginFinish } from "./LoginActions";
+import { emailSubmit, passwordSubmit, loginFinish } from "./LoginActions";
 import { useHistory } from "react-router-dom";
 import { Form } from "react-bootstrap";
 import { Button } from "react-bootstrap";
+import { getUserInformation } from "../User/UserActions";
 
 const Login = () => {
-  const user = useSelector(state => state.LoginReducer);
+  const user = useSelector((state) => state.LoginReducer);
   const dispatch = useDispatch();
   let history = useHistory();
 
-  const handleEmailSubmit = e => {
-    dispatch(EmailSubmit(e.target.value));
+  const handleEmailSubmit = (e) => {
+    dispatch(emailSubmit(e.target.value));
   };
 
-  const handlePasswordSubmit = e => {
-    dispatch(PasswordSubmit(e.target.value));
+  const handlePasswordSubmit = (e) => {
+    dispatch(passwordSubmit(e.target.value));
   };
 
-  const handleLoginFinish = e => {
+  const handleLoginFinish = (e) => {
     e.preventDefault();
-    dispatch(LoginFinish());
+    dispatch(loginFinish());
     history.push("/");
+    dispatch(getUserInformation());
   };
 
   return (

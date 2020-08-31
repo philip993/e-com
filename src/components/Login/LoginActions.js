@@ -1,46 +1,46 @@
 import {
   EMAIL_SUBMIT,
   PASSWORD_SUBMIT,
-  LOGIN_FINISH
+  LOGIN_FINISH,
 } from "./LoginActionTypes";
 
 import axios from "axios";
 
-export const EmailSubmit = e => {
-  return dsipatch => {
+export const emailSubmit = (e) => {
+  return (dsipatch) => {
     dsipatch({
       type: EMAIL_SUBMIT,
-      payload: e
+      payload: e,
     });
   };
 };
 
-export const PasswordSubmit = e => {
-  return dispatch => {
+export const passwordSubmit = (e) => {
+  return (dispatch) => {
     dispatch({
       type: PASSWORD_SUBMIT,
-      payload: e
+      payload: e,
     });
   };
 };
 
-export const LoginFinish = user => {
+export const loginFinish = (user) => {
   return (dispatch, getState) => {
     let tempState = getState().LoginReducer;
     axios
       .post(`http://localhost:5000/users/login`, {
         email: tempState.email,
-        password: tempState.password
+        password: tempState.password,
       })
-      .then(res => {
+      .then((res) => {
         localStorage.setItem("token", res.data.token);
         dispatch({
           type: LOGIN_FINISH,
-          payload: res.user
+          payload: res.user,
         });
         localStorage.setItem("user", tempState.email);
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   };

@@ -1,10 +1,34 @@
+const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
 const bcryptjs = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const stripe = require("stripe")(stripeSecretKey);
 
 const { User } = require("./UserModel");
 
-exports.newUser = (req, res) => {
-  bcryptjs
+exports.newUser = async (req, res) => {
+  const customer = await stripe.customers.create({
+    address: {
+      line1: req.body.address,
+      city: req.body.city,
+      country: req.body.country,
+      postal_code: req.body.postalCode
+    },
+    email: req.body.email,
+    name: req.body.firstName + " " + req.body.lastName,
+    phone: req.body.phone,
+    shipping: {
+      address: {
+        line1: req.body.address,
+        city: req.body.city,
+        country: req.body.country,
+        postal_code: req.body.postalCode
+      },
+      name: req.body.firstName + " " + req.body.lastName,
+      phone: req.body.phone
+    }
+  });
+
+  await bcryptjs
     .hash(req.body.password, 10)
     .then(hash => {
       const user = new User({
@@ -15,16 +39,20 @@ exports.newUser = (req, res) => {
         password: hash,
         age: req.body.age,
         gender: req.body.gender,
+        phone: req.body.phone,
         address: req.body.address,
         city: req.body.city,
-        country: req.body.country
+        country: req.body.country,
+        postalCode: req.body.postalCode,
+        customerId: customer.id
       });
 
       user
         .save()
         .then(user => {
           res.status(201).json({
-            user: user
+            user,
+            customer
           });
         })
         .catch(err => {
@@ -100,15 +128,43 @@ exports.getProfile = (req, res) => {
           username: user.username,
           age: user.age,
           gender: user.gender,
+          phone: user.phone,
           address: user.address,
           city: user.city,
-          country: user.country
+          country: user.country,
+          postalCode: user.postalCode
         }
       });
     })
     .catch(err => {
       res.status(500).json({
         message: "System Error!"
+      });
+      console.log(err);
+    });
+};
+
+exports.getUserInfo = (req, res) => {
+  User.findOne({ email: req.params.email })
+    .then(selectedUser => {
+      res.status(200).json({
+        selectedUser: {
+          _id: selectedUser._id,
+          firstName: selectedUser.firstName,
+          lastName: selectedUser.lastName,
+          email: selectedUser.email,
+          phone: selectedUser.phone,
+          address: selectedUser.address,
+          city: selectedUser.city,
+          country: selectedUser.country,
+          postalCode: selectedUser.postalCode,
+          customerId: selectedUser.customerId
+        }
+      });
+    })
+    .catch(err => {
+      res.status(500).json({
+        err: err
       });
       console.log(err);
     });
