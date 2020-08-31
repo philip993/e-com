@@ -1,24 +1,12 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-import SimpleReactValidator from "simple-react-validator";
 // Styles
 import Styles from "../Styles/Styles";
-// React Router Dom
-import { useHistory } from "react-router-dom";
 // React Components
 import RegisterUserInfo from "./RegisterUserInfo";
-// Redux Actions
-import { stepIncrement, stepDecrement } from "./RegisterActions";
 // Material Ui Components
-import {
-  Container,
-  Button,
-  Step,
-  Stepper,
-  StepLabel,
-  Divider,
-} from "@material-ui/core";
+import { Container, Button, Step, Stepper, StepLabel } from "@material-ui/core";
 // React Components
 import RegisterPersonalInfo from "./RegisterPersonalInfo";
 import RegisterShippingInfo from "./RegisterShippingInfo";
@@ -27,9 +15,7 @@ import RegisterConfirmation from "./RegisterConfirmation";
 const Register = () => {
   const { step, activeStepper } = useSelector((state) => state.RegisterReducer);
   const dispatch = useDispatch();
-  const history = useHistory();
   const classes = Styles();
-  const validator = new SimpleReactValidator();
 
   return (
     <div className={classes.contentContainer}>

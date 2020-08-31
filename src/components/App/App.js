@@ -9,7 +9,6 @@ import Header from "../Header/Header";
 import Homepage from "../../pages/Homepage/Homepage";
 import About from "../../pages/About/About";
 import Contact from "../../pages/Contact/Contact";
-import ShoppingCart from "../ShoppingCart/ShoppingCart";
 import Profile from "../Profile/Profile";
 import Login from "../Login/Login";
 import Register from "../Register/Register";
@@ -20,13 +19,14 @@ import Order from "../Order/Order";
 import Cart from "../Cart/Cart";
 import Footer from "../Footer/Footer";
 import AddBook from "../AddBook/AddBook";
+import CheckoutSuccess from "../Checkout/CheckoutSuccess";
+import CheckoutError from "../Checkout/CheckoutError";
 
 const App = (props) => {
   const classes = Styles();
 
   return (
     <div className={classes.root}>
-      {/* <div className={classes.content}> */}
       <Header />
       <Switch>
         <Route path='/' exact component={Homepage} />
@@ -34,7 +34,6 @@ const App = (props) => {
         <Route path='/about' exact component={About} />
         <Route path='/contact' exact component={Contact} />
         <Route path='/register' exact component={Register} />
-        <Route path='/cart' exact component={ShoppingCart} />
         <Route path='/login' exact component={Login} />
         <Route path='/profile' exact component={Profile} />
         <Route path='/wishlist' exact component={Wishlist} />
@@ -42,9 +41,9 @@ const App = (props) => {
         <Route path='/orders' exact component={Order} />
         <Route path='/cartitems' exact component={Cart} />
         <Route path='/addbook' exact component={AddBook} />
+        <Route path='/checkoutsuccess' exact component={CheckoutSuccess} />
+        <Route path='/checkouterror' exact component={CheckoutError} />
       </Switch>
-      {/* <div className={classes.contentPush}></div> */}
-      {/* </div> */}
       <Footer />
     </div>
   );

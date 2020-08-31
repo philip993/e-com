@@ -85,6 +85,37 @@ const useStyles = makeStyles((theme) => ({
       boxShadow: "0 0 10px #66bb6a",
     },
   },
+  // CHECKOUT SUCCESS
+  messageContainer: {
+    paddingTop: "100px",
+    width: "540px",
+    height: "320px",
+    margin: "auto",
+  },
+  infoContainer: {
+    paddingTop: "40px",
+    paddingBottom: "40px",
+    width: "540px",
+    height: "100px",
+    margin: "auto",
+  },
+  successMsg: {
+    paddingTop: "100px",
+    color: "#66bb6a",
+  },
+  checkoutLink: {
+    width: "120px",
+    height: "40px",
+    border: "1px solid #D3D3D3",
+    margin: "auto",
+    marginLeft: "5px",
+    marginRight: "5px",
+    textDecoration: "none",
+  },
+  errorMsg: {
+    paddingTop: "100px",
+    color: "#f44336",
+  },
   // CART
   clearCartButton: {
     color: "#fff",

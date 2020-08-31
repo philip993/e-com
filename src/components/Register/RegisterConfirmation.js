@@ -25,7 +25,12 @@ const RegisterConfirmation = () => {
         You are one step away from creatng your account here in WISDOM
         bookstore.
       </Typography>
-      <Button onClick={handleRegisterRequest}>Finish Registratiom</Button>
+      <Button
+        onClick={handleRegisterRequest}
+        className={classes.nextStepButton}
+      >
+        Finish Registratiom
+      </Button>
     </div>
   );
 };

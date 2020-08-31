@@ -75,7 +75,7 @@ const Order = (props) => {
                       Get details
                     </Button>
                   </TableCell>
-                  <TableCell>{userIds.username}</TableCell>
+                  {/* <TableCell>{userIds._id}</TableCell> */}
                 </TableRow>
               ))}
             </TableBody>
@@ -104,13 +104,15 @@ const Order = (props) => {
                 </TableRow>
                 {!orders.singleOrder.cart
                   ? "Order is loading..."
-                  : orders.singleOrder.cart.map(({ title, price }, index) => (
-                      <TableRow>
-                        <TableCell>{index}.</TableCell>
-                        <TableCell>{title}</TableCell>
-                        <TableCell>{price.toFixed(2)}$</TableCell>
-                      </TableRow>
-                    ))}
+                  : orders.singleOrder.cart.map(
+                      ({ bookTitle, bookPrice }, index) => (
+                        <TableRow>
+                          <TableCell>{index}.</TableCell>
+                          <TableCell>{bookTitle}</TableCell>
+                          <TableCell>{bookPrice.toFixed(2)}$</TableCell>
+                        </TableRow>
+                      )
+                    )}
               </TableBody>
               <TableFooter>
                 <TableRow>
@@ -119,7 +121,10 @@ const Order = (props) => {
                     {!orders.singleOrder.cart
                       ? "Calculating sum..."
                       : orders.singleOrder.cart
-                          .reduce((total, current) => total + current.price, 0)
+                          .reduce(
+                            (total, current) => total + current.bookPrice,
+                            0
+                          )
                           .toFixed(2)}
                     $
                   </TableCell>

@@ -1,13 +1,8 @@
 import {
   ADD_INDEX,
-  SELECT_BOOK,
-  REMOVE_BOOK,
   CLEAR_BOOKS,
-  INCREASE_QUANTITY,
-  REMOVE_DUPLICATE,
   UPDATE_QUANTITY,
   ADD_BOOK_TO_CART,
-  DELETE_PREVIOUS_BOOK,
   IS_ADDED_FALSE,
   ITEM_DUPLICATE_TRUE,
   ITEM_DUPLICATE_FALSE,
@@ -20,15 +15,6 @@ export const addIndex = (item) => {
     dispatch({
       type: ADD_INDEX,
       payload: item,
-    });
-  };
-};
-
-export const selectBook = (book) => {
-  return (dispatch) => {
-    dispatch({
-      type: SELECT_BOOK,
-      payload: book,
     });
   };
 };
@@ -58,6 +44,9 @@ export const addBookToCart = (book) => {
             type: ADD_BOOK_TO_CART,
             payload: book,
           });
+        })
+        .catch((error) => {
+          console.log(error);
         });
     } else {
       dispatch({
@@ -103,55 +92,9 @@ export const updateQuantity = (item) => {
   };
 };
 
-export const deletePreviousBook = (item) => {
-  return (dispatch, getState) => {
-    let title = item.title;
-    console.log(title);
-    return axios
-      .delete(`http://localhost:5000/cartitems/${title}`)
-      .then((response) => {
-        console.log(response);
-        dispatch({
-          type: DELETE_PREVIOUS_BOOK,
-          payload: response.data.deletedItem,
-        });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-};
-
-export const removeBook = (item) => {
-  return (dispatch) => {
-    dispatch({
-      type: REMOVE_BOOK,
-      payload: item,
-    });
-  };
-};
-
 export const clearBooks = () => {
   return {
     type: CLEAR_BOOKS,
-  };
-};
-
-export const increaseQuantity = (item) => {
-  return (dispatch) => {
-    dispatch({
-      type: INCREASE_QUANTITY,
-      payload: item,
-    });
-  };
-};
-
-export const removeDuplicate = (item) => {
-  return (dispatch) => {
-    dispatch({
-      type: REMOVE_DUPLICATE,
-      payload: item,
-    });
   };
 };
 
@@ -160,7 +103,7 @@ export const isAddedFalse = () => {
     type: IS_ADDED_FALSE,
   };
 };
-
+// Check for duplicate
 export const itemDuplicateTrue = () => {
   return {
     type: ITEM_DUPLICATE_TRUE,

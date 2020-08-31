@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 // Styles
 import Styles from "../Styles/Styles";
+import "./RegisterStyles.scss";
 // Redux Actions
 import {
   setAddress,
@@ -14,7 +15,6 @@ import {
 } from "./RegisterActions";
 // Material Ui Components
 import {
-  Container,
   FormGroup,
   InputBase,
   InputLabel,
@@ -135,7 +135,7 @@ const RegisterShippingInfo = () => {
         onClick={handleStepIncrement}
         disabled={!validator.allValid()}
       >
-        Complete Registraion.
+        Next
       </Button>
     </div>
   );

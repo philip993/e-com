@@ -1,11 +1,24 @@
 import React, { useEffect } from "react";
-import StripeCheckout from "react-stripe-checkout";
-import axios from "axios";
-import { toast } from "react-toastify";
 import { useSelector, useDispatch } from "react-redux";
+
+// Styles
+import Styles from "../Styles/Styles";
+// Stripe
+import StripeCheckout from "react-stripe-checkout";
+// Axios
+import axios from "axios";
+// React Tostify
+import { toast } from "react-toastify";
+// Redux Actions
 import { getItemsToCheckout } from "./CheckoutActions";
 import { clearCartAfterPayment } from "../ShoppingCart/ShoppingCartActions";
 import { clearBooks } from "../Book/BookActions";
+// React Router Dom
+import { useHistory } from "react-router-dom";
+// React Components
+import PrivateRoute from "../PrivateRoute/PrivateRoute";
+// Material Ui Core
+import { Typography } from "@material-ui/core";
 
 toast.configure();
 
@@ -14,6 +27,8 @@ const stripePublishableKey = process.env.STRIPE_PUBLIC_KEY;
 const Checkout = () => {
   const check = useSelector((state) => state.CheckoutReducer);
   const dispatch = useDispatch();
+  const classes = Styles();
+  const history = useHistory();
 
   useEffect(() => {
     dispatch(getItemsToCheckout());
@@ -35,26 +50,39 @@ const Checkout = () => {
       totalSumFromCart,
       customerId,
     });
-    console.log(stripeOrderId);
-    const { status } = response.data;
 
+    localStorage.removeItem("stripeOrderId");
+    const { status } = response.data;
+    console.log(status);
     if (status === "success") {
       toast("Success! Check email for details", { type: "success" });
+      setTimeout(() => {
+        history.push("/checkoutsuccess");
+      }, 1000);
     } else {
       toast("Something went wrong", { type: "error" });
+      setTimeout(() => {
+        history.push("/checkouterror");
+      });
     }
   };
   return (
-    <div>
-      <h1>Confirm Your Payment</h1>
-
-      <StripeCheckout
-        stripeKey={stripePublishableKey}
-        token={handleToken}
-        billingAddress
-        shippingAddress
-        amount={totalSumFromCart * 100}
-      />
+    <div className={classes.contentContainer}>
+      <PrivateRoute>
+        <Typography variant='h4'>Payment Confirmation</Typography>
+        <Typography vairant='p'>
+          Proceed with payment using the credit card method. Supported credit
+          cards: MasterCard and Visa. After successfull payment your order will
+          be completed.
+        </Typography>
+        <StripeCheckout
+          stripeKey='pk_test_LcQRXx6BixddWnZ7fsX3OW0400cOfF74jx'
+          token={handleToken}
+          billingAddress
+          shippingAddress
+          amount={totalSumFromCart * 100}
+        />
+      </PrivateRoute>
     </div>
   );
 };

@@ -14,7 +14,6 @@ import { addIndex, addBookToCart, updateQuantity } from "./BookActions";
 import {
   Card,
   CardActions,
-  CardActionArea,
   CardMedia,
   CardContent,
   Grid,

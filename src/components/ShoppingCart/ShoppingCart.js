@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { Table, Button } from "react-bootstrap";
-import { removeBook } from "../Book/BookActions";
 import {
   removeBookFromCart,
   clearBooksFromCart,
@@ -24,7 +23,6 @@ const ShoppingCart = (item) => {
 
   const handleRemoveOneBook = (index) => {
     dispatch(removeBookFromCart(index));
-    dispatch(removeBook(index));
   };
 
   const totalSumOfCartItems = selectedBooks.copyOfBooksInCart.reduce(
