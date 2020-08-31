@@ -16,23 +16,24 @@ import {
   STEP_INCREMENT,
   STEP_DECREMENT,
   REGISTER_SUCCESS,
-  VALIDATE_TRUE,
-  VALIDATE_FALSE,
-} from "./RegisterActionTypes";
+  REGISTER_FAILURE,
+  ERROR_MSG_NULL,
+  STEP_RESET,
+} from './RegisterActionTypes';
 
 const initialState = {
-  firstName: "",
-  lastName: "",
-  username: "",
-  email: "",
-  password: "",
-  age: "",
-  gender: "",
-  phone: "",
-  address: "",
-  city: "",
-  country: "",
-  postalCode: "",
+  firstName: '',
+  lastName: '',
+  username: '',
+  email: '',
+  password: '',
+  age: '',
+  gender: '',
+  phone: '',
+  address: '',
+  city: '',
+  country: '',
+  postalCode: '',
   info: [],
   user: {},
   step: 1,
@@ -112,17 +113,25 @@ export const RegisterReducer = (state = initialState, action) => {
       return {
         ...state,
         user: action.payload,
-        email: "",
-        password: "",
-        firstName: "",
-        lastName: "",
-        username: "",
-        age: "",
-        gender: "",
-        address: "",
-        city: "",
-        country: "",
+        email: '',
+        password: '',
+        firstName: '',
+        lastName: '',
+        username: '',
+        age: '',
+        gender: '',
+        address: '',
+        city: '',
+        country: '',
+        errorMsg: false,
       };
+    case REGISTER_FAILURE: {
+      return {
+        ...state,
+        user: null,
+        errorMsg: true,
+      };
+    }
     case STEP_INCREMENT:
       return {
         ...state,
@@ -135,15 +144,16 @@ export const RegisterReducer = (state = initialState, action) => {
         step: state.step - 1,
         activeStepper: state.activeStepper - 1,
       };
-    case VALIDATE_TRUE:
+    case STEP_RESET:
       return {
         ...state,
-        isValidate: true,
+        step: 1,
+        activeStepper: 0,
       };
-    case VALIDATE_FALSE:
+    case ERROR_MSG_NULL:
       return {
         ...state,
-        isValidate: false,
+        errorMsg: null,
       };
     default:
       return state;
