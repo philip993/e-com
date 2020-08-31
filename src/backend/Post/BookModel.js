@@ -24,6 +24,10 @@ const bookSchema = new mongoose.Schema({
   quantity: {
     type: Number,
     required: true
+  },
+  itemIds: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Wishlist"
   }
 });
 
