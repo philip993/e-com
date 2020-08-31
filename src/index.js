@@ -6,11 +6,15 @@ import "./index.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import App from "./components/App/App";
 import store from "./redux/store";
+import { ThemeProvider } from "@material-ui/core";
+import theme from "./components/Styles/Theme";
 
 ReactDOM.render(
   <Router>
     <Provider store={store}>
-      <App />
+      <ThemeProvider theme={theme}>
+        <App />
+      </ThemeProvider>
     </Provider>
   </Router>,
   document.getElementById("root")

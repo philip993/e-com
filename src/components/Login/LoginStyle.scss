@@ -1,0 +1,42 @@
+#inputBaseEmail,
+#inputBasePassword {
+  color: #363636;
+  padding-left: 10px;
+
+  &:focus {
+    color: #363636;
+    box-shadow: 0 0 5px #007fff;
+    border-radius: 5px;
+  }
+}
+
+#registerLink {
+  text-decoration: none;
+  color: #e33371;
+}
+
+#registerSubtitle {
+  position: relative;
+  z-index: 1;
+  margin-top: 20px;
+
+  &:before {
+    margin-top: 20px;
+    border-top: 2px solid #dfdfdf;
+    content: "";
+    margin: 0 auto;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    width: 95%;
+    z-index: -1;
+  }
+
+  #regSubtitleSpan {
+    background: #fff;
+    padding: 0 15px;
+  }
+}

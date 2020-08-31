@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { Table, Button } from "react-bootstrap";
-import { removeBook } from "../Book/BookActions";
 import {
   removeBookFromCart,
   clearBooksFromCart,
@@ -24,7 +23,6 @@ const ShoppingCart = (item) => {
 
   const handleRemoveOneBook = (index) => {
     dispatch(removeBookFromCart(index));
-    dispatch(removeBook(index));
   };
 
   const totalSumOfCartItems = selectedBooks.copyOfBooksInCart.reduce(
@@ -56,25 +54,29 @@ const ShoppingCart = (item) => {
               <th>No.</th>
               <th>Book Title</th>
               <th>Price</th>
+              <th>Quantity</th>
               <th>Remove</th>
             </tr>
           </thead>
           <tbody>
-            {selectedBooks.copyOfBooksInCart.map(({ title, price }, index) => (
-              <tr>
-                <td>{index}.</td>
-                <td>{title}</td>
-                <td>{price.toFixed(2)}$</td>
-                <td>
-                  <Button
-                    variant='danger'
-                    onClick={handleRemoveOneBook.bind(this, index)}
-                  >
-                    x
-                  </Button>
-                </td>
-              </tr>
-            ))}
+            {selectedBooks.copyOfBooksInCart.map(
+              ({ title, price, quantity }, index) => (
+                <tr>
+                  <td>{index}.</td>
+                  <td>{title}</td>
+                  <td>{price.toFixed(2)}$</td>
+                  <td>{quantity}</td>
+                  <td>
+                    <Button
+                      variant='danger'
+                      onClick={handleRemoveOneBook.bind(this, index)}
+                    >
+                      x
+                    </Button>
+                  </td>
+                </tr>
+              )
+            )}
           </tbody>
         </Table>
         <Table style={{ width: "50%", margin: "auto" }}>

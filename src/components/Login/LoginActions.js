@@ -2,6 +2,9 @@ import {
   EMAIL_SUBMIT,
   PASSWORD_SUBMIT,
   LOGIN_FINISH,
+  LOGOUT,
+  LOGIN_SUCCESS,
+  LOGIN_FAILURE,
 } from "./LoginActionTypes";
 
 import axios from "axios";
@@ -24,7 +27,7 @@ export const passwordSubmit = (e) => {
   };
 };
 
-export const loginFinish = (user) => {
+export const loginRequest = (user) => {
   return (dispatch, getState) => {
     let tempState = getState().LoginReducer;
     axios
@@ -35,13 +38,21 @@ export const loginFinish = (user) => {
       .then((res) => {
         localStorage.setItem("token", res.data.token);
         dispatch({
-          type: LOGIN_FINISH,
+          type: LOGIN_SUCCESS,
           payload: res.user,
         });
         localStorage.setItem("user", tempState.email);
       })
       .catch((err) => {
-        console.log(err);
+        dispatch({
+          type: LOGIN_FAILURE,
+        });
       });
+  };
+};
+
+export const logoutUser = () => {
+  return {
+    type: LOGOUT,
   };
 };

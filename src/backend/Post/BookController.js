@@ -2,21 +2,27 @@ const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
 const stripe = require("stripe")(stripeSecretKey);
 const { Book } = require("./BookModel");
 
-exports.getBooks = (req, res) => {
+exports.getBooks = async (req, res) => {
   const currentpage = +req.query.page;
   const pageSize = +req.query.pagesize;
   const bookQuery = Book.find();
+  const pageLimit = 10;
+
+  const count = await Book.countDocuments();
+  const totalPages = Math.ceil(count / pageLimit);
 
   if (currentpage && pageSize) {
     bookQuery.skip(pageSize * (currentpage - 1)).limit(pageSize);
   }
 
-  bookQuery
+  await bookQuery
     .find({})
+    .limit(pageSize)
     .sort(req.query.param)
     .then((books) => {
       res.status(200).json({
-        books: books,
+        books,
+        totalPages,
       });
     })
     .catch((err) => {

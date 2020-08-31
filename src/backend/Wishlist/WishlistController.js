@@ -1,18 +1,18 @@
 const { Wishlist } = require("./WishlistModel");
 
 exports.getWishlistItems = (req, res) => {
-  Wishlist.find({})
+  Wishlist.find({ wishlistAuthor: req.params.user })
     .populate("wishlistItemId")
     .populate("wishlistAuthor", "_id, username")
     .exec()
-    .then(items => {
+    .then((items) => {
       res.status(200).json({
-        items: items
+        items,
       });
     })
-    .catch(error => {
+    .catch((error) => {
       res.status(500).json({
-        error: error
+        error: error,
       });
     });
 };
@@ -20,48 +20,49 @@ exports.getWishlistItems = (req, res) => {
 exports.newWishlistItem = (req, res) => {
   const wishlistItem = new Wishlist({
     wishlistItemId: req.body.wishlistItemId,
-    wishlistAuthor: req.body.wishlistAuthor
+    wishlistAuthor: req.body.wishlistAuthor,
+    wishQuantity: req.body.wishQuantity,
   });
 
   wishlistItem
     .save()
-    .then(item => {
+    .then((item) => {
       res.status(201).json({
-        item: item
+        item: item,
       });
     })
-    .catch(error => {
+    .catch((error) => {
       res.status(500).json({
-        error: error
+        error: error,
       });
     });
 };
 
 exports.deleteOneWishlistItem = (req, res) => {
   Wishlist.deleteOne({ _id: req.params.id })
-    .then(deletedItem => {
+    .then((deletedItem) => {
       res.status(200).json({
-        deletedItem: deletedItem
+        deletedItem,
       });
     })
-    .catch(error => {
+    .catch((error) => {
       res.status(500).json({
-        error: error
+        error: error,
       });
       console.log(error);
     });
 };
 
 exports.deleteAllWishlistItems = (req, res) => {
-  Wishlist.deleteMany({})
-    .then(deletedItems => {
+  Wishlist.deleteMany({ wishlistAuthor: req.params.user })
+    .then((deletedItems) => {
       res.status(200).json({
-        deletedItems: deletedItems
+        deletedItems,
       });
     })
-    .catch(error => {
+    .catch((error) => {
       res.status(500).json({
-        error: error
+        error: error,
       });
       console.log(error);
     });

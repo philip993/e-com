@@ -1,19 +1,39 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Table, Modal, Button } from "react-bootstrap";
+
+// Styles
+import Styles from "../Styles/Styles";
+// React Router Dom
+import { useHistory } from "react-router-dom";
+// Redux Actions
 import {
   getOrders,
   toggleShowFalse,
   toggleShowTrue,
   getOneOrder,
 } from "./OrderActions";
-import { useHistory } from "react-router-dom";
+// React Components
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
+// Material Ui Components
+import {
+  TableContainer,
+  Table,
+  TableRow,
+  TableCell,
+  TableHead,
+  TableBody,
+  TableFooter,
+  Typography,
+  Button,
+  IconButton,
+  Modal,
+} from "@material-ui/core";
 
 const Order = (props) => {
   const orders = useSelector((state) => state.OrderReducer);
   const dispatch = useDispatch();
   const history = useHistory();
+  const classes = Styles();
 
   useEffect(() => {
     dispatch(getOrders());
@@ -34,96 +54,104 @@ const Order = (props) => {
   };
 
   return (
-    <div>
+    <div className={classes.contentContainer}>
       <PrivateRoute>
-        <Table style={{ width: "1440px", margin: "auto" }}>
-          <thead>
-            <tr>
-              <h1>Orders</h1>
-            </tr>
-            <th>No</th>
-            <th>Order</th>
-            <th>User</th>
-          </thead>
-          <tbody>
-            {orders.order.map(({ userIds }, index) => (
-              <tr>
-                <td>{index}</td>
-                <td>
-                  <Button
-                    variant='secondary'
-                    onClick={getOrderDetail.bind(this, index)}
-                  >
-                    Get details
-                  </Button>
-                </td>
-                <td>{userIds.username}</td>
-              </tr>
-            ))}
-          </tbody>
-        </Table>
-        <Modal show={orders.visibility}>
-          <Modal.Header>
-            <Table>
-              <thead>
-                <tr>
-                  <th>Order No.</th>
-                  <th>Status</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>{orders.singleOrder.stripeOrderId}</td>
-                  <td>{orders.singleOrder.status}</td>
-                </tr>
-              </tbody>
-            </Table>
-          </Modal.Header>
-          <Modal.Body>
-            <Table>
-              <thead>
-                <tr>
-                  <th>Item</th>
-                  <th>Price</th>
-                </tr>
-              </thead>
+        <Typography variant='h4'>Orders</Typography>
+        <TableContainer className={classes.tableContainer}>
+          <Table>
+            <TableHead>
+              <TableRow className={classes.tableHeader}>
+                <TableCell>No.</TableCell>
+                <TableCell>Order</TableCell>
+                <TableCell>User</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {orders.order.map(({ userIds }, index) => (
+                <TableRow>
+                  <TableCell>{index}</TableCell>
+                  <TableCell>
+                    <Button onClick={getOrderDetail.bind(this, index)}>
+                      Get details
+                    </Button>
+                  </TableCell>
+                  {/* <TableCell>{userIds._id}</TableCell> */}
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
 
-              <tbody>
+        <Modal
+          open={orders.visibility === true}
+          className={classes.modalContainer}
+        >
+          <TableContainer className={classes.modalTableContainer}>
+            <Table>
+              <TableHead className={classes.modalTableHeader}>
+                <TableRow>
+                  <TableCell colSpan={2}>
+                    Order No. {orders.singleOrder.stripeOrderId}
+                  </TableCell>
+                  <TableCell>Status {orders.singleOrder.status}</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                <TableRow>
+                  <TableCell>No.</TableCell>
+                  <TableCell>Book Title</TableCell>
+                  <TableCell>Price</TableCell>
+                </TableRow>
                 {!orders.singleOrder.cart
                   ? "Order is loading..."
-                  : orders.singleOrder.cart.map(({ title, price }) => (
-                      <tr>
-                        <td>{title}</td>
-                        <td>{price.toFixed(2)}$</td>
-                      </tr>
-                    ))}
-              </tbody>
-              <tfoot>
-                <tr>
-                  <td>Total:</td>
-                  <td>
+                  : orders.singleOrder.cart.map(
+                      ({ bookTitle, bookPrice }, index) => (
+                        <TableRow>
+                          <TableCell>{index}.</TableCell>
+                          <TableCell>{bookTitle}</TableCell>
+                          <TableCell>{bookPrice.toFixed(2)}$</TableCell>
+                        </TableRow>
+                      )
+                    )}
+              </TableBody>
+              <TableFooter>
+                <TableRow>
+                  <TableCell colSpan={2}>Total:</TableCell>
+                  <TableCell>
                     {!orders.singleOrder.cart
                       ? "Calculating sum..."
                       : orders.singleOrder.cart
-                          .reduce((total, current) => total + current.price, 0)
+                          .reduce(
+                            (total, current) => total + current.bookPrice,
+                            0
+                          )
                           .toFixed(2)}
                     $
-                  </td>
-                </tr>
-              </tfoot>
+                  </TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell>
+                    {" "}
+                    <Button
+                      onClick={handlePayOrder}
+                      className={classes.checkoutButton}
+                    >
+                      Pay Order
+                    </Button>
+                  </TableCell>
+                  <TableCell></TableCell>
+                  <TableCell>
+                    <Button
+                      onClick={() => dispatch(toggleShowFalse())}
+                      className={classes.clearCartButton}
+                    >
+                      Close
+                    </Button>
+                  </TableCell>
+                </TableRow>
+              </TableFooter>
             </Table>
-          </Modal.Body>
-          <Modal.Footer>
-            <Button onClick={handlePayOrder} variant='success'>
-              Pay Order
-            </Button>
-            <Button
-              onClick={() => dispatch(toggleShowFalse())}
-              variant='secondary'
-            >
-              Close
-            </Button>
-          </Modal.Footer>
+          </TableContainer>
         </Modal>
       </PrivateRoute>
     </div>

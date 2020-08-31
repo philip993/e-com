@@ -1,6 +1,23 @@
 import React from "react";
-import { Accordion, Card, ListGroup } from "react-bootstrap";
-import { Button } from "react-bootstrap";
+
+// Styles
+import Styles from "../Styles/Styles";
+// Material Ui Components
+import {
+  Card,
+  CardActions,
+  CardActionArea,
+  CardMedia,
+  CardContent,
+  Button,
+  Avatar,
+  Typography,
+  Table,
+  TableHead,
+  TableBody,
+  TableRow,
+  TableCell,
+} from "@material-ui/core";
 
 const ProfileView = ({
   firstName,
@@ -12,11 +29,62 @@ const ProfileView = ({
   address,
   city,
   country,
-  postalCode
+  postalCode,
 }) => {
+  const classes = Styles();
+
   return (
     <div>
-      <Accordion
+      <Card className={classes.profileCard}>
+        <CardContent className={classes.profileHeader}>
+          <Avatar className={classes.profileAvatar}>
+            {firstName.charAt(0)}
+            {lastName.charAt(0)}
+          </Avatar>
+          <Typography variant='h4'>
+            {firstName} {lastName}
+          </Typography>
+        </CardContent>
+        <CardContent>
+          <Table>
+            <TableHead>
+              <Typography variant='h6'>Basic Information</Typography>
+            </TableHead>
+            <TableRow>
+              <TableCell>Username</TableCell>
+              <TableCell>{username}</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>Age</TableCell>
+              <TableCell>{age}</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>Gender</TableCell>
+              <TableCell>{gender}</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>Phone</TableCell>
+              <TableCell>{phone}</TableCell>
+            </TableRow>
+            <TableHead>
+              <Typography variant='h6'>Shipping Information</Typography>
+            </TableHead>
+            <TableRow>
+              <TableCell>Address</TableCell>
+              <TableCell>
+                {address}, {city}
+              </TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>Country</TableCell>
+              <TableCell>
+                {country}, {postalCode}
+              </TableCell>
+            </TableRow>
+          </Table>
+        </CardContent>
+      </Card>
+      {/* <Accordion
         defaultActiveKey='0'
         style={{ width: "720px", margin: "auto", padding: "auto" }}
       >
@@ -54,7 +122,7 @@ const ProfileView = ({
             </Card.Body>
           </Accordion.Collapse>
         </Card>
-      </Accordion>
+      </Accordion> */}
     </div>
   );
 };

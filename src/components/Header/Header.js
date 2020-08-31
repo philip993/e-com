@@ -1,21 +1,62 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
 
-import { Navbar, Nav, NavLink } from "react-bootstrap";
-import Logout from "../Logout/Logout";
-import { getTokenFromLS } from "./HeaderActions";
+// React Router Dom
+import { Link, useHistory } from "react-router-dom";
+// Styles
+import Styles from "../Styles/Styles";
+import "./HeaderStyle.scss";
+// Redux Actions
+import { getTokenFromLS, clearTokenFromLS } from "./HeaderActions";
 import { getUserInformation } from "../User/UserActions";
 import { countItemsInCart } from "../Cart/CartActions";
+import { logoutUser } from "../Login/LoginActions";
+import { countItemsInWishlist } from "../Wishlist/WishlistActions";
+// React Components
+import Logout from "../Logout/Logout";
+import SideMenu from "../SideMenu/SideMenu";
+// Material UI Components
+import {
+  AppBar,
+  Toolbar,
+  IconButton,
+  Typography,
+  Grid,
+  Button,
+  Badge,
+} from "@material-ui/core";
+// Material UI Icons
+import AccountCircle from "@material-ui/icons/AccountCircle";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
+import FavoriteIcon from "@material-ui/icons/Favorite";
 
 const Header = () => {
-  const header = useSelector((state) => state.HeaderReducer);
+  const { items, itemNumber, wishItems, wishNumber, info } = useSelector(
+    (state) => ({
+      ...state.HeaderReducer,
+      ...state.CartReducer,
+      ...state.WishlistReducer,
+      ...state.UserReducer,
+    })
+  );
   const dispatch = useDispatch();
-  const cart = useSelector((state) => state.CartReducer);
+
+  const history = useHistory();
+
+  const handleLogout = () => {
+    dispatch(clearTokenFromLS());
+    dispatch(logoutUser());
+    history.push("/");
+  };
 
   useEffect(() => {
     dispatch(countItemsInCart());
-  }, [cart.items]);
+  }, [items]);
+
+  useEffect(() => {
+    dispatch(countItemsInWishlist());
+  }, [wishItems]);
 
   const getToken = () => {
     dispatch(getTokenFromLS());
@@ -25,56 +66,71 @@ const Header = () => {
   const returnTokenFromLS = localStorage.getItem("token");
   const returnUserEmailFromLS = localStorage.getItem("user");
 
+  const classes = Styles();
+
   return (
     <div className='header'>
-      <Navbar bg='light' variant='light' style={{ height: "75px" }}>
-        <Navbar.Brand>
-          <Link to='/'>Home</Link>
-        </Navbar.Brand>
-        <Nav className='mr-auto'>
-          <Nav.Link>
-            <Link to='/shop' onClick={getToken}>
-              Shop
-            </Link>
-          </Nav.Link>
-          <Nav.Link>
-            <Link to='/about'>About</Link>
-          </Nav.Link>
-          <Nav.Link>
-            <Link to='/contact'>Contact</Link>
-          </Nav.Link>
-          <Nav.Link>
-            <Link to='/cart'>Cart</Link>
-          </Nav.Link>
-          <Nav.Link>
-            <Link to='/wishlist'>Wishlist</Link>
-          </Nav.Link>
-          <Nav.Link>
-            <Link to='/cartitems' onClick={getToken}>
-              CART {cart.itemNumber}
-            </Link>
-          </Nav.Link>
-          <Nav.Link>
-            <Link to='/orders' onClick={getToken}>
-              Orders
-            </Link>
-          </Nav.Link>
+      <AppBar position='static' color='primary' className={classes.appBar}>
+        <Toolbar className={classes.toolbar}>
+          <Grid container>
+            <Grid item className={classes.leftGrid}>
+              <SideMenu className={classes.iconButton} />
+            </Grid>
+            <Grid item className={classes.leftGrid}>
+              <Typography variant='h5'>WISDOM</Typography>
+            </Grid>
+            <Grid item className={classes.rightGrid}>
+              {info.role === "admin" ? <Link to='/addbook'>ADD BOOK</Link> : ""}
 
-          {returnUserEmailFromLS ? (
-            <Nav.Link>
-              <Link to='/profile'>Profile</Link>
-            </Nav.Link>
-          ) : null}
+              {returnUserEmailFromLS ? (
+                <IconButton
+                  color='inherit'
+                  onClick={() => history.push("/profile")}
+                >
+                  <AccountCircle />
+                </IconButton>
+              ) : null}
 
-          {!returnTokenFromLS ? (
-            <Nav.Link>
-              <Link to='/login'>Login</Link>
-            </Nav.Link>
-          ) : (
-            <Logout />
-          )}
-        </Nav>
-      </Navbar>
+              {!returnTokenFromLS ? (
+                <Link to='/login' className='headerLink'>
+                  Login
+                </Link>
+              ) : (
+                <IconButton
+                  color='inherit'
+                  className='headerIcon'
+                  onClick={handleLogout}
+                >
+                  <ExitToAppIcon />
+                </IconButton>
+              )}
+
+              <Link to='/orders' className='headerLink'>
+                Orders
+              </Link>
+
+              <IconButton
+                color='inherit'
+                onClick={() => history.push("/wishlist")}
+              >
+                <Badge badgeContent={wishNumber} color='error'>
+                  <FavoriteIcon />
+                </Badge>
+              </IconButton>
+
+              <IconButton
+                color='inherit'
+                className='headerIcon'
+                onClick={() => history.push("/cartitems")}
+              >
+                <Badge badgeContent={itemNumber} color='error'>
+                  <ShoppingCartIcon />
+                </Badge>
+              </IconButton>
+            </Grid>
+          </Grid>
+        </Toolbar>
+      </AppBar>
     </div>
   );
 };

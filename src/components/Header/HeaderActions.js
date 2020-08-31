@@ -11,6 +11,7 @@ export const getTokenFromLS = (token) => {
 };
 
 export const clearTokenFromLS = () => {
+  localStorage.clear();
   return {
     type: CLEAR_TOKEN,
   };

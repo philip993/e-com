@@ -1,13 +1,11 @@
 import {
   ADD_INDEX,
-  SELECT_BOOK,
-  REMOVE_BOOK,
   CLEAR_BOOKS,
-  INCREASE_QUANTITY,
-  REMOVE_DUPLICATE,
   UPDATE_QUANTITY,
   ADD_BOOK_TO_CART,
-  DELETE_PREVIOUS_BOOK,
+  IS_ADDED_FALSE,
+  ITEM_DUPLICATE_TRUE,
+  ITEM_DUPLICATE_FALSE,
 } from "./BookActionTypes";
 
 import axios from "axios";
@@ -21,35 +19,40 @@ export const addIndex = (item) => {
   };
 };
 
-export const selectBook = (book) => {
-  return (dispatch) => {
-    dispatch({
-      type: SELECT_BOOK,
-      payload: book,
-    });
-  };
-};
-
 export const addBookToCart = (book) => {
   return (dispatch, getState) => {
     let currentUser = localStorage.getItem("user");
+    let cart = getState().CartReducer.items;
+    let checkDuplicate = cart.findIndex(
+      ({ bookTitle }, index) => bookTitle === book.title
+    );
 
-    return axios
-      .post(`http://localhost:5000/cartitems/${currentUser}`, {
-        bookTitle: book.title,
-        bookPrice: book.price,
-        bookQuantity: book.quantity,
-        total: book.price * book.quantity,
-        bookSKUid: book.skuId,
-        currentUser: currentUser,
-      })
-      .then((response) => {
-        console.log(response);
-        dispatch({
-          type: ADD_BOOK_TO_CART,
-          payload: book,
+    console.log(checkDuplicate);
+    if (checkDuplicate === -1) {
+      return axios
+        .post(`http://localhost:5000/cartitems/${currentUser}`, {
+          bookTitle: book.title,
+          bookPrice: book.price,
+          bookQuantity: book.quantity,
+          total: book.price * book.quantity,
+          bookSKUid: book.skuId,
+          currentUser: currentUser,
+        })
+        .then((response) => {
+          console.log(response);
+          dispatch({
+            type: ADD_BOOK_TO_CART,
+            payload: book,
+          });
+        })
+        .catch((error) => {
+          console.log(error);
         });
+    } else {
+      dispatch({
+        type: ITEM_DUPLICATE_TRUE,
       });
+    }
   };
 };
 
@@ -89,54 +92,26 @@ export const updateQuantity = (item) => {
   };
 };
 
-export const deletePreviousBook = (item) => {
-  return (dispatch, getState) => {
-    let title = item.title;
-    console.log(title);
-    return axios
-      .delete(`http://localhost:5000/cartitems/${title}`)
-      .then((response) => {
-        console.log(response);
-        dispatch({
-          type: DELETE_PREVIOUS_BOOK,
-          payload: response.data.deletedItem,
-        });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-};
-
-export const removeBook = (item) => {
-  return (dispatch) => {
-    dispatch({
-      type: REMOVE_BOOK,
-      payload: item,
-    });
-  };
-};
-
 export const clearBooks = () => {
   return {
     type: CLEAR_BOOKS,
   };
 };
 
-export const increaseQuantity = (item) => {
-  return (dispatch) => {
-    dispatch({
-      type: INCREASE_QUANTITY,
-      payload: item,
-    });
+export const isAddedFalse = () => {
+  return {
+    type: IS_ADDED_FALSE,
+  };
+};
+// Check for duplicate
+export const itemDuplicateTrue = () => {
+  return {
+    type: ITEM_DUPLICATE_TRUE,
   };
 };
 
-export const removeDuplicate = (item) => {
-  return (dispatch) => {
-    dispatch({
-      type: REMOVE_DUPLICATE,
-      payload: item,
-    });
+export const itemDuplicateFalse = () => {
+  return {
+    type: ITEM_DUPLICATE_FALSE,
   };
 };

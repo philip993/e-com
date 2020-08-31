@@ -2,9 +2,9 @@ const express = require("express");
 const router = express.Router();
 const wishlistController = require("./WishlistController");
 
-router.get("/", wishlistController.getWishlistItems);
-router.post("/", wishlistController.newWishlistItem);
-router.delete("/:id", wishlistController.deleteOneWishlistItem);
-router.delete("/", wishlistController.deleteAllWishlistItems);
+router.get("/:user", wishlistController.getWishlistItems);
+router.post("/:user", wishlistController.newWishlistItem);
+router.delete("/:user", wishlistController.deleteAllWishlistItems);
+router.delete("/:user/:id", wishlistController.deleteOneWishlistItem);
 
 module.exports = router;

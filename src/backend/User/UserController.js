@@ -11,7 +11,7 @@ exports.newUser = async (req, res) => {
       line1: req.body.address,
       city: req.body.city,
       country: req.body.country,
-      postal_code: req.body.postalCode
+      postal_code: req.body.postalCode,
     },
     email: req.body.email,
     name: req.body.firstName + " " + req.body.lastName,
@@ -21,16 +21,16 @@ exports.newUser = async (req, res) => {
         line1: req.body.address,
         city: req.body.city,
         country: req.body.country,
-        postal_code: req.body.postalCode
+        postal_code: req.body.postalCode,
       },
       name: req.body.firstName + " " + req.body.lastName,
-      phone: req.body.phone
-    }
+      phone: req.body.phone,
+    },
   });
 
   await bcryptjs
     .hash(req.body.password, 10)
-    .then(hash => {
+    .then((hash) => {
       const user = new User({
         firstName: req.body.firstName,
         lastName: req.body.lastName,
@@ -44,75 +44,75 @@ exports.newUser = async (req, res) => {
         city: req.body.city,
         country: req.body.country,
         postalCode: req.body.postalCode,
-        customerId: customer.id
+        customerId: customer.id,
       });
 
       user
         .save()
-        .then(user => {
+        .then((user) => {
           res.status(201).json({
             user,
-            customer
+            customer,
           });
         })
-        .catch(err => {
+        .catch((err) => {
           res.status(500).json({
-            message: "Syster Error. Cannot create User right now!"
+            message: "Syster Error. Cannot create User right now!",
           });
           console.log(err);
         });
     })
-    .catch(err => {
+    .catch((err) => {
       res.status(500).json({
-        err: console.log(err)
+        err: console.log(err),
       });
     });
 };
 
 exports.postLoging = (req, res) => {
   User.findOne({ email: req.body.email })
-    .then(user => {
+    .then((user) => {
       if (!user) {
         return res.status(401).json({
-          message: "AUTH FAILED"
+          message: "AUTH FAILED",
         });
       }
       return bcryptjs.compare(req.body.password, user.password);
     })
-    .then(result => {
+    .then((result) => {
       if (!result) {
         return res.status(404).json({
-          message: "AUTH FAILED"
+          message: "AUTH FAILED",
         });
       }
       const token = jwt.sign(
         { email: result.email, userId: result._id },
         "testqweqweq8w3483jfjdsf32434dsfw34",
         {
-          expiresIn: "1h"
+          expiresIn: "1h",
         }
       );
       res.status(200).json({
-        token: token
+        token: token,
       });
     })
-    .catch(err => {
+    .catch((err) => {
       res.status(401).json({
-        message: "WRONG CREDENTIALS"
+        message: "WRONG CREDENTIALS",
       });
     });
 };
 
 exports.getUsers = (req, res) => {
   User.find({})
-    .then(users => {
+    .then((users) => {
       res.status(200).json({
-        users: users
+        users: users,
       });
     })
-    .catch(err => {
+    .catch((err) => {
       res.status(500).json({
-        message: "Syster Error. Cannot create User right now!"
+        message: "Syster Error. Cannot create User right now!",
       });
       console.log(err);
     });
@@ -120,7 +120,7 @@ exports.getUsers = (req, res) => {
 
 exports.getProfile = (req, res) => {
   User.findOne({ email: req.params.email })
-    .then(user => {
+    .then((user) => {
       res.status(200).json({
         user: {
           firstName: user.firstName,
@@ -132,13 +132,13 @@ exports.getProfile = (req, res) => {
           address: user.address,
           city: user.city,
           country: user.country,
-          postalCode: user.postalCode
-        }
+          postalCode: user.postalCode,
+        },
       });
     })
-    .catch(err => {
+    .catch((err) => {
       res.status(500).json({
-        message: "System Error!"
+        message: "System Error!",
       });
       console.log(err);
     });
@@ -146,7 +146,7 @@ exports.getProfile = (req, res) => {
 
 exports.getUserInfo = (req, res) => {
   User.findOne({ email: req.params.email })
-    .then(selectedUser => {
+    .then((selectedUser) => {
       res.status(200).json({
         selectedUser: {
           _id: selectedUser._id,
@@ -158,13 +158,14 @@ exports.getUserInfo = (req, res) => {
           city: selectedUser.city,
           country: selectedUser.country,
           postalCode: selectedUser.postalCode,
-          customerId: selectedUser.customerId
-        }
+          customerId: selectedUser.customerId,
+          role: selectedUser.role,
+        },
       });
     })
-    .catch(err => {
+    .catch((err) => {
       res.status(500).json({
-        err: err
+        err: err,
       });
       console.log(err);
     });

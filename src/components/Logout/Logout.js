@@ -1,8 +1,13 @@
 import React from "react";
-import { useHistory, Link } from "react-router-dom";
-import { Button, Nav } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
+
+// React Router Dom
+import { useHistory, Link } from "react-router-dom";
+// Redux Actions
 import { clearTokenFromLS } from "../Header/HeaderActions";
+// Material Ui Components
+import MenuItem from "@material-ui/core/MenuItem";
+import { logoutUser } from "../Login/LoginActions";
 
 const Logout = () => {
   const user = useSelector((state) => state.HeaderReducer);
@@ -12,13 +17,12 @@ const Logout = () => {
   const handleLogout = () => {
     localStorage.clear();
     dispatch(clearTokenFromLS());
+    dispatch(logoutUser());
     history.push("/");
   };
   return (
     <div>
-      <Nav.Link onClick={handleLogout}>
-        <Link>Logout</Link>
-      </Nav.Link>
+      <MenuItem onClick={handleLogout}>Logout</MenuItem>
     </div>
   );
 };

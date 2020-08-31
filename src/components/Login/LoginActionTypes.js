@@ -1,3 +1,6 @@
 export const EMAIL_SUBMIT = "EMAIL_SUBMIT";
 export const PASSWORD_SUBMIT = "PASSWORD_SUBMIT";
 export const LOGIN_FINISH = "LOGIN_FINISH";
+export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
+export const LOGIN_FAILURE = "LOGIN_FAILURE";
+export const LOGOUT = "LOGOUT";

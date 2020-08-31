@@ -1,7 +1,8 @@
 import { SUCCESS_LOAD_ITEMS } from "./BooksActionTypes";
 
 const initialState = {
-  data: []
+  data: [],
+  maximumPages: 0,
 };
 
 export const BooksReducer = (state = initialState, action) => {
@@ -9,7 +10,8 @@ export const BooksReducer = (state = initialState, action) => {
     case SUCCESS_LOAD_ITEMS:
       return {
         ...state,
-        data: action.payload
+        data: action.payload.books,
+        maximumPages: action.payload.totalPages,
       };
 
     default:

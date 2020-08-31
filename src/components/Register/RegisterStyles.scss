@@ -1,0 +1,21 @@
+#regEmail,
+#regPassword,
+#regFirstName,
+#regLastName,
+#regUsername,
+#regAge,
+#regGender,
+#regAddress,
+#regCity,
+#regCountry,
+#regPostalCode,
+#regPhone {
+  color: #363636;
+  padding-left: 10px;
+
+  &:focus {
+    color: #363636;
+    box-shadow: 0 0 5px #ec9706;
+    border-radius: 5px;
+  }
+}
