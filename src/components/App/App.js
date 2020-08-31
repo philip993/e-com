@@ -14,8 +14,9 @@ import Books from "../Books/Books";
 import Wishlist from "../Wishlist/Wishlist";
 import Checkout from "../Checkout/Checkout";
 import Order from "../Order/Order";
+import Cart from "../Cart/Cart";
 
-const App = props => {
+const App = (props) => {
   return (
     <div className='app'>
       <Header />
@@ -31,6 +32,7 @@ const App = props => {
         <Route path='/wishlist' exact component={Wishlist} />
         <Route path='/checkout' exact component={Checkout} />
         <Route path='/orders' exact component={Order} />
+        <Route path='/cartitems' exact component={Cart} />
       </Switch>
     </div>
   );

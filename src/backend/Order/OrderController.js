@@ -10,7 +10,8 @@ exports.newOrder = async (req, res) => {
     customer: cartBody.customerId,
     email: cartBody.email,
     items: cartBody.cart.map((item, index) => ({
-      parent: item.skuId
+      parent: item.bookSKUid,
+      quantity: item.bookQuantity,
     })),
     shipping: {
       name: cartBody.name,
@@ -18,29 +19,29 @@ exports.newOrder = async (req, res) => {
         line1: cartBody.address,
         city: cartBody.city,
         country: cartBody.country,
-        postal_code: cartBody.postalCode
+        postal_code: cartBody.postalCode,
       },
-      phone: cartBody.phone
-    }
+      phone: cartBody.phone,
+    },
   });
 
   const orders = await new Order({
     userIds: req.body.userIds,
     cart: req.body.cart,
     stripeOrderId: order.id,
-    status: order.status
+    status: order.status,
   });
 
   orders
     .save()
-    .then(orders => {
+    .then((orders) => {
       res.status(200).json({
-        orders
+        orders,
       });
     })
-    .catch(err => {
+    .catch((err) => {
       res.status(500).json({
-        err
+        err,
       });
       console.log(err);
     });
@@ -50,14 +51,14 @@ exports.getOrders = (req, res) => {
   Order.find({})
     .populate("userIds", "username")
     .populate("cartItems")
-    .then(orders => {
+    .then((orders) => {
       res.status(200).json({
-        orders
+        orders,
       });
     })
-    .catch(err => {
+    .catch((err) => {
       res.status(500).json({
-        err
+        err,
       });
       console.log(err);
     });
@@ -65,28 +66,28 @@ exports.getOrders = (req, res) => {
 
 exports.deleteAllOrders = (req, res) => {
   Order.deleteMany()
-    .then(deletedOrders => {
+    .then((deletedOrders) => {
       res.status(200).json({
-        deletedOrders
+        deletedOrders,
       });
     })
-    .catch(err => {
+    .catch((err) => {
       res.status(500).json({
-        err
+        err,
       });
     });
 };
 
 exports.getOneOrder = (req, res) => {
   Order.findOne({ _id: req.params.id })
-    .then(oneOrder => {
+    .then((oneOrder) => {
       res.status(200).json({
-        oneOrder
+        oneOrder,
       });
     })
-    .catch(err => {
+    .catch((err) => {
       res.status(500).json({
-        err
+        err,
       });
       console.log(err);
     });

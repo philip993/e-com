@@ -6,10 +6,16 @@ import { Navbar, Nav, NavLink } from "react-bootstrap";
 import Logout from "../Logout/Logout";
 import { getTokenFromLS } from "./HeaderActions";
 import { getUserInformation } from "../User/UserActions";
+import { countItemsInCart } from "../Cart/CartActions";
 
 const Header = () => {
   const header = useSelector((state) => state.HeaderReducer);
   const dispatch = useDispatch();
+  const cart = useSelector((state) => state.CartReducer);
+
+  useEffect(() => {
+    dispatch(countItemsInCart());
+  }, [cart.items]);
 
   const getToken = () => {
     dispatch(getTokenFromLS());
@@ -42,6 +48,11 @@ const Header = () => {
           </Nav.Link>
           <Nav.Link>
             <Link to='/wishlist'>Wishlist</Link>
+          </Nav.Link>
+          <Nav.Link>
+            <Link to='/cartitems' onClick={getToken}>
+              CART {cart.itemNumber}
+            </Link>
           </Nav.Link>
           <Nav.Link>
             <Link to='/orders' onClick={getToken}>

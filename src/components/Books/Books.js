@@ -9,9 +9,9 @@ import Pagination from "../Pagination/Pagination";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
 
 const Books = () => {
-  const { data, page, pageSize, sortBy } = useSelector(state => ({
+  const { data, page, pageSize, sortBy } = useSelector((state) => ({
     ...state.PaginationReducer,
-    ...state.BooksReducer
+    ...state.BooksReducer,
   }));
   const dispatch = useDispatch();
 
@@ -33,7 +33,7 @@ const Books = () => {
             display: "flex",
             flexDirection: "row",
             justifyContent: "center",
-            margin: "1rem"
+            margin: "1rem",
           }}
         >
           {data.map(({ ...otherProps }) => (

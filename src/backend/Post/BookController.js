@@ -14,14 +14,14 @@ exports.getBooks = (req, res) => {
   bookQuery
     .find({})
     .sort(req.query.param)
-    .then(books => {
+    .then((books) => {
       res.status(200).json({
-        books: books
+        books: books,
       });
     })
-    .catch(err => {
+    .catch((err) => {
       res.status(500).json({
-        message: "System error. Books not available."
+        message: "System error. Books not available.",
       });
     });
 };
@@ -31,22 +31,22 @@ exports.postBook = async (req, res) => {
     name: req.body.title,
     type: "good",
     description: "Details from book",
-    attributes: ["genre", "year", "writter"]
+    attributes: ["genre", "year", "writter"],
   });
 
   const sku = await stripe.skus.create({
     attributes: {
       writter: req.body.writter,
       genre: req.body.genre,
-      year: req.body.year
+      year: req.body.year,
     },
     price: req.body.price * 100,
     currency: "usd",
     inventory: {
-      type: "infinite"
-      // quantity: req.body.quantity
+      type: "finite",
+      quantity: req.body.quantity,
     },
-    product: product.id
+    product: product.id,
   });
 
   const book = new Book({
@@ -56,21 +56,21 @@ exports.postBook = async (req, res) => {
     year: req.body.year,
     price: req.body.price,
     quantity: req.body.quantity,
-    skuId: sku.id
+    skuId: sku.id,
   });
 
   book
     .save()
-    .then(book => {
+    .then((book) => {
       res.status(200).json({
         book,
         product,
-        sku
+        sku,
       });
     })
-    .catch(err => {
+    .catch((err) => {
       res.status(500).json({
-        message: "System Error. Can not create new Book."
+        message: "System Error. Can not create new Book.",
       });
     });
 };
