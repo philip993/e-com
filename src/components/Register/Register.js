@@ -1,21 +1,28 @@
-import React from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 
 // Styles
-import Styles from "../Styles/Styles";
+import Styles from '../Styles/Styles';
+// React Router Dom
+import { useHistory } from 'react-router-dom';
 // React Components
-import RegisterUserInfo from "./RegisterUserInfo";
+import RegisterUserInfo from './RegisterUserInfo';
 // Material Ui Components
-import { Container, Button, Step, Stepper, StepLabel } from "@material-ui/core";
+import { Container, Button, Step, Stepper, StepLabel } from '@material-ui/core';
 // React Components
-import RegisterPersonalInfo from "./RegisterPersonalInfo";
-import RegisterShippingInfo from "./RegisterShippingInfo";
-import RegisterConfirmation from "./RegisterConfirmation";
+import RegisterPersonalInfo from './RegisterPersonalInfo';
+import RegisterShippingInfo from './RegisterShippingInfo';
+import RegisterConfirmation from './RegisterConfirmation';
+import RegisterError from './RegisterError';
+import RegisterSuccess from './RegisterSuccess';
 
 const Register = () => {
-  const { step, activeStepper } = useSelector((state) => state.RegisterReducer);
+  const { step, activeStepper, errorMsg } = useSelector(
+    (state) => state.RegisterReducer
+  );
   const dispatch = useDispatch();
   const classes = Styles();
+  const history = useHistory();
 
   return (
     <div className={classes.contentContainer}>
@@ -29,13 +36,20 @@ const Register = () => {
         ) : step === 4 ? (
           <RegisterConfirmation />
         ) : (
-          ""
+          ''
         )}
       </Container>
+
+      {errorMsg === null
+        ? ''
+        : errorMsg === false
+        ? history.push('/registersuccess')
+        : history.push('/registererror')}
+
       <div className={classes.registerStepperContainer}>
         <Stepper activeStep={activeStepper} alternativeLabel>
           <Step active={activeStepper === 0}>
-            <StepLabel>User Information</StepLabel>{" "}
+            <StepLabel>User Information</StepLabel>{' '}
           </Step>
           <Step>
             <StepLabel>Personal Information</StepLabel>

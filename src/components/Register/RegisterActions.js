@@ -16,11 +16,13 @@ import {
   STEP_DECREMENT,
   REGISTER_SUCCESS,
   REGISTER_FAILURE,
-  VALIDATE_TRUE,
-  VALIDATE_FALSE,
-} from "./RegisterActionTypes";
+  // VALIDATE_TRUE,
+  // VALIDATE_FALSE,
+  ERROR_MSG_NULL,
+  STEP_RESET,
+} from './RegisterActionTypes';
 
-import axios from "axios";
+import axios from 'axios';
 
 export const setEmailAddress = (e) => {
   return {
@@ -130,7 +132,7 @@ export const registerRequest = (user) => {
         },
         {
           headers: {
-            "Content-Type": "application/json",
+            'Content-Type': 'application/json',
           },
         }
       )
@@ -160,15 +162,16 @@ export const stepDecrement = () => {
     type: STEP_DECREMENT,
   };
 };
-// Validate
-export const validateTrue = () => {
+
+export const stepReset = () => {
   return {
-    type: VALIDATE_TRUE,
+    type: STEP_RESET,
   };
 };
 
-export const validateFalse = () => {
+// error msg
+export const setErrorMsg = () => {
   return {
-    type: VALIDATE_FALSE,
+    type: ERROR_MSG_NULL,
   };
 };
